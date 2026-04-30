@@ -1,0 +1,36 @@
+# 手动
+
+SSH 免密登录配置方法。
+```bash
+#客户端生成公私钥对
+ssh-keygen -t rsa
+
+cd ~/.ssh
+#拿到公钥
+cat id_rsa.pub
+
+#服务端主机
+ssh 服务器主机
+#将服务端的公钥输入
+vim ~/.ssh/authorized_keys
+```
+
+# 命令
+```bash
+#客户端生成公私钥对
+ssh-keygen -t rsa
+
+#命令传入公钥
+ssh-copy-id 目标主机
+```
+
+```bash
+
+[root@localhost .ssh]# cat authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCZmhr/QvAfbmKgJxEtir4ruNPoTtDEDH3in3uWfZEoVUFgwJtS5W4jEB/pfADtDXVfCq2Cjv4enWnEI1d8hEqDYz9Z543OsqyZgJ8peR/ayScgmvT5ns53JdusfUfjospRj8/6KTqWliCFsyP89x6uN3USi+pI8SF0vEJuaiDQLwOmQ1iQRbDc5OYKWOXYDEA5famknKNT9K2WTboODen0GiE34yFJDiwIXKpxMUKXEeYHLd3aqu64z6TVCZ6YaP0aPgCjvLHUBvVHUdFS7NIUjrMApt6Sz03QVEr3Koyvd3gKfNov0XWQvjw2e3tA+xoawLah4HCjYoN7+ntLhsqfd5SJaa0cnxjH/O1R980O/GwKGVUY/oIdB+VK1m454pRXDC7OSJJx2DxOeYjHN3DubE5Z5Av0nESoqqSZ9t/dN4ug/H92t71gDXdw9HtkUZRetOiffh70eJ3w69oQawWnw3rs5ewTcPfSsDaDG1NlyAQ+zrezMftSepsKT6KeOdU= root@localhost.localdomain
+#服务端会生成文件
+
+[root@localhost .ssh]# cat id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCZmhr/QvAfbmKgJxEtir4ruNPoTtDEDH3in3uWfZEoVUFgwJtS5W4jEB/pfADtDXVfCq2Cjv4enWnEI1d8hEqDYz9Z543OsqyZgJ8peR/ayScgmvT5ns53JdusfUfjospRj8/6KTqWliCFsyP89x6uN3USi+pI8SF0vEJuaiDQLwOmQ1iQRbDc5OYKWOXYDEA5famknKNT9K2WTboODen0GiE34yFJDiwIXKpxMUKXEeYHLd3aqu64z6TVCZ6YaP0aPgCjvLHUBvVHUdFS7NIUjrMApt6Sz03QVEr3Koyvd3gKfNov0XWQvjw2e3tA+xoawLah4HCjYoN7+ntLhsqfd5SJaa0cnxjH/O1R980O/GwKGVUY/oIdB+VK1m454pRXDC7OSJJx2DxOeYjHN3DubE5Z5Av0nESoqqSZ9t/dN4ug/H92t71gDXdw9HtkUZRetOiffh70eJ3w69oQawWnw3rs5ewTcPfSsDaDG1NlyAQ+zrezMftSepsKT6KeOdU= root@localhost.localdomain
+#客户端的公钥
+```

@@ -1,0 +1,43 @@
+# ============ Obsidian 个人配置 ============
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/appearance.json
+.obsidian/hotkeys.json
+.obsidian/graph.json
+.obsidian/workspace
+.obsidian/trash/
+.obsidian/community-plugins.json
+.obsidian/core-plugins.json
+.obsidian/core-plugins-migration.json
+.obsidian/app.json
+.obsidian/bookmarks.json
+.obsidian/command-palette.json
+.obsidian/community-plugins.json
+.obsidian/core-plugins.json
+.obsidian/daily-notes.json
+.obsidian/file-recovery.json
+.obsidian/files.json
+.obsidian/folder-background.css
+.obsidian/publish.json
+.obsidian/search.json
+.obsidian/templates.json
+
+# 插件：只保留配置意图，不同步插件本体（可重新安装）
+.obsidian/plugins/*/
+!.obsidian/plugins/obsidian-git/
+.obsidian/plugins/*/data.json
+
+# ============ AI 工具配置 ============
+.claude/
+
+# ============ 系统文件 ============
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# ============ 临时文件 ============
+temp/
+GO入门指南/
+.git_backup/
