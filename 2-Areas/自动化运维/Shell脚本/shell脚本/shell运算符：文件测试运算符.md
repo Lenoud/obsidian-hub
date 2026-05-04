@@ -18,8 +18,7 @@ Shell 文件测试运算符（-f、-d、-e 等）的使用方法。
 
 | 语法 | 含义 | 用例 |
 | --- | --- | --- |
-| -e file | 检测文件（目录）是否存在 | file="/root/text.txt"
-[[ -e ${file} ]] |
+| -e file | 检测文件（目录）是否存在 | `file="/root/text.txt"` `[[ -e ${file} ]]` |
 | -d file | dir，检查是否为目录 |   |
 | -f file | file，检查是否为文件 | |
 | -r file | read，可否可读 | |
