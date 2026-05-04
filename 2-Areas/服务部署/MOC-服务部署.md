@@ -57,3 +57,8 @@
 ## 游戏服务器
 - [[pal服务器]]
 - [[terraria泰拉瑞亚服务器部署]]
+
+## 相关领域
+- [[MOC-Docker]] — 大部分服务的 Docker 部署方式
+- [[MOC-Kubernetes]] — Prometheus 等服务的 K8s 部署
+- [[MOC-网络技术]] — 代理、内网穿透等网络服务

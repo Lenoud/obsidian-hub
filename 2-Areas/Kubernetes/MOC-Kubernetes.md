@@ -70,3 +70,8 @@ Kubernetes 容器编排平台的学习笔记，涵盖基础概念、集群搭建
 - [[导入kubeconfig.yaml]]
 - [[开发]]
 - [[使用utils函数创建yaml资源]]
+
+## 相关领域
+- [[MOC-Docker]] — K8s 底层容器运行时
+- [[MOC-服务部署]] — Prometheus 等服务的 K8s 部署
+- [[MOC-CICD]] — 基于 K8s 的 CICD 流水线

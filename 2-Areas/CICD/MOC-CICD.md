@@ -22,3 +22,7 @@ CI/CD 持续集成与持续部署相关笔记，涵盖 Drone、GitLab-CI、Jenki
 ## 根目录
 - [[CICD]]
 - [[CICD学习笔记]]
+
+## 相关领域
+- [[MOC-Docker]] — Jenkins / Drone 的 Docker 部署方式
+- [[MOC-Kubernetes]] — K8s 环境下的 CICD
