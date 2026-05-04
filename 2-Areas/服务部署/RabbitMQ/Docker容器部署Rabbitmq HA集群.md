@@ -182,3 +182,8 @@ rabbit@rabbitmq1: RabbitMQ 3.9.11 on Erlang 24.2
 rabbit@rabbitmq2: RabbitMQ 3.9.11 on Erlang 24.2
 
 rabbit@rabbitmq3: RabbitMQ 3.9.11 on Erlang 24.2
+
+## 相关笔记
+
+- [[rabbitmq]]
+- [[MOC-Docker]]

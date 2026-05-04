@@ -19,3 +19,9 @@ services:
     - ./config:/etc/nginx/  #配置文件
     - ./html:/usr/share/nginx/html/  #网站根目录
 ```
+
+## 相关笔记
+
+- [[nginx]]
+- [[MOC-Docker]]
+- [[nginx默认目录结构]]

@@ -27,3 +27,10 @@ services:
      - 9104:9104
 EOF
 ```
+
+## 相关笔记
+
+- [[mysql8]]
+- [[docker部署mysql]]
+- [[MOC-数据库]]
+- [[MOC-Docker]]
