@@ -371,3 +371,7 @@ ExecStart=/opt/prometheus/prometheus/prometheus \
 [Install]
 WantedBy=multi-user.target
 ```
+
+## 相关笔记
+- [[Prometheus-monitor]]
+- [[MOC-服务部署]]

@@ -19,3 +19,8 @@ chmod +x /usr/local/bin/docker-compose
 curl -SL [https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-linux-x86_64](https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-linux-x86_64) -o /usr/local/bin/docker-compose
 
 官网：docker官方文档：https://docs.docker.com/compose/install/linux/
+
+## 相关笔记
+- [[Docker搭建]]
+- [[dockerfile]]
+- [[MOC-Docker]]

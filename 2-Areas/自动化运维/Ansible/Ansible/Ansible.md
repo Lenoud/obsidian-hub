@@ -91,3 +91,8 @@ cat shell.yml
         src: /opt/zookeeper-3.7.0/conf/zoo.cfg  # 当前目录中的文件
         dest: /opt/zookeeper-3.7.0/conf  # 目标主机上的路径
 ```
+
+## 相关笔记
+- [[ad-hoc模式执行命令]]
+- [[playbook剧本模式]]
+- [[MOC-自动化运维]]

@@ -273,6 +273,11 @@ upload_purging:
 
 ```
 
+## 相关笔记
+- [[搭建Reistry私有仓库]]
+- [[配置Docker Registry管理界面]]
+- [[MOC-Docker]]
+
 #### harbor 开机自启
 ```yaml
 cat >> /etc/systemd/system/harbor.service << EOF

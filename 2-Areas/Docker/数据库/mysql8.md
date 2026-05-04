@@ -74,3 +74,8 @@ socket=/var/run/mysqld/mysqld.sock
 - 自定义配置：`./my.cnf` 映射到 `/etc/my.cnf`
 - `max_allowed_packet=1073741824`：最大允许的数据包大小为 1GB
 - `network_mode: db_bridge`：使用自定义网络
+
+## 相关笔记
+- [[docker部署mysql]]
+- [[mysql57]]
+- [[MOC-Docker]]

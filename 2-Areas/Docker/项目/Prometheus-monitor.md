@@ -368,3 +368,8 @@ sum(rate(container_cpu_usage_seconds_total{job="your_job"}[5m])) by (container_n
 # 获取特定 job 的每秒磁盘读取量
 rate(node_disk_read_bytes_total{job="your_job"}[5m])
 ```
+
+## 相关笔记
+- [[部署prometheus案例]]
+- [[Prometheus-k8s]]
+- [[MOC-Docker]]

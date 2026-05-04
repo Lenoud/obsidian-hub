@@ -84,3 +84,9 @@ socket=/var/run/mysqld/mysqld.sock
 - 数据持久化：`./data` 映射到 `/var/lib/mysql`
 - 自定义配置：`./my.cnf` 映射到 `/etc/my.cnf`
 - `max_allowed_packet=1073741824`：最大允许的数据包大小为 1GB
+
+## 相关笔记
+- [[docker部署mysql]]
+- [[mysql8]]
+- [[mysql 8 给予root用户远程登录权限]]
+- [[MOC-Docker]]

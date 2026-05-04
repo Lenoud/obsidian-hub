@@ -127,3 +127,7 @@ proxies:
 
 # 3.wiki: clash
 [https://github.com/vernesong/OpenClash/wiki](https://github.com/vernesong/OpenClash/wiki)
+
+## 相关笔记
+- [[proxies解析]]
+- [[MOC-服务部署]]

@@ -28,3 +28,8 @@ HEALTHCHECK CMD curl --fail http://localhost:$APP_PORT || exit 1
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["start"]
 ```
+
+## 相关笔记
+- [[Docker搭建]]
+- [[docker基础运维命令]]
+- [[MOC-Docker]]

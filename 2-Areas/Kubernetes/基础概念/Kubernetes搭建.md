@@ -289,3 +289,7 @@ kubeeasy delete   --worker 192.168.1.202,192.168.1.203   --user root    --passwo
 移除操作会不会重置节点，只是从K8S集群中移除，并不会删除docker的数据。
 
 kubeeasy remove    --worker 192.168.1.202,192.168.1.203   --user root    --password 000000
+
+## 相关笔记
+- [[Docker搭建]]
+- [[MOC-Kubernetes]]

@@ -111,3 +111,7 @@ $ ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
 $ ssh -T git@github.com
 Warning: Permanently added the RSA host key for IP address '140.82.118.4' to the list of known hosts. Hi earthnorth! You've successfully authenticated, but GitHub does not provide shell access.
 ```
+
+## 相关笔记
+- [[Git配置文件详解]]
+- [[MOC-开发编程]]

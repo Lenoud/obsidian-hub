@@ -28,3 +28,8 @@ services:
 - `POSTGRES_PASSWORD`：数据库超级用户密码
 - 数据持久化：`./postgres-data` 映射到 `/var/lib/postgresql/data`
 - `network_mode: db_bridge`：使用自定义网络
+
+## 相关笔记
+- [[PostgreSQL]]
+- [[docker部署postgresql]]
+- [[MOC-Docker]]

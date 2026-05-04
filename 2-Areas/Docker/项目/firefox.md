@@ -44,3 +44,7 @@ services:
 - 资源限制：3 核 CPU、3G 内存、3G 共享内存
 - 数据持久化：`./firefox-data` 映射到 `/config`
 - 自定义字体：`./language` 映射到 `/usr/share/fonts/`
+
+## 相关笔记
+- [[docker启动一个火狐浏览器]]
+- [[MOC-Docker]]

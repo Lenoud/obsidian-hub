@@ -37,3 +37,7 @@ networks: {}
 - 数据持久化：`./data` 映射到 `/data`
 - 日志目录：`./logs` 映射到 `/logs`
 - `network_mode: db_bridge`：使用自定义网络
+
+## 相关笔记
+- [[redis]]
+- [[MOC-Docker]]

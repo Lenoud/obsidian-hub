@@ -59,3 +59,8 @@ services:
 - MySQL 数据持久化：`./data` 映射到 `/var/lib/mysql`
 - PHP 上传配置：`./conf/uploads.ini` 映射到 `/usr/local/etc/php/conf.d/uploads.ini`
 - MySQL 自定义配置：`./my.cnf` 映射到 `/etc/my.cnf`
+
+## 相关笔记
+- [[docker部署wordpress]]
+- [[docker部署mysql]]
+- [[MOC-Docker]]

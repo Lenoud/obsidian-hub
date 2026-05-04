@@ -63,3 +63,8 @@ services:
 | `ports` | `3306:3306` | `3307:3306` |
 | `network_mode` | 自定义网桥（指定 IP） | `db_bridge` |
 | 数据目录 | `./mysql5-data` | `./mysql8-data` |
+
+## 相关笔记
+- [[mysql57]]
+- [[mysql8]]
+- [[MOC-数据库]]

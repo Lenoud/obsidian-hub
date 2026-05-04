@@ -120,3 +120,8 @@ services:
 | **MONGODB_DEFAULT_ENABLE_IPV6** | 构建时是否使用 IPv6 进行数据库连接 | `false` |
 | **MONGODB_DEFAULT_SYSTEM_LOG_VERBOSITY** | 构建时设置的 MongoDB 守护进程日志级别 | `0` |
 | **MONGODB_DEFAULT_REPLICA_SET_NAME** | 构建时指定的 MongoDB 副本集名称 | `replicaset` |
+
+## 相关笔记
+- [[docker部署mongodb主从哨兵]]
+- [[mongodb]]
+- [[MOC-Docker]]
