@@ -315,3 +315,9 @@ metadata:
   creationTimestamp: null
   name: alertmanager-config
 ```
+
+## 相关笔记
+- [[Prometheus-monitor]]
+- [[promethues系统监控]]
+- [[MOC-Docker]]
+- [[MOC-服务部署]]

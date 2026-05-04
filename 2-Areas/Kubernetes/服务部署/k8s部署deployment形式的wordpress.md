@@ -68,3 +68,8 @@ spec:
     app: wordpress
   type: NodePort
 ```
+
+## 相关笔记
+- [[docker部署wordpress]]
+- [[wordpress]]
+- [[MOC-Docker]]
