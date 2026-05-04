@@ -5,7 +5,7 @@ proxies解析相关技术笔记。
 ## Shadowsocks
 ```yaml
 proxies:
-  - {name: lenoud-server-luobozi, server: 204.194.65.184, port: 36667, type: ss, cipher: aes-256-gcm, password: lb781023}
+  - {name: lenoud-server-luobozi, server: 204.194.65.184, port: 36667, type: ss, cipher: aes-256-gcm, password: 12345678}
 ```
 
 ## vmess

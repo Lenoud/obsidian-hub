@@ -109,7 +109,7 @@ global:  # 全局配置部分
   smtp_auth_username: 'a351719672@163.com'  # 发送邮件的邮箱用户名
 
   # 发送邮件的邮箱密码
-  smtp_auth_password: 'TWYLFnMDN7s5FQUv'  # 发送邮件的邮箱密码
+  smtp_auth_password: '<邮箱授权码>'  # 发送邮件的邮箱密码
 
   smtp_require_tls: false  # 是否需要进行TLS验证
 

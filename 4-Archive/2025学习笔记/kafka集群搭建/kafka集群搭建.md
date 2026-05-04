@@ -390,7 +390,7 @@ from email.utils import formataddr
 # 发件人邮箱
 sender = 'cailuobozi@qq.com'
 # 发件人邮箱授权码
-password = 'deabrqdmxhjhbjdj'
+password = '<邮箱授权码>'
 # 收件人邮箱
 receiver = '343292019@qq.com'
 

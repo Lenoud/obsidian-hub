@@ -1550,7 +1550,7 @@ global:
 
 #发邮件的邮箱用户名
 
-  smtp_auth_password: 'IDMPGUMPWAAJPGKC'
+  smtp_auth_password: '<邮箱授权码>'
 
 #发邮件的邮箱密码
 

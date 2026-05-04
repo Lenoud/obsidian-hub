@@ -14,7 +14,7 @@ services:
     restart: always
     environment:
       ACCEPT_EULA: Y
-      SA_PASSWORD: lb781023.
+      SA_PASSWORD: 12345678.
     ports:
       - "1433:1433"
     volumes:
@@ -35,7 +35,7 @@ services:
     restart: always
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "lb781023."
+      SA_PASSWORD: "12345678."
     ports:
       - "1433:1433"
     volumes:

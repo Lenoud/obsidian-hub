@@ -14,7 +14,7 @@ services:
         limits:
           cpus: "0"
     environment:
-      ADMIN_PASSWORD: lb781023
+      ADMIN_PASSWORD: 12345678
       COMMUNITY: "false"
       MULTITHREADING: "true"
       PGID: "1000"
@@ -27,7 +27,7 @@ services:
       RCON_ENABLED: "true"
       RCON_PORT: "25575"
       SERVER_NAME: "Default Palworld Server"
-      SERVER_PASSWORD: lb781023
+      SERVER_PASSWORD: 12345678
       UPDATE_ON_BOOT: "true"
     # network_mode: host
     ports:
@@ -56,11 +56,11 @@ services:
           cpus: "0"
     environment:
       RCON__ADDRESS: 127.0.0.1:25575
-      RCON__PASSWORD: lb781023
+      RCON__PASSWORD: 12345678
       SAVE__DECODE_PATH: /app/sav_cli
       SAVE__PATH: /game/Level.sav
       SAVE__SYNC_INTERVAL: "600"
-      WEB__PASSWORD: lb781023
+      WEB__PASSWORD: 12345678
     volumes:
     - ./data/:/game
 ```

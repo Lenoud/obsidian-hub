@@ -25,7 +25,7 @@ services:
       KEEP_APP_RUNNING: 1
       ENABLE_CJK_FONT: 1
       SECURE_CONNECTION: 1
-      VNC_PASSWORD: "lb781023"
+      VNC_PASSWORD: "12345678"
     volumes:
       - ./firefox-data:/config
       - ./language:/usr/share/fonts/
@@ -54,7 +54,7 @@ docker pull jlesage/firefox
 ```bash
 docker run -d --name=firefox -e TZ=Asia/Hong_Kong \
 -p 5800:5800 -p 5900:5900 --shm-size 2g \
--e DISPLAY_WIDTH=1920 -e KEEP_APP_RUNNING=1 -e DISPLAY_HEIGHT=1080 -e ENABLE_CJK_FONT=1 -e VNC_PASSWORD=lb781023  \
+-e DISPLAY_WIDTH=1920 -e KEEP_APP_RUNNING=1 -e DISPLAY_HEIGHT=1080 -e ENABLE_CJK_FONT=1 -e VNC_PASSWORD=12345678  \
 -v /docker/firefox:/config:rw /firefox
 ```
 
@@ -75,7 +75,7 @@ services:
       KEEP_APP_RUNNING: 1
       ENABLE_CJK_FONT: 1
       SECURE_CONNECTION: 1
-      VNC_PASSWORD: "lb781023"
+      VNC_PASSWORD: "12345678"
     volumes:
       - /home/luobozi/Downloads:/config
 ```

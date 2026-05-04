@@ -231,7 +231,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: GITLAB_ROOT_PASSWORD
-          value: lb781023
+          value: 12345678
         - name: GITLAB_ROOT_EMAIL
           value: 351719672@qq.com
         - name: GITLAB_HOST

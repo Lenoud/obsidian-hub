@@ -26,7 +26,7 @@ services:
       KEEP_APP_RUNNING: 1
       ENABLE_CJK_FONT: 1
       SECURE_CONNECTION: 1
-      VNC_PASSWORD: "lb781023"
+      VNC_PASSWORD: "12345678"
     volumes:
       - ./firefox-data:/config
       - ./language:/usr/share/fonts/

@@ -15,7 +15,7 @@ services:
     restart: always
     environment:
       ACCEPT_EULA: Y
-      SA_PASSWORD: lb781023.
+      SA_PASSWORD: 12345678.
       #SA 用户密码（至少包含8个字符，且需包含大写字母、小写字母、数字和特殊字符中的三种）
     ports:
       - 1433:1433

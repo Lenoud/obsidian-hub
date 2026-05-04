@@ -115,7 +115,7 @@ global:
 
   smtp_auth_username: '114463512@163.com'
 
-  smtp_auth_password: 'flwlf[a;'
+  smtp_auth_password: '<邮箱授权码>'
 
   smtp_require_tls: false
 
@@ -167,7 +167,7 @@ global:
 
   smtp_auth_username: '114463512@163.com'
 
-  smtp_auth_password: 'flwlf[a;'
+  smtp_auth_password: '<邮箱授权码>'
 
   smtp_require_tls: false
 
