@@ -30,6 +30,6 @@ services:
 - `network_mode: db_bridge`：使用自定义网络
 
 ## 相关笔记
-- [[PostgreSQL]]
+- [[postgreSQL]]
 - [[docker部署postgresql]]
 - [[MOC-Docker]]
