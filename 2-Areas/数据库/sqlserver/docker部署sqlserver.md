@@ -66,3 +66,7 @@ sudo chmod -R g+rwx /root/sqlserver2022
 | `ACCEPT_EULA` | 必须设为 `Y` 接受许可协议 |
 | `SA_PASSWORD` | SA 管理员密码（需含大小写字母、数字和特殊字符） |
 | `ports` | `1433:1433`，SQL Server 默认端口 |
+
+## 相关笔记
+- [[sqlserver2022]]
+- [[MOC-Docker]]

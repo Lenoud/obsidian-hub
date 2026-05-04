@@ -31,3 +31,7 @@ services:
 | `POSTGRES_PASSWORD` | 自定义 | 数据库密码 |
 | `ports` | `5432:5432` | PostgreSQL 默认端口 |
 | `volumes` | `./postgres_data` | 数据持久化目录 |
+
+## 相关笔记
+- [[MOC-Docker]]
+- [[postgres]]

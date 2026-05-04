@@ -41,3 +41,5 @@ networks: {}
 ## 相关笔记
 - [[redis]]
 - [[MOC-Docker]]
+- [[docker部署redis]]
+- [[MOC-数据库]]

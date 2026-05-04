@@ -90,3 +90,6 @@ socket=/var/run/mysqld/mysqld.sock
 - [[mysql8]]
 - [[mysql 8 给予root用户远程登录权限]]
 - [[MOC-Docker]]
+- [[MOC-数据库]]
+- [[修改密码]]
+- [[mysql 5 给予root用户远程登录权限]]

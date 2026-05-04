@@ -31,3 +31,7 @@ services:
 | `MARIADB_ROOT_PASSWORD` | 自定义 | root 用户密码 |
 | `ports` | `3308:3306` | 宿主机 3308 映射容器 3306 |
 | `volumes` | `./mariadb11_data/` | 数据持久化目录 |
+
+## 相关笔记
+- [[mariadb11]]
+- [[MOC-Docker]]

@@ -37,3 +37,7 @@ services:
 | `--requirepass` | 自定义密码 | Redis 认证密码 |
 | `volumes` | `./conf/redis.conf` | 自定义 Redis 配置文件 |
 | `ports` | `6379:6379` | Redis 默认端口 |
+
+## 相关笔记
+- [[MOC-Docker]]
+- [[redis]]

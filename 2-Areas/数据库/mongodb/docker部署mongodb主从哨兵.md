@@ -149,3 +149,7 @@ mongo admin -u root -p password123 --authenticationDatabase admin
 | `MONGODB_ROOT_PASSWORD` | root 用户密码 |
 | `MONGODB_REPLICA_SET_KEY` | 复制集认证密钥，所有节点必须一致 |
 | `MONGODB_INITIAL_PRIMARY_HOST` | 从节点/仲裁节点指定主节点地址 |
+
+## 相关笔记
+- [[mongodb(bitnami)]]
+- [[MOC-Docker]]

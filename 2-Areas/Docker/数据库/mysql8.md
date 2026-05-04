@@ -79,3 +79,6 @@ socket=/var/run/mysqld/mysqld.sock
 - [[docker部署mysql]]
 - [[mysql57]]
 - [[MOC-Docker]]
+- [[MOC-数据库]]
+- [[Mysql数据库导入导出]]
+- [[mysql 8 给予root用户远程登录权限]]
