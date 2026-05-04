@@ -26,3 +26,8 @@ services:
 ```shell
 docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
+
+## 相关笔记
+
+- [[jenkins]]
+- [[MOC-Docker]]

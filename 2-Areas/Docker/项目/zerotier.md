@@ -33,3 +33,8 @@ services:
 - `devices: /dev/net/tun`：挂载 TUN 设备用于虚拟网络
 - `cap_add`：添加 `NET_ADMIN` 和 `SYS_ADMIN` 权限
 - 数据持久化：`/var/lib/zerotier-one` 映射到宿主机同名目录
+
+## 相关笔记
+
+- [[内网穿透]]
+- [[MOC-网络技术]]

@@ -41,3 +41,8 @@ services:
     volumes:
       - /var/lib/zerotier-one:/var/lib/zerotier-one
 ```
+
+## 相关笔记
+
+- [[zerotier]]
+- [[MOC-Docker]]

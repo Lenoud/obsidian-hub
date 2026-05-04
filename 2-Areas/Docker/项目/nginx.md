@@ -54,3 +54,9 @@ services:
 - 日志文件：`./logs/` 映射到 `/var/log/nginx/`
 - SSL 证书：`./ssl/` 映射到 `/etc/nginx/ssl/`
 - 日志轮转：最大 10M 单文件，保留 3 个文件
+
+## 相关笔记
+
+- [[docker部署nginx]]
+- [[nginx默认目录结构]]
+- [[MOC-服务部署]]

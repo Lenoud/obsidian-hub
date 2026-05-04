@@ -44,3 +44,7 @@ sleep 1s
 chronyc makestep
 chronyc sources -v
 ```
+
+## 相关笔记
+
+- [[MOC-Linux运维]]
