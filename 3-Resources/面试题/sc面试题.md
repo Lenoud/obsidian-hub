@@ -479,4 +479,9 @@ func outer() func(int) int {
 20. **Go的高并发模型与sysmon协程的作用**
     - **高并发模型**：基于**goroutine**和**channel**实现，支持大规模并发轻量级线程；
     - **sysmon协程**：是Go运行时内部的系统监控协程，负责监控系统状态、调度垃圾回收、处理抢占和其他运行时任务。
-citego-concurrency
+
+## 相关笔记
+
+- [[MOC-Linux运维]]
+- [[linux三剑客]]
+- [[iptables]]citego-concurrency

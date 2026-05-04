@@ -48,4 +48,9 @@
 **第五步：**
 
 **创建完成之后反馈给kubelet, kubelet又将pod的状态信息给apiserver,
-apiserver又将pod的状态信息写入etcd。**
+apiserver又将pod的状态信息写入etcd。
+
+## 相关笔记
+
+- [[pod运维]]
+- [[MOC-Kubernetes]]**
