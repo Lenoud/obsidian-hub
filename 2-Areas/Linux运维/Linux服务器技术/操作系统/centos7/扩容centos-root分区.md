@@ -39,23 +39,13 @@ mount /dev/mapper/centos-home
 
 home文件恢复
 
-Plain Text复制代码
-
-1
-
-2
-
-3
-
-4
-
-tar xvf /tmp/home.tar -C/home/ cd /home/home/
-
+```bash
+tar xvf /tmp/home.tar -C /home/
+cd /home/home/
 mv * ../
-
 cd /home
-
 rm -rf home
+```
 
 **2.Openstack创建虚拟机计算节点root分区磁盘空间不足导致报错500-LVM重新分区（创建云主机报错500 找不到可用主机 ）**
 计算节点先添加一块硬盘然后执行以下命令

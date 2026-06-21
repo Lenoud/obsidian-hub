@@ -67,9 +67,9 @@ cd 					进入目录
 
 tab					 补齐命令，可以快速补齐想要输入的内容
 
-cu -  				Ubuntu进入root模式
+su -  				Ubuntu进入root模式
 
-cu [username]      		登录某个用户
+su [username]      		登录某个用户
 
 systemctl  stop  network 		关闭网卡
 

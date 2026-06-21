@@ -4,7 +4,7 @@ Ubuntu 系统卸载 snap 包管理器。
 
 [https://sysin.cn/blog/ubuntu-remove-snap/](https://sysin.cn/blog/ubuntu-remove-snap/)
 
-```yaml
+```bash
 for p in $(snap list | awk '{print $1}'); do
   sudo snap remove $p
 done

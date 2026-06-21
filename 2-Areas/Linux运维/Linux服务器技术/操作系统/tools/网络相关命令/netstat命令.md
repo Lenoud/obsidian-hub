@@ -1,5 +1,7 @@
 # netstat命令
 
+> 注意：`netstat` 属于 `net-tools` 套件，已停止维护，CentOS 7+ 默认不再安装。现代 Linux 推荐使用 `ss` 替代，例如 `ss -tnlp` 等价于 `netstat -tnlp`。
+
 `-a` (all)显示所有选项，默认不显示LISTEN相关
 
 `-t` (tcp)仅显示tcp相关选项

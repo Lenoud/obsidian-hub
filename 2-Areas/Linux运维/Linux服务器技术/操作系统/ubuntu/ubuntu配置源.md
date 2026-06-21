@@ -56,7 +56,7 @@ deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted 
 # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
 ```
 
-```yaml
+```text
 # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
 # newer versions of the distribution.
 deb http://repo.huaweicloud.com/ubuntu jammy main restricted
@@ -118,7 +118,7 @@ apt clean all
 apt update
 ```
 
-```python
+```text
 # 默认注释了源码镜像以提高 apt update 速度
 # 清华大学的软件源
 deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free
@@ -149,7 +149,4 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main 
 # deb-src https://mirrors.ustc.edu.cn/debian/ bullseye-backports main contrib non-free
 # deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib non-free
 # deb-src https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib non-free
-————————————————
-版权声明：本文为CSDN博主「名字太长真的很奇怪꒰⑅•ᴗ•⑅꒱」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/bynever/article/details/126847421
 ```

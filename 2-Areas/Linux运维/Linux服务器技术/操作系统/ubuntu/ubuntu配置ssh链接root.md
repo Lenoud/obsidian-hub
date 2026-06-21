@@ -1,12 +1,12 @@
 # ubuntu配置ssh链接root
 
-数据库配置与权限管理。
+Ubuntu 开启 SSH 服务并允许 root 登录。
 
 ```bash
 #停止防火墙
 ufw disable
 #安装ssh服务
-apt-get install -y sshd
+apt-get install -y openssh-server
 
 #修改配置文件
 gedit /etc/ssh/sshd_config

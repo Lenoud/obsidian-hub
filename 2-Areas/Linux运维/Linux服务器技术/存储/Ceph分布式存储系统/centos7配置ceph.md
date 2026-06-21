@@ -1,6 +1,6 @@
 # centos7配置ceph
 
-数据库配置与权限管理。
+CentOS 7 部署 Ceph 分布式存储集群。
 
 ```bash
 #全节点关闭防火墙配置好yum源后,添加hosts映射,并且配置免密登陆

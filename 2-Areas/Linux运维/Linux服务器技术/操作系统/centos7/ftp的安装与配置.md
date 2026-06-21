@@ -1,5 +1,5 @@
 # ftp的安装与配置
 
-数据库配置与权限管理。
+CentOS 7 安装与配置 FTP 服务（vsftpd）。
 
 ftp只需要server节点安装

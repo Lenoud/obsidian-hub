@@ -2,6 +2,8 @@
 
 Linux route 命令管理路由表。
 
+> 注意：`route` 属于 `net-tools` 套件，已停止维护。现代 Linux 推荐使用 `ip route` 替代，例如 `ip route show` 等价于 `route -n`。
+
 ##
 ```text
 #添加网关/设置网关

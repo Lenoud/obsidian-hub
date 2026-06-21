@@ -1,10 +1,10 @@
 # nfs安装与配置
 
-数据库配置与权限管理。
+NFS 服务的安装与配置方法。
 
 ```bash
 #1.所有节点下载 nfs
-yum-y install nfs-utils
+yum -y install nfs-utils
 
 #2.server节点编辑配置文件
 echo "/nfs/data/ *(insecure,rw,sync,no_root_squash)" > /etc/exports
