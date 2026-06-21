@@ -116,9 +116,13 @@ rabbitmq3节点：
 ##### （2）关闭防火墙及SELinux服务
 三个节点关闭防火墙firewalld及SELinux服务，命令如下：
 
-# setenforce 0
+```bash
+setenforce 0
+```
 
-# systemctl stop firewalld
+```bash
+systemctl stop firewalld
+```
 
 ##### （3）配置hosts文件
 三个节点配置/etc/hosts文件，修改为如下：
@@ -136,15 +140,25 @@ rabbitmq3节点：
 ##### （4）配置YUM源
 三个节点均使用提供的rabbitmq-repo.tar.gz的压缩包，上传至虚拟机的/root目录下，解压并放在/opt目录下，进入/etc/yum.repos.d目录下，将原来的repo文件移除，新建local.repo文件并编辑内容，具体操作命令如下：
 
-# tar -zxvf rabbitmq-repo.tar.gz -C /opt/
+```bash
+tar -zxvf rabbitmq-repo.tar.gz -C /opt/
+```
 
-# cd /etc/yum.repos.d/
+```bash
+cd /etc/yum.repos.d/
+```
 
-# mv * /media/
+```bash
+mv * /media/
+```
 
-# vi local.repo
+```bash
+vi local.repo
+```
 
-# cat local.repo
+```bash
+cat local.repo
+```
 
 [rabbitmq]
 
@@ -158,7 +172,9 @@ enabled=1
 
 查看配置的YUM源是否可用，命令如下：
 
-# yum repolist
+```bash
+yum repolist
+```
 
 Loaded plugins: fastestmirror
 
@@ -175,11 +191,15 @@ repolist: 26
 ##### （5）安装RabbitMQ服务并启动
 配置完毕后，三个节点安装RabbitMQ服务，命令如下：
 
-# yum install -y rabbitmq-server
+```bash
+yum install -y rabbitmq-server
+```
 
 rabbitmq1节点启动RabbitMQ服务并查看服务状态，命令如下：
 
-# systemctl start rabbitmq-server
+```bash
+systemctl start rabbitmq-server
+```
 
 #[root@rabbitmq1 ~]# systemctl status rabbitmq-server
 
@@ -392,9 +412,16 @@ Redirecting to /bin/systemctl restart rabbitmq-server.service
 可以看到rabbitmq1节点为数据节点，rabbitmq2和rabbitmq3节点为RAM内存节点。
 
 ##### （4）RabbitMQ集群常用命令
+
+查看插件打开情况:
+
 ```bash
-查看插件打开情况，命令如下：
-[root@rabbitmq1 ~]# rabbitmq-plugins list
+rabbitmq-plugins list
+```
+
+输出示例:
+
+```text
 [e] amqp_client                       3.3.5
 [ ] cowboy                            0.5.0-rmq3.3.5-git4b93c2d
 [ ] eldap                             3.3.5-gite309de4
@@ -419,46 +446,57 @@ Redirecting to /bin/systemctl restart rabbitmq-server.service
 [ ] rabbitmq_web_stomp_examples       3.3.5
 [ ] sockjs                            0.3.4-rmq3.3.5-git3132eb9
 [e] webmachine                        1.10.3-rmq3.3.5-gite9359c7
-启动监控管理器命令：
-# rabbitmq-plugins enable rabbitmq_management
-关闭监控管理器命令：
-# rabbitmq-plugins disable rabbitmq_management
-查看所有的队列：
-# rabbitmqctl list_queues
-Listing queues ...
-...done.
-清除所有的队列：
-# rabbitmqctl reset
-查看用户：
-# rabbitmqctl list_users
-Listing users ...
-guest	[administrator]
-...done.
-查看状态：
-# rabbitmqctl status
-查看集群状态，在RabbitMQ集群的任一节点上，可以查看RabbitMQ集群的状态，命令如下：
-[root@rabbitmq1 ~]# rabbitmqctl cluster_status
+```
+
+启动 / 关闭监控管理器:
+
+```bash
+rabbitmq-plugins enable rabbitmq_management       # 启动
+rabbitmq-plugins disable rabbitmq_management      # 关闭
+```
+
+队列管理:
+
+```bash
+rabbitmqctl list_queues        # 查看所有队列
+rabbitmqctl reset              # 清除所有队列(危险!)
+```
+
+用户管理:
+
+```bash
+rabbitmqctl list_users                                # 查看用户
+rabbitmqctl status                                    # 查看节点状态
+rabbitmqctl add_user admin admin                      # 新增用户 admin,密码 admin
+rabbitmqctl delete_user admin                         # 删除用户
+rabbitmqctl change_password admin admin123            # 修改密码
+rabbitmqctl set_user_tags admin administrator monitoring policymaker management   # 设置角色
+```
+
+权限管理:
+
+```bash
+rabbitmqctl set_permissions -p VHostPath admin ConfP WriteP ReadP   # 设置权限
+rabbitmqctl list_permissions [-p VHostPath]                          # 查询所有权限
+rabbitmqctl list_user_permissions admin                              # 查指定用户权限
+rabbitmqctl clear_permissions [-p VHostPath] admin                   # 清除权限
+```
+
+查看集群状态:
+
+```bash
+rabbitmqctl cluster_status
+```
+
+输出示例:
+
+```text
 Cluster status of node rabbit@rabbitmq1 ...
 [{nodes,[{disc,[rabbit@rabbitmq1]},{ram,[rabbit@rabbitmq3,rabbit@rabbitmq2]}]},
  {running_nodes,[rabbit@rabbitmq3,rabbit@rabbitmq2,rabbit@rabbitmq1]},
  {cluster_name,<<"rabbit@rabbitmq1">>},
  {partitions,[]}]
 ...done.
-可以查看到rabbitmq1节点为disc磁盘节点，rabbitmq2节点和rabbitmq3节点为RAM内存节点。
-新增用户admin，并设置密码为admin，命令如下：
-# rabbitmqctl add_user admin admin
-删除admin用户，命令如下：
-# rabbitmqctl delete_user admin
-修改admin用户的密码为admin123，命令如下：
-# rabbitmqctl change_password admin admin123
-设置角色命令：
-# rabbitmqctl set_user_tags admin administrator monitoring policymaker management
-设置用户权限命令：
-# rabbitmqctl set_permissions -p VHostPath admin ConfP WriteP ReadP
-查询所有权限命令：
-# rabbitmqctl list_permissions [-p  VHostPath]
-指定用户权限命令：
-# rabbitmqctl list_user_permissions admin
-清除用户权限命令：
-# rabbitmqctl clear_permissions [-p VHostPath] admin
 ```
+
+可看到 rabbitmq1 为 disc 磁盘节点,rabbitmq2、rabbitmq3 为 RAM 内存节点。
