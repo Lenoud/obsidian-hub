@@ -119,6 +119,6 @@ docker compose up -d
 ## 相关笔记
 - [[wordpress]] — 另一个部署示例(可能更老)
 - [[docker部署mysql]] — MySQL 容器化
-- [[Nginx]] — 反向代理 + TLS
+- [[docker部署nginx]] — Nginx 容器化(反向代理 + TLS)
 - [[MOC-Docker]]
 - [[MOC-服务部署]]

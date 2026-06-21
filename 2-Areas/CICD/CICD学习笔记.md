@@ -88,6 +88,6 @@ deploy:
 ## 相关笔记
 - [[MOC-CICD]] — 各 CI/CD 工具的实战笔记
 - [[Gitlab-CI.tar.gz]]
-- [[gitlab-ci-demo2048(国赛名字)]]
-- [[Drone / drone+gogs轻量级cicd]]
-- [[Jenkins / jenkins for docker]]
+- [[gitlab-ci-demo2048（国赛名字）]]
+- [[drone+gogs轻量级cicd]]
+- [[jenkins for docker]]
