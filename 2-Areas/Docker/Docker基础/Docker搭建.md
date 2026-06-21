@@ -19,36 +19,28 @@ yum remove docker*
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 #安装需要的软件包， yum-util 提供yum-config-manager功能，另两个是devicemapper驱动依赖
 
-# Step 2: 添加软件源信息
-#设置一个yum源，下面两个都可用
-yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo（中央仓库）
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo（阿里仓库）
-sudo sed -i 's+download.docker.com+mirrors.aliyun.com/docker-ce+' /etc/yum.repos.d/docker-ce.repo
-# Step 4: 更新并安装Docker-CE
-sudo yum makecache fast
-yum -y install docker-ce-18.06.3.ce-3.el7
-# Step 4: 开启Docker服务
-sudo service docker start
+# Step 2: 添加软件源信息(下面两个任选一个)
+# 官方源:
+# yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+# 阿里云源(国内推荐):
+yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
-# 注意：
-# 官方软件源默认启用了最新的软件，您可以通过编辑软件源的方式获取各个版本的软件包。例如官方并没有将测试版本的软件源置为可用，您可以通过以下方式开启。同理可以开启各种测试版本等。
+# Step 3: 更新并安装 Docker CE
+sudo yum makecache fast
+yum -y install docker-ce            # 安装最新版
+# 或安装指定版本(查看可用版本:yum list docker-ce --showduplicates | sort -r)
+# yum -y install docker-ce-24.0.7 docker-ce-cli-24.0.7 containerd.io
+# Step 4: 开启 Docker 服务(开机自启 + 立即启动)
+systemctl enable docker --now
+
+# 注意:
+# 官方软件源默认启用了最新的软件,可以通过编辑软件源获取各个版本的软件包。
 # vim /etc/yum.repos.d/docker-ce.repo
-#   将[docker-ce-test]下方的enabled=0修改为enabled=1
+#   将 [docker-ce-test] 下方的 enabled=0 修改为 enabled=1
 #
-# 安装指定版本的Docker-CE:
-# Step 1: 查找Docker-CE的版本:
-# yum list docker-ce.x86_64 --showduplicates | sort -r
-#   Loading mirror speeds from cached hostfile
-#   Loaded plugins: branch, fastestmirror, langpacks
-#   docker-ce.x86_64            17.03.1.ce-1.el7.centos            docker-ce-stable
-#   docker-ce.x86_64            17.03.1.ce-1.el7.centos            @docker-ce-stable
-#   docker-ce.x86_64            17.03.0.ce-1.el7.centos            docker-ce-stable
-#   Available Packages
-# Step2: 安装指定版本的Docker-CE: (VERSION例如上面的17.03.0.ce.1-1.el7.centos)
-# sudo yum -y install docker-ce-[VERSION]
-#启动
-systemctl enable docker --now   # 开机启动并且立即启动
-systemctl start docker
+# 安装指定版本:
+# yum list docker-ce --showduplicates | sort -r       # 查看可用版本
+# yum -y install docker-ce-[VERSION]                  # 安装指定版本
 
 #5.配置阿里云镜像加速  #登录阿里云开发者平台-点击控制台-选择容器镜像服务-获取加速器地址
 mkdir -p /etc/docker
