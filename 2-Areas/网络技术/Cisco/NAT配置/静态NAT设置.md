@@ -1,6 +1,6 @@
 # 静态NAT设置
 
-静态NAT设置相关技术笔记。
+静态 NAT 实现内网 IP 与公网 IP 的一对一固定映射,外部可主动访问映射后的公网 IP 来访问内网服务。本例演示 Cisco 路由器上的静态 NAT 配置。
 
 + **静态nat转换**
 
@@ -12,7 +12,7 @@
 
 其中R1设置了默认路由
 
-```bash
+```text
 R1(config)#ip route 0.0.0.0 0.0.0.0 s0/0/0
 R1(config)#interface f0/0
 R1(config-if)#ip nat inside
@@ -29,7 +29,7 @@ R1#clear ip nat translation * /清除所有的IP映射
 
 配置完成后即可通过pc访问http://200.200.200.1访问到webserver
 
-```bash
+```text
 R1#show ip nat translations
 Pro  Inside global     Inside local       Outside local      Outside global
 ---  200.200.200.1     192.168.10.254     ---                ---

@@ -1,14 +1,12 @@
 # 动态NAT配置
 
-动态NAT配置相关技术笔记。
-
-数据库配置与权限管理。
+动态 NAT 从公网 IP 地址池中按需为内网 IP 分配映射,空闲时回收。本例演示 Cisco 路由器上的动态 NAT 配置。
 
 地址规划如下
 
 ![[1686575602321-b60d8e1c-a9df-4130-b084-f3fa032ff3b3.png]]
 
-```bash
+```text
 R1(config)#int f0/0
 R1(config-if)#ip nat inside #内网接口
 R1(config-if)#exit
@@ -25,9 +23,9 @@ tcp 202.102.192.3:1025 172.16.1.4:1025    200.200.200.2:80   200.200.200.2:80
 
 配置完成后可以ping server可以连通
 
-![[1686575462030-e98d789d-8149-4c9d-9499-79a6d012ba64.png]]
+![[1686575462030-e98d789d-8499-79a6d012ba64.png]]
 
-```bash
+```text
 R1(config)#int s0/0/0
 R1(config-if)#ip nat outside  //指定outside接口
 R1(config-if)#exit
