@@ -2,10 +2,10 @@
 
 数据库技术学习笔记，涵盖 MySQL、PostgreSQL、Redis、MongoDB、MariaDB、SQL Server 等主流数据库的部署与运维，以及 SQL 语法和多种框架的 CRUD 操作。
 
-## 根目录
-- [[adminer数据库管理工具]]
-- [[dbgate数据库管理工具]]
-- [[tidb]]
+## 数据库管理工具
+- [[adminer数据库管理工具]] — 轻量级多数据库 Web 管理
+- [[dbgate数据库管理工具]] — 跨平台多数据库 Web 管理
+- [[phpmyadmin数据库管理]] — MySQL/MariaDB 专用 Web 管理
 
 ## Mariadb
 - [[docker部署mariadb]]
