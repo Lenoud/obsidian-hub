@@ -91,25 +91,24 @@ ansible 主机组名 -m group -a "name=shi_group gid=888 state=absent"
 ### user模块
 用于远程创建用户
 
+| 参数 | 说明 |
+| --- | --- |
+| `name` | 用户名 |
+| `uid` | 用户 UID |
+| `group` | 主用户组 |
+| `groups` | 附加组(逗号分隔) |
+| `password` | 密码(需为 hash,可用 `openssl passwd -6` 生成) |
+| `shell` | 登录 shell,如 `/bin/bash`、`/sbin/nologin` |
+| `create_home` | 是否创建家目录:`yes` / `no` |
+| `state` | `present`(创建,默认)/ `absent`(删除) |
+
 ```bash
+# 创建用户,指定附加组、登录 shell,不创建家目录
+ansible 主机组名 -m user -a "name=shi uid=888 group=shi_group groups=docker shell=/sbin/nologin create_home=no state=present"
 
+# 删除用户
+ansible 主机组名 -m user -a "name=shi state=absent remove=yes"
 ```
-
-name:指定创建的用户名
-
-uid:指定用户的uid
-
-gruop:指定用户组名称
-
-gruops:指定附加组名称
-
-password:给用户添加密码
-
-shell: 指定用户登录shell
-
-create_home：是否创建家目录
-
-state:表示对用户的操作状态，参数如下：absent:删除远端的组   present:创建远端的组（默认）
 
 ![[1732971622129-698f84c7-8d19-4bcd-8727-23011642dfad.png]]
 
@@ -123,8 +122,20 @@ ansible 主机组名 -m cron -a "minute=00 hour=01 day=* month=* weekday=* name=
 ### mount模块
 远程挂载存储的模块
 
-```bash
+| 参数 | 说明 |
+| --- | --- |
+| `path` | 挂载点(目标路径) |
+| `src` | 设备或远程源(如 `192.168.100.10:/data`) |
+| `fstype` | 文件系统类型:`nfs` / `ext4` / `xfs` 等 |
+| `opts` | 挂载选项,如 `defaults`、`rw,noatime` |
+| `state` | `mounted`(挂载并写 fstab)/ `present`(仅写 fstab)/ `unmounted`(卸载)/ `absent`(卸载并删 fstab) |
 
+```bash
+# 挂载 NFS 并写入 /etc/fstab
+ansible 主机组名 -m mount -a "path=/mnt/data src=192.168.100.10:/data fstype=nfs opts=defaults state=mounted"
+
+# 卸载并清理 fstab 条目
+ansible 主机组名 -m mount -a "path=/mnt/data state=absent"
 ```
 
 ![[1733031551594-60f9f41a-dc31-4bd2-a454-c81662a5c6f5.png]]
@@ -144,19 +155,12 @@ ansible 主机组名 -m systemd -a "name=docker state=stopped enabled=yes"
 ```
 
 ### selinux模块
-远程管理selinux 开启或关闭
+远程管理 selinux 开启或关闭
 
-name: EnableSELinux
-
-selinux:
-
-policy: targeted
-
-state: disabled
-
-取值：
-
-state_value: enforcing, permissive, disabled
+| 参数 | 说明 |
+| --- | --- |
+| `policy` | SELinux 策略,如 `targeted` |
+| `state` | `enforcing` / `permissive` / `disabled` |
 
 ```bash
 ansible docker -m selinux -a "policy=targeted state=disabled"

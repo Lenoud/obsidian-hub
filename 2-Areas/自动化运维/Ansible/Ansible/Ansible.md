@@ -25,25 +25,16 @@ ansible HBase02,192.168.50.71 -m shell -a "ls /root/"
 ```
 
 ## Ansible-service模块
-一、service模块
 
-service模块：用于控制服务的启动,关闭,开机自启动等。
+service 模块：用于控制服务的启动、关闭、开机自启动等。
 
-[https://docs.ansible.com/ansible/latest/modules/service_module.html#service-module](https://docs.ansible.com/ansible/latest/modules/service_module.html#service-module)
+官方文档：<https://docs.ansible.com/ansible/latest/modules/service_module.html>
 
-参数
-
-name
-
-服务名称
-
-state  reloaded, restarted, started, stopped
-
-服务管理
-
-enabled yes|no
-
-开启是否启动
+| 参数 | 说明 |
+| --- | --- |
+| `name` | 服务名称 |
+| `state` | 服务目标状态:`reloaded` / `restarted` / `started` / `stopped` |
+| `enabled` | 是否开机自启:`yes` / `no` |
 
 ## yum安装
 ```yaml
