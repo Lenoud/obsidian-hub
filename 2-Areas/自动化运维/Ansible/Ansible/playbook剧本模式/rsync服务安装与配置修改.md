@@ -48,25 +48,26 @@ rsync -avzn --password-file=./rsync.password ./test_file.txt rsync_backup@192.16
 ```
 
 ## config文件
+
 ```bash
 [root@ansible rsync_playbook]# cat conf/rsyncd.conf
 ```
 
-```properties
+```ini
 # rsyncd.conf
 # 配置文件路径通常为 /etc/rsyncd.conf
 
 # 全局设置
 uid = www
 gid = www
-port=873
+port = 873
 fake super = yes
 use chroot = no
 read only = false
 log file = /var/log/rsyncd.log
-timeout=900
-igonre errors
-list= false
+timeout = 900
+ignore errors
+list = false
 auth users = rsync_backup
 secrets file = /etc/rsyncd.password
 
