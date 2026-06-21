@@ -22,7 +22,6 @@
 
 ## Shell脚本
 - [[shell 100题]]
-- [[自动化运维]]
 
 ### Shell脚本/shell脚本
 - [[shell脚本]]
@@ -72,7 +71,6 @@
 - [[vimrc配置]]
 - [[初始化centos7脚本]]
 - [[初始化ubuntu2204脚本]]
-- [[脚本]]
 
 ## 相关领域
 - [[MOC-Docker]] — Docker 离线安装脚本

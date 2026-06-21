@@ -7,14 +7,14 @@
 - [[经典面试题]] — 网络协议、HTTP、DNS、TCP 详解
 - [[Linux 的根下目录含义：]] — Linux 目录结构
 
-**相关学习** → [[MOC-Linux运维]] / [[linux三剑客]] / [[iptables]]
+**相关学习** → [[MOC-Linux运维]] / [[iptables]]
 
 ## 容器与编排
 - [[k8s的基本组件]] — K8s 架构与组件详解
 - [[K8s创建Pod流程]] — Pod 创建完整流程
 - [[docker底层cgroup_namespace]] — Docker 底层原理
 
-**相关学习** → [[MOC-Kubernetes]] / [[MOC-Docker]] / [[概念]] / [[Containerd]]
+**相关学习** → [[MOC-Kubernetes]] / [[MOC-Docker]]
 
 ## 数据库
 - [[数据库]] — MySQL 数据类型、基础面试题

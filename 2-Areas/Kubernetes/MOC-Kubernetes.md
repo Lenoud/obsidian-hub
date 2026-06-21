@@ -4,7 +4,6 @@ Kubernetes 容器编排平台的学习笔记，涵盖基础概念、集群搭建
 
 ## dry-run
 - [[1.25  sa不自动生成Secret，手动创建]]
-- [[dry-run]]
 - [[role和rolebinding的创建]]
 - [[创建secret]]
 - [[创建svc网络或者绑定svc网络]]
@@ -12,7 +11,6 @@ Kubernetes 容器编排平台的学习笔记，涵盖基础概念、集群搭建
 
 ## Istio
 - [[6.金丝雀（重要！！！考前必看）]]
-- [[Istio]]
 - [[创建网关bookinfo-gateway]]
 - [[基于Kubernetes + Istio实现灰度发布]]
 - [[基于Kubernetes + Istio实现灰度发布(解释版)]]
@@ -48,7 +46,6 @@ Kubernetes 容器编排平台的学习笔记，涵盖基础概念、集群搭建
 - [[pv回收策略]]
 - [[存储的运维(pv&pvc&sc)]]
 - [[分配一个伪终端]]
-- [[概念]]
 - [[环境变量配置]]
 - [[集群角色绑定]]
 - [[集群权限]]
@@ -68,7 +65,6 @@ Kubernetes 容器编排平台的学习笔记，涵盖基础概念、集群搭建
 - [[apps_v1]]
 - [[操作v1核心api]]
 - [[导入kubeconfig.yaml]]
-- [[开发]]
 - [[使用utils函数创建yaml资源]]
 
 ## 相关领域

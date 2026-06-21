@@ -23,10 +23,8 @@ Windows 系统使用技巧与工具笔记，涵盖 bat 脚本、Office 办公（
 - [[快速打开网卡设备管理面板]]
 
 ### Windows系统使用技巧/office办公
-- [[office办公]]
 
 #### office办公/Excel
-- [[Excel]]
 - [[vlookup]]
 
 #### office办公/python自动化办公
@@ -35,5 +33,4 @@ Windows 系统使用技巧与工具笔记，涵盖 bat 脚本、Office 办公（
 - [[归属地查询]]
 
 #### office办公/word文档
-- [[word文档]]
 - [[正则替换]]
