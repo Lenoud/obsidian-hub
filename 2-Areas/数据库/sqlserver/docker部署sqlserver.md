@@ -68,5 +68,6 @@ sudo chmod -R g+rwx /root/sqlserver2022
 | `ports` | `1433:1433`，SQL Server 默认端口 |
 
 ## 相关笔记
-- [[sqlserver2022]]
+- [[sqlserver]]
 - [[MOC-Docker]]
+- [[MOC-数据库]]

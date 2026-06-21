@@ -33,5 +33,7 @@ services:
 | `volumes` | `./mariadb11_data/` | 数据持久化目录 |
 
 ## 相关笔记
-- [[mariadb11]]
+- [[Mariadb]]
+- [[mariadb数据库主从配置]]
 - [[MOC-Docker]]
+- [[MOC-数据库]]

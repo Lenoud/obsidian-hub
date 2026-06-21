@@ -34,4 +34,5 @@ services:
 
 ## 相关笔记
 - [[MOC-Docker]]
-- [[postgres]]
+- [[MOC-数据库]]
+- [[postgreSQL]]

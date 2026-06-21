@@ -483,5 +483,7 @@ func outer() func(int) int {
 ## 相关笔记
 
 - [[MOC-Linux运维]]
-- [[linux三剑客]]
+- [[awk]]
+- [[sed]]
+- [[grep命令数据过滤和筛选]]
 - [[iptables]]citego-concurrency
