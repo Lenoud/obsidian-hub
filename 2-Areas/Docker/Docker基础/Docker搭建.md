@@ -4,7 +4,7 @@ Docker搭建相关技术笔记。
 
 
 
-# yum安装
+## yum安装
 1. [官网地址](https://www.docker.com/)
 2. [公共仓库](https://hub.docker.com/)
 3. [安装文档](https://docs.docker.com/get-docker/)
@@ -47,7 +47,7 @@ sudo service docker start
 # Step2: 安装指定版本的Docker-CE: (VERSION例如上面的17.03.0.ce.1-1.el7.centos)
 # sudo yum -y install docker-ce-[VERSION]
 #启动
-systemctl enable docker --now  开机启动并且立即启动
+systemctl enable docker --now   # 开机启动并且立即启动
 systemctl start docker
 
 #5.配置阿里云镜像加速  #登录阿里云开发者平台-点击控制台-选择容器镜像服务-获取加速器地址
@@ -66,9 +66,8 @@ cat >> /etc/docker/daemon.json <<EOF
 EOF
 ```
 
-#
-docker离线安装
-```ini
+## docker离线安装
+```bash
 #docker离线安装
 #下载网址 ：https://download.docker.com/linux/static/stable/x86_64/docker-20.10.10.tgz
 curl -O https://download.docker.com/linux/static/stable/x86_64/docker-20.10.10.tgz

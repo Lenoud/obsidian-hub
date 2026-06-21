@@ -279,7 +279,7 @@ upload_purging:
 - [[MOC-Docker]]
 
 #### harbor 开机自启
-```yaml
+```bash
 cat >> /etc/systemd/system/harbor.service << EOF
 [Unit]
 Description=Harbor
@@ -306,7 +306,7 @@ systemctl enable harbor
 
 #### 报错排查
 ##### 登录报错
-```yaml
+```text
 [root@harbor harbor]# docker login harbor -u admin --password "Harbor12345"
 Username: admin
 Password:

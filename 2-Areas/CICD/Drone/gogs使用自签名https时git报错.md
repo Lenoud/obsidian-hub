@@ -4,6 +4,6 @@ gogs使用自签名https时git报错相关技术笔记。
 
 git禁用ssl验证
 
-```text
+```bash
 git config --global http.sslVerify false
 ```

@@ -13,8 +13,8 @@ systemctl stop firewalld
 
 ```bash
 yum install -y yum-utils
-yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo（中央仓库）
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo（阿里仓库）
+yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo   # 中央仓库
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo   # 阿里仓库
 #搜索版本
 yum list docker-ce --showduplicates | sort -r
 yum install -y docker-ce-27.3.1-1.el9

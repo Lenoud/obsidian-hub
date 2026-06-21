@@ -51,7 +51,9 @@ docker tag centos:7 0.0.0.0:5000/centos:v1
 
 首先查看，安装的docker支持的可访问的支持http：
 
+```bash
 cat /etc/docker/daemon.json
+```
 
 可以看出，安装的docker只支持阿里云镜像加速网址的http连接，为了实现镜像上传到私有库Registry，我们还要配置支持本地安装私有库Registry的http连接，代码如下：
 
