@@ -61,7 +61,7 @@ docker.io/library/nginx:latest
 
 拉取指定版本的镜像
 
-默认情况下使用 docker pull 不指定镜像的版本时，会默认拉取仓库中最新的镜像，如果需要拉取指定般的的镜像就需要手动指定镜像的版本，列如拉取ubuntu:22.04版本的镜像，如下命令所示：
+默认情况下使用 docker pull 不指定镜像的版本时，会默认拉取仓库中最新的镜像，如果需要拉取指定版本的镜像就需要手动指定镜像的版本，例如拉取ubuntu:22.04版本的镜像，如下命令所示：
 
 ```bash
 [root@docker1 ~]# docker pull ubuntu:22.04

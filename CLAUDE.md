@@ -83,7 +83,7 @@ Obsidian vault (this repo) → short-star Astro 6 site. Directory structure chan
 
 ## Editing Rules
 
-- Do NOT modify `.obsidian/`, `.git/`, `.gitlab/`, `attachments/`, or `images/`.
+- Do NOT modify `.obsidian/`, `.git/`, `.gitlab/`, or `attachments/`.
 - When creating new notes, place them in the correct PARA layer based on their nature:
   - Has a deadline/goal? → `1-Projects/`
   - Ongoing responsibility? → `2-Areas/`
@@ -94,6 +94,16 @@ Obsidian vault (this repo) → short-star Astro 6 site. Directory structure chan
 - **笔记间断链**(`[[xxx]]` 指向不存在的文件)发现即修:改名、删除链接、或补建目标文件。
 - **MOC 中的断链**优先修复:MOC 是入口,断链直接影响导航。
 - Batch modifications should be committed incrementally per logical group, not as one giant commit.
+
+## 常见陷阱(来自排查日志的实战经验)
+
+反复出现、且**不易一眼看出**的问题,新一轮排查重点扫这几类:
+
+- **H1 层级陷阱**:正文里裸写的 `# xxx` 会被 Markdown 当成 H1 标题——常见于命令注释(`# 安装依赖`)和步骤标题(`# 1.` `# 2.`)。一篇笔记**只应有一个 H1**(文档标题);命令注释要包进代码块,步骤标题降为 `##`。
+- **语雀导出残留**:从语雀导出的笔记常在代码块前留 `复制代码` / `python\n复制代码` 字样,文件名是 `无标题文档.md`。发现即清理内容、重命名文件。
+- **复制粘贴导语残留**:批量重写时易把上一篇的导语/标题带进来(排查中出现过多篇 Cisco NAT 笔记顶着"数据库配置与权限管理"导语)。重写后务必核对导语与正文主题是否一致。
+- **断链检测的误报**:扫 `[[...]]` 断链时,以下**不是** Wiki 链接,不要误改——Shell 测试语法 `[[ -f x ]]`、TOML 的 `[[runners]]`、模板示例里的 `[[xxx]]` / `[[yyy]]`。先排除这些再判断真实断链。
+- **代码块未闭合**:重写后确认 ``` 成对(1500+ 行的赛事资料类长文件最容易出现不平衡)。
 
 ## 维护文档
 
