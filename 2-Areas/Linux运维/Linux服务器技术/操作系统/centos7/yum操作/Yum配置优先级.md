@@ -1,12 +1,8 @@
-# Yum配置优先级
+# Yum 配置优先级
 
-数据库配置与权限管理。
+通过 `yum-plugin-priorities` 插件为不同软件源设置优先级,让本地源(速度快)与网络源(版本新)协同工作。
 
-同时使用本地源与网络源
-
-使用本地源速度更快，而使用网络源版本更新。
-
-可以通过安装yum-plugin-priorities插件同时使用本地源与网络源
+## 安装插件
 
 ```bash
 yum install -y yum-plugin-priorities
