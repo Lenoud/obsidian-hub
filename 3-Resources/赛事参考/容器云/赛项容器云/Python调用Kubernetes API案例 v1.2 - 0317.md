@@ -1525,11 +1525,9 @@ openstack list images!
 （3）通过输入参数进行操作，如下：
 
 ```
-
 PS D:\1daoyun\2022\cloudpython> python onecloud.py --c 1 --a "list images"
 
 openstack list images!
-
 ```
 
 如果程序直接调用APIs已经开发的模块，即可以实现相关具体操作。
