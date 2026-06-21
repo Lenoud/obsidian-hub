@@ -81,7 +81,7 @@ cron表达式相关技术笔记。
 
 每小时的第一分执行 /home/bruce/backup这个文件
 
-00 03 * * 1-5 find /home "*.xxx" -mtime +4 -exec rm {} \;
+00 03 * * 1-5 find /home -name "*.xxx" -mtime +4 -exec rm {} \;
 
 每周一至周五3点钟，在目录/home中，查找文件名为*.xxx的文件，并删除4天前的文件。
 

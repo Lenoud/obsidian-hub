@@ -18,5 +18,5 @@ grep -n 'type' values.yaml
 ## 上传模板
 
 ```bash
-curl --data-binary "@wordpress-13.0.23.tgz" http://10.247.97.1:8080/api/charts
+curl --data-binary "@mychart-0.1.0.tgz" http://10.247.97.1:8080/api/charts
 ```
