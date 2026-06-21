@@ -34,11 +34,11 @@ route add 0.0.0.0 mask 0.0.0.0 192.168.1.1 metric 5
 
 3、如果添加永久生效的路由，则使用“-p”参数：
 
-route –p add 0.0.0.0 mask 0.0.0.0 192.168.1.1 metric 5
+route -p add 0.0.0.0 mask 0.0.0.0 192.168.1.1 metric 5
 #参数改成delete即可删除
 
 4、删除路由：
 
-route delet 192.168.1.0
+route delete 192.168.1.0
 route delete 192.168.1.0 mask 255.255.255.0 192.168.1.1
 ```
