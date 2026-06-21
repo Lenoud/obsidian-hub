@@ -1,6 +1,6 @@
 x86-agent包
 
-```powershell
+```bash
 cat > agent_install.sh << EOF
 #!/bin/bash
 if [ -f agent_local.tar ]; then

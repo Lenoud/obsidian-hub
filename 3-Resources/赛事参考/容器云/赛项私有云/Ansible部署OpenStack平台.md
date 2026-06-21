@@ -30,7 +30,7 @@ Ansible服务的节点规划，见表2。
 
 连接三台云主机，并修改主机名分别为ansible、controller、compute。修改完成后刷新页面或者执行bash命令，以生效新主机名。
 
-```plain
+```text
 [root@localhost opt]# hostnamectl set-hostname ansibile
 [root@localhost opt]# hostnamectl set-hostname controller
 [root@localhost opt]# hostnamectl set-hostname compute
@@ -38,7 +38,7 @@ Ansible服务的节点规划，见表2。
 
 需要使用fdisk /dev/vdb命令在第compute节点进行分区，三个大小为6G的分区。
 
-```plain
+```text
 [root@compute ~]# fdisk /dev/vdb
 ...
 [root@compute ~]# lsblk
@@ -56,7 +56,7 @@ vdc    253:32   0   1M  0 disk
 
 在Ansible节点下载CentOS-7-x86_64-DVD-2009.iso、chinaskills_cloud_iaas_v2.0.1.iso、openstack_ansible_train.tar.gz、ansible.tar.gz软件包，配置本地镜像源，安装Ansible服务。把Ansible节点的防火墙和SELinux关闭。
 
-```plain
+```ini
 [root@ansible ~]# curl -O http://mirrors.douxuedu.com/competition/CentOS-7-x86_64-DVD-2009.iso
 [root@ansible ~]# curl -O http://mirrors.douxuedu.com/competition/ansible.tar.gz
 [root@ansible ~]# curl -O http://mirrors.douxuedu.com/competition/openstack_ansible_train.tar.gz
@@ -88,7 +88,7 @@ enabled=1
 
 配置Ansible节点无秘钥登录Controller和Compute节点。配置完无秘钥登录后，使用Ansible节点SSH连接测试。（若云主机已是无秘钥访问的，则不用配置无秘钥）
 
-```plain
+```bash
 [root@ansible ~]# ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (/root/.ssh/id_rsa):
@@ -120,7 +120,7 @@ The key's randomart image is:
 
 首先在/opt目录下创建一个项目目录openstack_ansible，命令如下：
 
-```plain
+```text
 [root@ansible ~]# mkdir /opt/openstack_ansible
 ```
 
@@ -130,7 +130,7 @@ The key's randomart image is:
 
 安装私有云平台，使用init（基础环境）、mariadb（数据库）、keystone（认证服务）、glance（镜像服务）、placement、nova-controller（计算服务）、nova-compute（计算服务）、neutron-controller（网络服务）、neutron-compute（网络服务）、dashboard（界面服务）、cinder-controller（块存储服务）、cinder-compute（块存储服务）、swift-controller（对象存储服务）、swift-compute（对象存储服务）、heat（编排服务）这些roles来完成。下面创建这些roles和相应的项目目录，具体命令如下：
 
-```plain
+```text
 [root@ansible ~]# mkdir -p /opt/openstack_ansible/roles/{init,mariadb,keystone,glance,nova-controller,nova-compute,neutron-controller,neutron-compute,dashboard,cinder-controller,cinder-compute,swift-controller,swift-compute,heat}/{tasks,files,templates,meta,handlers,vars}
 ```
 
@@ -140,7 +140,7 @@ The key's randomart image is:
 
 在项目目录/opt/openstack_ansible下创建group_vars目录，并在该目录下创建all文件，该目录用来存放变量声明文件all。命令如下：
 
-```plain
+```text
 [root@ansible ~]# cd /opt/openstack_ansible/
 [root@ansible openstack_ansible]# mkdir group_vars
 [root@ansible openstack_ansible]# cd group_vars/
@@ -151,7 +151,7 @@ The key's randomart image is:
 
 进入/opt/openstack_ansible目录，创建“install_openstack.yaml”文件，该文件是安装动作的入口文件。命令如下：
 
-```plain
+```text
 [root@ansible openstack_ansible]#cd /opt/openstack_ansible
 [root@ansible openstack_ansible]# touch install_openstack.yaml
 [root@ansible openstack_ansible]# ll
@@ -175,7 +175,7 @@ drwxr-xr-x. 10 root root 114 Aug 26 21:18 roles
 
 该角色执行的任务是用来部署Controller节点和Compute的基础环境，包括配置Yum源，安装iaas-xiandian脚本，安装iaas-pre-host脚本。在roles/init/tasks目录下，创建main.yaml文件，按“i”建进入编辑模式进行配置，按ESC键输入:wq保存退出，文件的内容如下：
 
-```plain
+```bash
 [root@ansibile ~]# vi /opt/openstack_ansible/roles/init/tasks/main.yaml
 - name: move repos
   shell: mv /etc/yum.repos.d/* /media
@@ -195,7 +195,7 @@ drwxr-xr-x. 10 root root 114 Aug 26 21:18 roles
 
 local.repo内容：
 
-```plain
+```ini
 [root@ansible opt]# vi /opt/openstack_ansible/roles/init/files/local.repo
 [centos]
 name=centos
@@ -211,7 +211,7 @@ enabled=1
 
 openrc.sh.j2内容如下：
 
-```plain
+```bash
 [root@ansible opt]# vi /opt/openstack_ansible/roles/init/templates/openrc.sh.j2
 #--------------------system Config--------------------##
 #Controller Server Manager IP. example:x.x.x.x
@@ -394,7 +394,7 @@ BARBICAN_PASS={{PASSWD}}
 
 因为设置的变量，所以需要在/opt/openstack_ansible/group_vars/all中声明变量，all文件内容如下：
 
-```plain
+```text
 [root@ansible opt]# vi /opt/openstack_ansible/group_vars/all
 controller_ip: 172.128.11.21
 controller_name: controller
@@ -416,7 +416,7 @@ STORAGE_LOCAL_NET_IP: 172.128.11.20
 
 其他角色的作用是执行安装OpenStack的脚本，可以自行参考提供的案例文档，其他main.yaml文件可使用提供的软件包openstack_ansible_train.tar.gz，替换之后需要更改以下文件：
 
-```plain
+```ini
 [root@ansibile openstack_ansible]# tar -zxvf /root/openstack_ansible_train.tar.gz -C /root/
 [root@ansibile openstack_ansible]# cp -rvf /root/openstack_ansible_train/* /opt/openstack_ansible/
 [root@ansible opt]# vi /opt/openstack_ansible/roles/init/files/local.repo
@@ -453,7 +453,7 @@ STORAGE_LOCAL_NET_IP: 172.128.11.20
 
 此处需要修改的hosts文件并不只是/etc/hosts，还有一个/etc/ansible/hosts文件，编辑/etc/ansible/hosts，在文件的最后添加需要执行剧本的目标主机组，添加的内容如下：
 
-```plain
+```ini
 [root@ansible ~]# vi /etc/ansible/hosts
 ## db-[99:101]-node.example.com
 [controller]
@@ -464,7 +464,7 @@ STORAGE_LOCAL_NET_IP: 172.128.11.20
 
 编辑/etc/hosts文件，添加IP与主机名的映射，如下所示：
 
-```plain
+```text
 [root@ansible ~]# vi /etc/hosts
 172.128.11.21controller
 172.128.11.20 compute
@@ -474,7 +474,7 @@ STORAGE_LOCAL_NET_IP: 172.128.11.20
 
 install_openstack.yaml文件为执行剧本的入口文件，需要将调用roles的顺序及哪些主机调用哪些roles在这个文件中体现出来，install_openstack.yaml文件的具体内容如下（如果以选择替换软件包里的内容无需修改一下内容）：
 
-```plain
+```yaml
 [root@ansible ~]# vi /opt/openstack_ansible/install_openstack.yaml
 ┅    //三短横请手打
 
@@ -508,14 +508,14 @@ install_openstack.yaml文件为执行剧本的入口文件，需要将调用role
 
 当所有准备工作都完成之后，使用ansible-playbook命令执行剧本，首先使用–syntax-check参数检测脚本的语法，命令如下：
 
-```plain
+```text
 [root@ansible opestack_ansible]# ansible-playbook install_openstack.yaml --syntax-check
 playbook: install_openstack.yaml
 ```
 
 直接返回文件名，表示脚本没有语法错误。执行剧本，命令如下（注意需要写完所有main.yaml文件才会完整安装）：
 
-```plain
+```text
 [root@ansible openstack_ansible]# ansible-playbook install_openstack.yaml
 
 PLAY RECAP

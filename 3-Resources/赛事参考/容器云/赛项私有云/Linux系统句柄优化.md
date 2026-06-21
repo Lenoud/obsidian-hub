@@ -26,7 +26,7 @@
 
 使用CRT等远程连接工具，连接至192.168.200.21，查看当前系统默认的文件句柄数量，命令如下：
 
-```plain
+```text
 [root@localhost ~]# ulimit -n
 1024
 ```
@@ -41,7 +41,7 @@
 
 修改配置文件调整句柄限制为65535，命令如下：
 
-```plain
+```text
 [root@localhost ~]# echo "* soft nofile 65535" >> /etc/security/limits.conf
 [root@localhost ~]# echo "* hard nofile 65535" >> /etc/security/limits.conf
 ```
@@ -56,7 +56,7 @@
 
 修改完之后，不需要重启系统即会生效，但是需要重新登录。退出重新登录该云主机，查看当前的句柄限制，命令如下：
 
-```plain
+```text
 [root@localhost ~]# logout
 
 Connection closed.

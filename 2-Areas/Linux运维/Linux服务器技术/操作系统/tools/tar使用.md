@@ -2,7 +2,7 @@
 
 tar 命令打包与解压文件的使用方法。
 
-```shell
+```text
 #打包压缩为".tar.bz2"格式，注意压缩包文件名
 tar -jcvf tmp.tar.bz2 /tmp/
 #解压缩与解打包".tar.bz2"格式
@@ -16,7 +16,7 @@ tar -zxvf tmp.tar.gz
 
 分段压缩
 
-```shell
+```bash
 tar -zcf - ROOT | split -b 10m - ROOT.tar.gz
 
 （按10MB分割，也可以写1G等等自定义大小）

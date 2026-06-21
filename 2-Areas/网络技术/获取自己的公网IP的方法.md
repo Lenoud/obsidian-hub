@@ -12,7 +12,7 @@
 + windows 命令：telnet cip.cc
 + 纯 IP 命令：curl ip.cip.cc
 
-```shell
+```text
 [root@localhost ~]# curl cip.cc
 IP      : 115.196.88.33
 地址    : 中国  北京
@@ -25,13 +25,13 @@ IP      : 115.196.88.33
 URL     : http://www.cip.cc/115.196.88.33
 ```
 
-```shell
+```text
 [root@localhost ~]# curl ip.cip.cc
 116.196.112.113
 ```
 
 ## curl ifconfig.me
-```shell
+```text
 [root@localhost ~]# curl ifconfig.me
 116.196.112.113
 ```

@@ -2,7 +2,7 @@
 
 Ubuntu APT 包管理器基本操作命令。
 
-```shell
+```bash
 #查找vim软件包
 apt list | grep vim
 #卸载

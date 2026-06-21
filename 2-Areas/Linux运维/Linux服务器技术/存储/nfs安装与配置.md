@@ -2,7 +2,7 @@
 
 数据库配置与权限管理。
 
-```shell
+```bash
 #1.所有节点下载 nfs
 yum-y install nfs-utils
 

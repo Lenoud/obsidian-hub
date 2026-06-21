@@ -38,7 +38,7 @@
 
 登录OpenStack平台，创建租户depA和depB，并且在这两个租户下各创一个用户userA和userB的普通用户，使用命令查看，命令如下：
 
-```plain
+```text
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# openstack project create --domain demo deyA
 [root@controller ~]# openstack user create --domain demo  --password 123456 userA
@@ -50,7 +50,7 @@
 
 使用命令查询租户列表信息和用户列表信息，命令代码如下所示：
 
-```plain
+```bash
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# openstack project list
 +----------------------------------+---------+
@@ -90,7 +90,7 @@
 
 将cirros-0.3.4-x86_64-disk.img下载至控制节点的/root目录下，并上传至云平台中，命令如下：
 
-```plain
+```bash
 [root@controller ~]# curl -O  http://mirrors.douxuedu.com/competition/cirros-0.3.4-x86_64-disk.img
 [root@controller ~]# glance image-create --name cirros --disk-format qcow2 --container-format bare --progress < cirros-0.3.4-x86_64-disk.img
 [=============================>] 100%
@@ -122,7 +122,7 @@
 
 首先将镜像共享给A租户，命令格式为glance member-create  ，命令如下所示：
 
-```plain
+```text
 [root@controller ~]# glance member-create 1fa9cbfe-392f-437e-ad18-f00987415b15 df58511d2c914690b48e89f1e512ae6b
 +--------------------------------------+----------------------------------+---------+
 | Image ID                             | Member ID                        | Status  |
@@ -133,7 +133,7 @@
 
 在共享之后，镜像的状态是pending状态，此时还需要激活镜像，命令如下：
 
-```plain
+```text
 [root@openstack ~]# glance member-update 1fa9cbfe-392f-437e-ad18-f00987415b15 df58511d2c914690b48e89f1e512ae6b accepted
 +--------------------------------------+----------------------------------+----------+
 | Image ID                             | Member ID                        | Status   |
@@ -144,7 +144,7 @@
 
 此时镜像的状态就变为了accepted，切换至userA账户中查看镜像列表信息，命令如下所示：
 
-```plain
+```text
 [root@controller ~]# export OS_PROJECT_NAME=deyA
 [root@controller ~]# export OS_USERNAME=userA
 [root@controller ~]# export OS_PASSWORD=123456

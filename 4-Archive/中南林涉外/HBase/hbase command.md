@@ -144,6 +144,6 @@ drop_namespace 'my_namespace'
 show_filters '<table_name>'
 ```
 
-```plain
+```text
 你可以根据具体需求修改这些命令。
 ```

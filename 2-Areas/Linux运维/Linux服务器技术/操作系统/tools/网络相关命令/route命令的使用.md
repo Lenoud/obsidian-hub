@@ -3,7 +3,7 @@
 Linux route 命令管理路由表。
 
 ##
-```shell
+```text
 #添加网关/设置网关
 route add -net 172.17.0.0 netmask 255.255.255.0 dev eth0
 route add -net 172.17.0.0 netmask 255.255.255.0 gw  172.17.0.1

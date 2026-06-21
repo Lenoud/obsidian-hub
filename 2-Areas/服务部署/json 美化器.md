@@ -2,7 +2,7 @@
 
 json 美化器相关技术笔记。
 
-```shell
+```yaml
 services:
   jsonhero:
     container_name: jsonhero

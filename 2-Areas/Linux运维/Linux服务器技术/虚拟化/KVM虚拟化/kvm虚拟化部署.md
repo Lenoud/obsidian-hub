@@ -2,7 +2,7 @@
 
 安装工具
 
-```shell
+```bash
 
 #安装kvm和依赖包
 yum -y install mesa-libGLES-devel.x86_64 mesa-dri-drivers

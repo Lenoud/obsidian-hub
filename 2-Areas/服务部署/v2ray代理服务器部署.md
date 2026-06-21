@@ -4,7 +4,7 @@ v2ray 代理服务器的一键部署和配置说明。
 
 ## 部署脚本
 
-```shell
+```text
 bash <(wget -qO- -o- https://git.io/v2ray.sh)
 ```
 

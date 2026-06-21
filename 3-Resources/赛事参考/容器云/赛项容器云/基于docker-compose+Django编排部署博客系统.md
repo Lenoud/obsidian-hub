@@ -24,7 +24,7 @@ Docker和Docker Compose已安装完成，将提供的软件包DjangoBlog.tar.gz�
 
 下载并解压软件包：
 
-```plain
+```text
 [root@master ~]# wget http://mirrors.douxuedu.com/competition/DjangoBlog.tar.gz
 [root@master ~]# tar -xf DjangoBlog.tar.gz
 [root@master ~]# ll DjangoBlog
@@ -51,7 +51,7 @@ drwxr-xr-x 6 root root     16384 Jan 10 01:52 yum
 
 导入CentOS:7.9.2009镜像：
 
-```plain
+```text
 [root@master ~]# docker load -i DjangoBlog/CentOS_7.9.2009.tar
 Loaded image: centos:centos7.9.2009
 ```
@@ -60,13 +60,13 @@ Loaded image: centos:centos7.9.2009
 
 初始化Kubernetes集群：
 
-```plain
+```text
 [root@master ~]# init-cluster
 ```
 
 查看集群状态：
 
-```plain
+```text
 [root@master ~]# kubectl cluster-info
 Kubernetes control plane is running at https://apiserver.cluster.local:6443
 CoreDNS is running at https://apiserver.cluster.local:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
@@ -80,7 +80,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
 编写yum源配置文件：
 
-```plain
+```ini
 [root@master ~]# cd DjangoBlog/
 [root@master DjangoBlog]# vi local.repo
 [yum]
@@ -92,7 +92,7 @@ enabled=1
 
 编写Dockerfile：
 
-```plain
+```bash
 [root@master DjangoBlog]# vi Dockerfile-memcached
 FROM centos:centos7.9.2009
 MAINTAINER Chinaskills
@@ -109,7 +109,7 @@ ENTRYPOINT /usr/bin/memcached -u root
 
 构建镜像：
 
-```plain
+```bash
 [root@master DjangoBlog]# docker build -t blog-memcached:v1.0 -f Dockerfile-memcached .
 Sending build context to Docker daemon    606MB
 Step 1/9 : FROM centos:centos7.9.2009
@@ -148,7 +148,7 @@ Successfully tagged blog-memcached:v1.0
 
 编写数据库初始化脚本：
 
-```plain
+```bash
 [root@master DjangoBlog]# vi mysql_init.sh
 #!/bin/bash
 mysql_install_db --user=root
@@ -161,7 +161,7 @@ mysql -uroot -proot -e "create database djangoblog;use djangoblog;source /opt/sq
 
 编写Dockerfile文件：
 
-```plain
+```bash
 [root@master DjangoBlog]# vi Dockerfile-mariadb
 FROM centos:centos7.9.2009
 MAINTAINER Chinaskills
@@ -181,7 +181,7 @@ CMD ["mysqld_safe","--user=root"]
 
 构建镜像：
 
-```plain
+```bash
 [root@master DjangoBlog]# docker build -t blog-mysql:v1.0 -f Dockerfile-mariadb .
 Sending build context to Docker daemon    606MB
 Step 1/12 : FROM centos:centos7.9.2009
@@ -229,7 +229,7 @@ Successfully tagged blog-mysql:v1.0
 
 编写Dockerfile:
 
-```plain
+```bash
 [root@master DjangoBlog]# vi Dockerfile-nginx
 FROM centos:centos7.9.2009
 MAINTAINER Chinaskills
@@ -247,7 +247,7 @@ CMD ["nginx","-g","daemon off;"]
 
 构建镜像：
 
-```plain
+```bash
 [root@master DjangoBlog]# docker build -t blog-nginx:v1.0 -f Dockerfile-nginx .
 Sending build context to Docker daemon    602MB
 Step 1/10 : FROM centos:centos7.9.2009
@@ -289,7 +289,7 @@ Successfully tagged blog-nginx:v1.0
 
 编写Dockerfile
 
-```plain
+```bash
 [root@master DjangoBlog]# vi Dockerfile-blog
 FROM centos:centos7.9.2009
 MAINTAINER Chinaskills
@@ -319,7 +319,7 @@ ENTRYPOINT ["/code/djangoBlog/bin/docker_start.sh"]
 
 构建镜像：
 
-```plain
+```bash
 [root@master DjangoBlog]# docker build -t blog-service:v1.0 -f Dockerfile-blog .
 Sending build context to Docker daemon  813.6MB
 Step 1/22 : FROM centos:centos7.9.2009
@@ -397,7 +397,7 @@ Successfully tagged blog-service:v1.0
 
 编写docker-compose.yaml编排文件：
 
-```plain
+```yaml
 [root@k8s-master-node1 DjangoBlog]# vi docker-compose.yaml
 version: '3'
 services:
@@ -455,7 +455,7 @@ services:
 
 部署服务：
 
-```plain
+```text
 [root@k8s-master-node1 DjangoBlog]# docker-compose up -d
 [+] Running 5/5
  ⠿ Network djangoblog_default   Created                          0.2s

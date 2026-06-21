@@ -9,7 +9,7 @@ Docker搭建相关技术笔记。
 2. [公共仓库](https://hub.docker.com/)
 3. [安装文档](https://docs.docker.com/get-docker/)
 
-```shell
+```bash
 #1.先卸载低版本的docker
 yum remove docker*
 
@@ -68,7 +68,7 @@ EOF
 
 #
 docker离线安装
-```shell
+```ini
 #docker离线安装
 #下载网址 ：https://download.docker.com/linux/static/stable/x86_64/docker-20.10.10.tgz
 curl -O https://download.docker.com/linux/static/stable/x86_64/docker-20.10.10.tgz
@@ -136,7 +136,7 @@ systemctl start docker
 
 ```
 
-```shell
+```ini
 [docker-ce-stable]
 name=Docker CE Stable - $basearch
 baseurl=https://mirrors.aliyun.com/docker-ce/linux/centos/$releasever/$basearch/stable

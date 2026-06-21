@@ -8,7 +8,7 @@
 | alertmanager | 0.25.0 |
 
 # 软件包下载
-```shell
+```text
 #官方网站
 https://prometheus.io/download/
 #Prometheus下载
@@ -22,7 +22,7 @@ wget https://dl.grafana.com/enterprise/release/grafana-enterprise-9.4.3.linux-am
 ```
 
 # 环境配置
-```shell
+```bash
 #关闭防火墙
 systemctl stop firewalld
 systemctl disable firewalld
@@ -37,7 +37,7 @@ chown -R prometheus:prometheus /opt/prometheus
 ```
 
 # 部署服务
-```shell
+```bash
 #解压所有软件包
 tar -zxvf alertmanager-0.25.0.linux-amd64.tar.gz -C /opt/prometheus/
 tar -zxvf grafana-enterprise-9.4.3.linux-amd64.tar.gz -C /opt/prometheus/
@@ -52,7 +52,7 @@ mv /opt/prometheus/prometheus-2.37.6.linux-amd64/  /opt/prometheus/prometheus
 ```
 
 # 启动服务
-```shell
+```text
 systemctl daemon-reload
 systemctl enable prometheus --now
 systemctl enable alertmanager --now
@@ -66,7 +66,7 @@ systemctl enable node_exporter --now
 
 #热加载配置 curl -X POST [http://localhost:9090/-/reload](http://localhost:9090/-/reload)
 
-```shell
+```bash
 # my global config
 global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
@@ -109,7 +109,7 @@ scrape_configs:
 ```
 
 ## 告警配置
-```shell
+```yaml
 groups:
 - name: Prometheus alert
   rules:
@@ -124,7 +124,7 @@ groups:
       description: "{{ $labels.job }} 服务已关闭"
 ```
 
-```shell
+```yaml
 groups:
 - name: DockerContainers
   rules:
@@ -147,7 +147,7 @@ groups:
       description: "5分钟检查容器不存在，值为: {{ $value }}"
 ```
 
-```shell
+```yaml
 groups:
 - name: MySQL
   rules:
@@ -171,7 +171,7 @@ groups:
 
 ```
 
-```shell
+```yaml
 groups:
 - name: Nginx
   rules:
@@ -239,7 +239,7 @@ curl -X POST [http://localhost:9093/-/reload](http://localhost:9093/-/reload)
 
 TWYLFnMDN7s5FQUv
 
-```shell
+```yaml
 global:  # 全局配置部分
 
   # 配置告警邮箱
@@ -279,7 +279,7 @@ inhibit_rules:  # 抑制规则配置部分
 # 注册到systemd
 /lib/systemd/system/
 
-```shell
+```ini
 [Unit]
 Description=Alert Manager
 Wants=network-online.target
@@ -300,7 +300,7 @@ WantedBy=multi-user.target
 
 ```
 
-```shell
+```ini
 [Unit]
 Description=Grafana server
 Documentation=http://docs.grafana.org
@@ -316,7 +316,7 @@ ExecStart=/opt/prometheus/grafana/bin/grafana-server \
 WantedBy=multi-user.target
 ```
 
-```shell
+```ini
 [Unit]
 Description=node_exporter
 Documentation=https://prometheus.io/
@@ -351,7 +351,7 @@ WantedBy=multi-user.target
 
 ```
 
-```shell
+```ini
 [Unit]
 Description=Prometheus Server
 Documentation=https://prometheus.io/docs/introduction/overview/

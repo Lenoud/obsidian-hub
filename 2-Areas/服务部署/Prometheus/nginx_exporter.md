@@ -5,7 +5,7 @@ nginx_exporter相关技术笔记。
 nginx-dashboard-id=12708
 
 ## nginx_exporter-docker-compose
-```shell
+```yaml
 version: '3.0'
 services:
   nginx_exporter:
@@ -65,7 +65,7 @@ server {
 ```
 
 ## 检查是否开启stub_status
-```shell
+```text
 curl 192.168.100.251/stub_status
 #输出如下
 Active connections: 1

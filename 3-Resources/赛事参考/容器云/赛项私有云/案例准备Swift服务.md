@@ -22,7 +22,7 @@
 
 在OpenStack平台中使用命令“swift stat”查看对象存储服务状态，执行命令如下所示：
 
-```plain
+```yaml
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# swift stat
                Account: AUTH_563a1bd3cee84608913f046e5a39fffd
@@ -40,7 +40,7 @@ X-Openstack-Request-Id: tx308afd55a7dd4527bebee-00601a64f6
 
 通过“openstack container create”命令创建容器，命令格式如下所示：
 
-```plain
+```ini
 [root@controller ~]# openstack  help container create
 usage: openstack container create [-h] [-f {csv,json,table,value,yaml}]
                                   [-c COLUMN] [--max-width <integer>]
@@ -52,7 +52,7 @@ usage: openstack container create [-h] [-f {csv,json,table,value,yaml}]
 
 使用命令创建容器，名称为“swift-test”，操作命令如下：
 
-```plain
+```text
 [root@controller ~]# openstack  container create  swift-test
 +---------------------------------------+----------+------------------------------------+
 | account                               |container | x-trans-id                         |
@@ -65,7 +65,7 @@ usage: openstack container create [-h] [-f {csv,json,table,value,yaml}]
 
 使用命令查询容器列表信息，命令如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack container list
 +------------+
 | Name       |
@@ -76,7 +76,7 @@ usage: openstack container create [-h] [-f {csv,json,table,value,yaml}]
 
 使用命令查询容器详细信息，命令如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack container show swift-test
 +--------------+---------------------------------------+
 | Field        | Value                                 |
@@ -92,7 +92,7 @@ usage: openstack container create [-h] [-f {csv,json,table,value,yaml}]
 
 创建完容器后，可以创建对象，通过使用命令“openstack object create”在对象中创建对象。命令格式如下所示：
 
-```plain
+```ini
 [root@controller ~]# openstack help object create
 usage: openstack object create [-h] [-f {csv,json,table,value,yaml}]
                                [-c COLUMN] [--max-width <integer>]
@@ -104,14 +104,14 @@ usage: openstack object create [-h] [-f {csv,json,table,value,yaml}]
 
 在使用命令创建对象前，需要将上传后的目录结构在本地创建。在本地创建名为“test”的目录“/root/test”，将/root/anaconda-ks.cfg文件复制至“/root/test”目录中。命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# mkdir test
 [root@controller ~]# cp anaconda-ks.cfg test/
 ```
 
 创建对象的过程也是向容器中上传文件，使用命令创建“test/anaconda-ks.cfg”和“anaconda-ks.cfg”对象。操作命令如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack object create swift-test test/anaconda-ks.cfg
 +----------------------+------------+----------------------------------+
 | object               | container  | etag                             |
@@ -124,7 +124,7 @@ usage: openstack object create [-h] [-f {csv,json,table,value,yaml}]
 
 创建完对象后，通过命令查看容器中对象信息，使用命令“openstack object list”查看对象信息，命令格式如下所示：
 
-```plain
+```ini
 [root@controller ~]# openstack  help object list
 usage: openstack object list [-h] [-f {csv,json,table,value,yaml}] [-c COLUMN]
                              [--max-width <integer>] [--fit-width]
@@ -139,7 +139,7 @@ usage: openstack object list [-h] [-f {csv,json,table,value,yaml}] [-c COLUMN]
 
 使用命令查看容器“swift-test”中所有对象信息，操作命令如下：
 
-```plain
+```text
 [root@controller ~]# openstack object list swift-test
 +----------------------+
 | Name                 |
@@ -150,7 +150,7 @@ usage: openstack object list [-h] [-f {csv,json,table,value,yaml}] [-c COLUMN]
 
 通过查询命令可以看出，在通过命令上传对象时，本地路径即为容器内对象路径。使用命令“openstack object show”查询“swift-test”容器中“test/anaconda-ks.cfg”对象详细信息，命令如下所示：
 
-```plain
+```text
 [root@controller opt]# openstack object show swift-test test/anaconda-ks.cfg
 +----------------+---------------------------------------+
 | Field          | Value                                 |
@@ -169,7 +169,7 @@ usage: openstack object list [-h] [-f {csv,json,table,value,yaml}] [-c COLUMN]
 
 存储在容器中的对象，可以在需要使用时，通过“openstack object save”命令进行下载至本地，命令格式如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack help object save
 usage: openstack object save [-h] [--file <filename>] <container> <object>
 
@@ -178,7 +178,7 @@ Save object locally
 
 使用命令将“swift-test”容器中“test/anaconda-ks.cfg”对象下载至本地/opt/目录下。操作命令如下所示：
 
-```plain
+```text
 [root@controller ~]# cd /opt/
 [root@controller opt]# openstack object save swift-test test/anaconda-ks.cfg
 [root@controller opt]# ls test/
@@ -189,14 +189,14 @@ anaconda-ks.cfg
 
 使用“openstack object delete”命令删除容器内的对象，命令格式如下所示：
 
-```plain
+```text
 [root@controller opt]# openstack help object delete
 usage: openstack object delete [-h] <container> <object> [<object> ...]
 ```
 
 使用删除对象命令将“swift-test”容器内“test/anaconda-ks.cfg”删除，查看“swift-test”容器中对象列表信息。操作命令如下所示：
 
-```plain
+```text
 [root@controller opt]# openstack object delete swift-test test/anaconda-ks.cfg
 [root@controller opt]# openstack object list swift-test
 ```
@@ -205,7 +205,7 @@ usage: openstack object delete [-h] <container> <object> [<object> ...]
 
 使用“openstack container delete”命令删除容器，命令格式如下所示：
 
-```plain
+```text
 [root@controller opt]# openstack help container delete
 usage: openstack container delete [-h] [--recursive]
                                   <container> [<container> ...]
@@ -213,13 +213,13 @@ usage: openstack container delete [-h] [--recursive]
 
 使用删除容器命令将“swift-test”容器删除：
 
-```plain
+```text
 [root@controller opt]# openstack container delete swift-test
 ```
 
 查看容器列表信息。操作命令如下：
 
-```plain
+```text
 [root@controller opt]# openstack container list
 [root@controller opt]# cd
 ```
@@ -230,7 +230,7 @@ usage: openstack container delete [-h] [--recursive]
 
 使用命令创建一个容器test并查看容器的状态信息，命令如下：
 
-```plain
+```yaml
 [root@controller ~]# swift post test
 [root@controller ~]# swift stat test
                Account: AUTH_13b5e35202d54a84ae7a5ae5c57b9846
@@ -254,7 +254,7 @@ X-Openstack-Request-Id: tx1523620b734d425fb7249-006204b7f7
 
 将提供的cirros-0.3.4-x86_64-disk.img镜像上传至controller节点的/root目录下，并使用命令上传至test容器中，进行分片存储，每个片段的大小为10M，命令如下：
 
-```plain
+```text
 [root@controller ~]# curl -O http://mirrors.douxuedu.com/newcloud/cirros-0.3.4-x86_64-disk.img
 [root@controller ~]# ll
 total 8088152
@@ -264,7 +264,7 @@ total 8088152
 
 上传镜像至容器并进行分片：
 
-```plain
+```text
 [root@controller ~]# swift upload test -S 10000000 cirros-0.3.4-x86_64-disk.img
 cirros-0.3.4-x86_64-disk.img segment 0
 cirros-0.3.4-x86_64-disk.img segment 1
@@ -273,7 +273,7 @@ cirros-0.3.4-x86_64-disk.img
 
 查看cirros镜像的存储路径：
 
-```plain
+```yaml
 [root@controller ~]#  swift stat test cirros-0.3.4-x86_64-disk.img
                Account: AUTH_13b5e35202d54a84ae7a5ae5c57b9846
              Container: test
@@ -292,7 +292,7 @@ X-Openstack-Request-Id: tx80ea2f784bd046f1813c7-006204b85a
 
 查看存储路径中的数据片：
 
-```plain
+```text
 [root@controller ~]# swift list test_segments
 cirros-0.3.4-x86_64-disk.img/1644463107.000000/13267968/10000000/00000000
 cirros-0.3.4-x86_64-disk.img/1644463107.000000/13267968/10000000/00000001

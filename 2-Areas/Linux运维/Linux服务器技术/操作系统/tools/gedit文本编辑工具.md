@@ -2,7 +2,7 @@
 
 gedit 是 GNOME 桌面环境的图形化文本编辑工具。
 
-```shell
+```bash
 #安装gedit工具
 yum -y install gedit
 #安装x11服务可在支持x11转发的cmd客户端使用图形化界面
@@ -31,7 +31,7 @@ sudo netstat -antup | grep Xorg
 ssh -Y root@192.168.100.40
 ```
 
-```shell
+```bash
 #Ubuntu 20.04.4 安装方式
 # 检查可安装程序
 sudo apt list | grep xrdp

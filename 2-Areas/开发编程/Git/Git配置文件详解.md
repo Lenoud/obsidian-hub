@@ -14,7 +14,7 @@ Git 的配置文件主要有三个级别，即如下表：
 ## Git config命令详解
 ### 增加配置
 #### 语法
-```plain
+```text
 git config [--local|--global|--system] --add section.key value
 ```
 
@@ -23,7 +23,7 @@ git config [--local|--global|--system] --add section.key value
 
 ### 获取配置
 #### 语法
-```plain
+```text
 git config [--local|--global|--system] --get section.key
 ```
 
@@ -32,7 +32,7 @@ git config [--local|--global|--system] --get section.key
 
 ### 删除配置
 #### 语法
-```plain
+```text
 git config [--local|--global|--system] --unset section.key
 ```
 
@@ -81,14 +81,14 @@ git config --list --show-origin查看配置文件位置和详情
 
 ## 增加配置
 ### 语法
-```plain
+```text
 git config [--local|--global|--system] --add section.key value
 ```
 
 ### 案例
 我们首先创建一个空文件夹，接着，我们打开 git 命令行工具并使用 git init 命令，初始化一个空仓库，具体命令如下：
 
-```plain
+```text
 git init
 ```
 
@@ -98,7 +98,7 @@ git init
 
 现在，我们使用 git config 命令，添加一个配置项，具体命令如下：
 
-```plain
+```text
 git config --local --add module.url haicodernet
 ```
 
@@ -108,7 +108,7 @@ git config --local --add module.url haicodernet
 
 即，我们成功添加了一个配置项，现在，我们可以使用 git config -l 命令，查看配置项，具体命令如下：
 
-```plain
+```text
 git config --local -l
 ```
 
@@ -120,14 +120,14 @@ git config --local -l
 
 ## 获取配置
 ### 语法
-```plain
+```text
 git config [--local|--global|--system] --get section.key
 ```
 
 ### 案例
 我们使用 git config --get 命令，获取刚刚上面设置的配置，具体命令如下：
 
-```plain
+```text
 git config --local --get module.url
 ```
 
@@ -139,14 +139,14 @@ git config --local --get module.url
 
 ## 删除配置
 ### 语法
-```plain
+```text
 git config [--local|--global|--system] --unset section.key
 ```
 
 ### 案例
 我们使用 git config --unset 命令，删除刚刚上面设置的配置，具体命令如下：
 
-```plain
+```text
 git config --local --unset module.url
 ```
 
@@ -156,7 +156,7 @@ git config --local --unset module.url
 
 现在，我们再次使用 git config --get 获取该配置项，具体命令如下：
 
-```plain
+```text
 git config --local --get module.url
 ```
 
@@ -168,14 +168,14 @@ git config --local --get module.url
 
 ## 查看配置
 ### 语法
-```plain
+```text
 git config [--local|--global|--system] -l
 ```
 
 ### 案例
 我们使用 git config -l 命令，查看配置，具体命令如下：
 
-```plain
+```text
 git config -l
 ```
 
@@ -185,7 +185,7 @@ git config -l
 
 我们看到，此时输出了全部的配置项，我们还可以指定我们需要查看的配置项，具体命令如下：
 
-```plain
+```text
 git config --local -l
 ```
 
@@ -197,14 +197,14 @@ git config --local -l
 
 ## 编辑配置
 ### 语法
-```plain
+```text
 git config [--local|--global|--system] -e
 ```
 
 ### 案例
 我们使用 git config -e 命令，编辑配置，具体命令如下：
 
-```plain
+```text
 git config -e
 ```
 
@@ -216,14 +216,14 @@ git config -e
 
 ## 添加配置
 ### 语法
-```plain
+```text
 git config [--local|--global|--system] section.key value
 ```
 
 ### 案例
 我们使用 git config 命令，添加配置，具体命令如下：
 
-```plain
+```text
 git config --local haicoder.url www.haicoder.net
 ```
 
@@ -233,7 +233,7 @@ git config --local haicoder.url www.haicoder.net
 
 现在，我们使用 git config 命令，查看配置，具体命令如下：
 
-```plain
+```text
 git config --local -l
 ```
 

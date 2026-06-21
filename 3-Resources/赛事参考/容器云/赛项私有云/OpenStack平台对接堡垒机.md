@@ -28,7 +28,7 @@
 
 远程连接堡垒机节点，修改节点的主机名为jumpserver，修改主机名后，执行bash命令 或者刷新斗学网页面以生效新主机名，如下所示：
 
-```plain
+```text
 [root@jumpserver ~]# hostnamectl set-hostname jumpserver
 ```
 
@@ -36,7 +36,7 @@
 
 将节点的防火墙与SELinux关闭，并设置永久关闭SELinux，命令如下：
 
-```plain
+```text
 [root@jumpserver ~]# setenforce 0
 [root@jumpserver ~]# sed  -i  s#SELINUX=enforcing#SELINUX=disabled#   /etc/selinux/config
 [root@jumpserver ~]# iptables -F
@@ -49,13 +49,13 @@
 
 使用提供的软件包配置Yum源，通过地址将jumpserver.tar.gz软件包下载至Jumpserver节点的/root目录下。
 
-```plain
+```text
 [root@jumpserver ~]# curl -O http://mirrors.douxuedu.com/competition/jumpserver.tar.gz
 ```
 
 解压软件包jumpserver.tar.gz至/root目录下，命令如下：
 
-```plain
+```bash
 [root@jumpserver ~]# tar -zxvf jumpserver.tar.gz -C /opt/
 [root@jumpserver ~]# ls /opt/
 compose  config  docker  docker.service  images  jumpserver-repo  static.env
@@ -63,7 +63,7 @@ compose  config  docker  docker.service  images  jumpserver-repo  static.env
 
 将默认Yum源移至其他目录，创建本地Yum源文件，命令及文件内容如下：
 
-```plain
+```ini
 [root@jumpserver ~]# mv /etc/yum.repos.d/* /media/
 [root@jumpserver ~]# cat >> /etc/yum.repos.d/jumpserver.repo << EOF
 [jumpserver]
@@ -81,13 +81,13 @@ jumpserver	jumpserver		2
 
 安装Python数据库，命令如下：
 
-```plain
+```text
 [root@jumpserver ~]# yum install python2 -y
 ```
 
 安装配置Docker环境，命令如下：
 
-```plain
+```bash
 [root@jumpserver ~]# cp -rf /opt/docker/* /usr/bin/
 [root@jumpserver ~]# chmod 775 /usr/bin/docker*
 [root@jumpserver ~]# cp -rf /opt/docker.service /etc/systemd/system/
@@ -98,7 +98,7 @@ jumpserver	jumpserver		2
 
 验证服务状态，命令如下：
 
-```plain
+```text
 [root@jumpserver ~]# docker --version
 Docker version 18.06.3-ce, build d7080c1
 [root@jumpserver ~]# docker-compose --version
@@ -109,21 +109,21 @@ docker-compose version 1.27.4, build 40524192
 
 加载Jumpserver服务组件镜像，命令如下：
 
-```plain
+```text
 [root@jumpserver ~]# cd /opt/images/
 [root@jumpserver images]# sh load.sh
 ```
 
 创建Jumpserver服务组件目录，命令如下：
 
-```plain
+```bash
 [root@jumpserver images]# mkdir -p /opt/jumpserver/{core,koko,lion,mysql,nginx,redis}
 [root@jumpserver images]# cp -rf /opt/config /opt/jumpserver/
 ```
 
 生效环境变量static.env，使用所提供的脚本up.sh启动Jumpserver服务，命令如下：
 
-```plain
+```bash
 [root@jumpserver images]# cd /opt/compose/
 [root@jumpserver compose]# source /opt/static.env
 [root@jumpserver compose]# sh up.sh

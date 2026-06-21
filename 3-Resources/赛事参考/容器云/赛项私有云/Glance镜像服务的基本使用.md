@@ -22,7 +22,7 @@
 
 CirrOS是一个极小的云操作系统，可以使用这个小的操作系统来进行Glance服务组件的操作练习。将提供的cirros-0.3.4-x86_64-disk.img镜像上传到controller节点的root目录下面。
 
-```plain
+```text
 [root@controller ~]# curl -O http://mirrors.douxuedu.com/newcloud/cirros-0.3.4-x86_64-disk.img
 [root@controller ~]# ls
 …
@@ -31,7 +31,7 @@ cirros-0.3.4-x86_64-disk.img
 
 将镜像上传至controller节点后，通过file命令查看镜像文件信息。
 
-```plain
+```text
 [root@controller ~]# file cirros-0.3.4-x86_64-disk.img
 cirros-0.3.4-x86_64-disk.img: QEMU QCOW Image (v2), 41126400 bytes
 ```
@@ -40,7 +40,7 @@ cirros-0.3.4-x86_64-disk.img: QEMU QCOW Image (v2), 41126400 bytes
 
 通过命令创建镜像，命令的格式如下：
 
-```plain
+```ini
 [root@controller ~]# glance help image-create
 usage: glance image-create [--architecture <ARCHITECTURE>]
                            [--protected [True|False]] [--name <NAME>]
@@ -72,7 +72,7 @@ usage: glance image-create [--architecture <ARCHITECTURE>]
 
 使用镜像cirros-0.3.4-x86_64-disk.img通过命令上传镜像至OpenStack中。
 
-```plain
+```bash
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# glance image-create --name cirros-0.3.4 --disk-format qcow2 --container-format bare --progress < cirros-0.3.4-x86_64-disk.img
 [=============================>] 100%
@@ -109,7 +109,7 @@ usage: glance image-create [--architecture <ARCHITECTURE>]
 
 通过命令可以在OpenStack平台中查看当前Glance中所上传的镜像名称。具体命令如下：
 
-```plain
+```text
 [root@controller ~]# glance image-list
 +--------------------------------------+--------------+
 | ID                                   | Name         |
@@ -120,7 +120,7 @@ usage: glance image-create [--architecture <ARCHITECTURE>]
 
 也可以使用命令查看镜像的详细信息。具体命令如下：
 
-```plain
+```bash
 [root@controller ~]# glance image-show  32a2513c-e5ba-438b-a5ee-63c35c03b284
 +------------------+--------------------------------------------------------------------+
 | Property         | Value                                                              |
@@ -153,7 +153,7 @@ usage: glance image-create [--architecture <ARCHITECTURE>]
 
 可以使用glance image-update更新镜像信息，命令的格式如下：
 
-```plain
+```ini
 [root@controller ~]# glance help image-update
 usage: glance image-update [--architecture <ARCHITECTURE>]
                            [--protected [True|False]] [--name <NAME>]
@@ -183,7 +183,7 @@ usage: glance image-update [--architecture <ARCHITECTURE>]
 
 如果需要改变镜像启动硬盘最低要求值（min-disk）1G，min-disk默认单位为G。使用glance image-update更新镜像信息操作如下：
 
-```plain
+```bash
 [root@controller ~]# glance image-update --min-disk=1 32a2513c-e5ba-438b-a5ee-63c35c03b284
 +------------------+--------------------------------------------------------------------+
 | Property         | Value                                                              |
@@ -214,7 +214,7 @@ usage: glance image-update [--architecture <ARCHITECTURE>]
 
 也可以使用命令更新镜像启动内存最低要求值（min-ram）为1G，min-ram默认单位为M。使用glance image-update更新镜像信息操作如下：
 
-```plain
+```bash
 [root@controller ~]# glance image-update --min-ram=1024 32a2513c-e5ba-438b-a5ee-63c35c03b284
 +------------------+--------------------------------------------------------------------+
 | Property         | Value                                                              |
@@ -247,7 +247,7 @@ usage: glance image-update [--architecture <ARCHITECTURE>]
 
 可以使用glance image-delete删除上传至OpenStack平台中的镜像，使用命令格式如下：
 
-```plain
+```text
 [root@controller ~]# glance help image-delete
 usage: glance image-delete <IMAGE_ID> [<IMAGE_ID> ...]
 
@@ -261,7 +261,7 @@ Run `glance --os-image-api-version 1 help image-delete` for v1 help
 
 只需要在命令后跟上镜像ID即可。命令如下：
 
-```plain
+```text
 [root@controller ~]# glance image-delete 32a2513c-e5ba-438b-a5ee-63c35c03b284
 [root@controller ~]# glance image-list
 +--------------------------------------+-------------------------------+

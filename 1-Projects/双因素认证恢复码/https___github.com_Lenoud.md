@@ -1,4 +1,4 @@
-```plain
+```text
 16e28-7cfe6
 ef1f3-f6734
 b6db8-22226

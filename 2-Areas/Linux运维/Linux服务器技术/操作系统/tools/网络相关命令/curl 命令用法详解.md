@@ -2,7 +2,7 @@
 
 curl 命令的用法详解，支持多种协议的数据传输。
 
-```shell
+```text
 -d, --data <data>
 #主要是针对 http 协议的 post 请求指定要在消息体中发送的数据。
 
@@ -28,27 +28,27 @@ curl 命令的用法详解，支持多种协议的数据传输。
 
 利用 _-X_、_-H_ 和 _-d_ 参数进行 post 请求，示例如下：
 
-```shell
+```text
 curl -X POST -H "Content-Type:application/json" -d '{"msg_type":"text","content":{"text":"新更新提醒"}}' https://xxxx.xxxxx.xxx/notify
 ```
 
 ### curl 命令将响应返回保存成文件
 利用 -o 参数可以将接口返回的数据直接保存成指定的文件，示例如下：
 
-```shell
+```text
 curl -X GET -o result.txt http://www.baidu.com
 ```
 
 返回结果中包含响应头 -i
 
-```shell
+```text
 curl -X HEAD -i http://x.x.x.x:xx/xxx/xxxx
 #和下面等同
 curl --include http://x.x.x.x:xx/xxx/xxxx
 ```
 
 ### 只返回 header
-```shell
+```text
 curl -X HEAD -I http://x.x.x.x:xx/xxx/xxxx
 curl -X HEAD --head http://x.x.x.x:xx/xxx/xxxx
 ```

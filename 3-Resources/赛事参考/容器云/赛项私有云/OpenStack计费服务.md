@@ -22,7 +22,7 @@
 
 创建云主机服务instance_test，通过命令创建Service服务。命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# openstack rating hashmap service create instance_test
 +---------------+--------------------------------------+
@@ -35,7 +35,7 @@
 
 并对其创建名为flavor_name的fields，使用命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack rating hashmap field create cf8029bf-dc35-4e40-b8fd-5af4a4d25a30 flavor_name
 +-------------+--------------------------------------+----------------------------------+
 | Name        | Field ID                             | Service ID                       |
@@ -46,7 +46,7 @@
 
 并设置规格为m1.small的云主机单价为1元，使用命令如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack rating hashmap mapping create  --field-id b2f0d485-df20-4f2e-bd44-d3696971cb8f  -t flat --value  m1.small 1
 +--------------------------------------+----------+------------+------+--------------------------------------+------------+----------+------------+
 | Mapping ID                           | Value    | Cost       | Type | Field ID                             | Service ID | Group ID | Project ID |
@@ -59,7 +59,7 @@
 
 创建镜像收费服务image_size_test，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack rating hashmap service create image_size_test
 +-----------------+--------------------------------------+
 | Name            | Service ID                           |
@@ -70,7 +70,7 @@
 
 并为该服务单价设置为0.8元，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack rating hashmap mapping create -s  80a098cf-d793-47cf-b63e-df6cbd56e88d   -t flat 0.8
 +--------------------------------------+-------+------------+------+----------+--------------------------------------+----------+------------+
 | Mapping ID                           | Value | Cost       | Type | Field ID | Service ID                           | Group ID | Project ID |
@@ -83,7 +83,7 @@
 
 创建名为dis_tests的服务，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack rating hashmap service create dis_tests
 +-----------+--------------------------------------+
 | Name      | Service ID                           |
@@ -94,7 +94,7 @@
 
 为dis_tests服务设置单价为0.8元，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack rating hashmap mapping create -s  b6190077-80ff-4e1f-9938-ddaff11c3506  -t flat 0.8
 +--------------------------------------+-------+------------+------+----------+--------------------------------------+----------+------------+
 | Mapping ID                           | Value | Cost       | Type | Field ID | Service ID                           | Group ID | Project ID |
@@ -105,7 +105,7 @@
 
 并设置dis_tests服务使用量超过10000时提供8折优惠，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack rating hashmap threshold create -s b6190077-80ff-4e1f-9938-ddaff11c3506 -t rate 10000 0.8
 +--------------------------------------+----------------+------------+------+----------+--------------------------------------+----------+------------+
 | Threshold ID                         | Level          | Cost       | Type | Field ID | Service ID                           | Group ID | Project ID |

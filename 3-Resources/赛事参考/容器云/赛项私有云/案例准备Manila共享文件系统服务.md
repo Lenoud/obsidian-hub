@@ -20,7 +20,7 @@
 
 重启服务：
 
-```plain
+```text
 [root@controller ~]# systemctl restart lvm2-lvmetad.service target.service openstack-manila-share nfs-server
 ```
 
@@ -30,7 +30,7 @@
 
 使用Manila命令创建default_share_type共享类型，命令如下：
 
-```plain
+```bash
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# manila type-create default_share_type False
 +----------------------+--------------------------------------+
@@ -48,7 +48,7 @@
 
 使用Manila命令查询类型列表信息。命令如下：
 
-```plain
+```text
 [root@controller ~]# manila type-list
 +--------------------------------------+--------------------+------------+------------+--------------------------------------+----------------------+-------------+
 | ID | Name | visibility | is_default | required_extra_specs | optional_extra_specs |Description |
@@ -61,7 +61,7 @@
 
 使用Manila命令创建目录大小为2G的共享目录share01，命令代码如下所示：
 
-```plain
+```bash
 [root@controller ~]# manila create NFS 2 --name share01
 +---------------------------------------+--------------------------------------+
 | Property                              | Value                                |
@@ -99,7 +99,7 @@
 
 使用Manila命令查询所创建的共享目录列表信息，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# manila list
 +--------------------------------------+---------+------+-------------+-----------+-----------+--------------------+-----------------------------+-------------------+
 | ID                                   | Name    | Size | Share Proto | Status    | Is Public | Share Type Name    | Host                        | Availability Zone |
@@ -112,7 +112,7 @@
 
 使用Manila命令开放share01目录对OpenStack管理网段使用权限，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# manila access-allow share01 ip 127.0.0.0/24 --access-level rw
 +--------------+--------------------------------------+
 | Property     | Value                                |
@@ -132,7 +132,7 @@
 
 查看share01目录共享目录权限及开放网段，命令如下所示：
 
-```plain
+```text
 [root@controller ~]# manila access-list share01
 +--------------------------------------+-------------+--------------+--------------+--------+------------+----------------------------+------------+
 | id                                   | access_type | access_to    | access_level | state  | access_key | created_at                 | updated_at |
@@ -143,20 +143,20 @@
 
 查看share01共享文件目录的访问路径，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# manila show share01 | grep path | cut -d'|' -f3
  path = 127.0.0.1:/var/lib/manila/mnt/share-1c4368ee-f9eb-4b23-9861-625f6ce3b299
 ```
 
 在OpenStack控制节点将share01共享目录挂载至/mnt目录下，命令如下所示：
 
-```plain
+```text
 [root@controller ~]# mount -t nfs 127.0.0.1:/var/lib/manila/mnt/share-1c4368ee-f9eb-4b23-9861-625f6ce3b299 /mnt
 ```
 
 在控制节点查询挂载信息，可以看到share01共享路径挂载至/mnt目录下。命令如下所示：
 
-```plain
+```text
 [root@controller ~]# df -Th
 Filesystem                                                               Type      Size  Used Avail Use% Mounted on
 devtmpfs                                                                 devtmpfs  5.8G     0  5.8G   0% /dev

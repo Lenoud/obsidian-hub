@@ -38,7 +38,7 @@
 
 （1）修改主机名，修改主机名后，执行bash命令 或者刷新斗学网页面以生效新主机名。
 
-```plain
+```yaml
 [root@node-1 ~]# hostnamectl set-hostname node-1
 [root@node-1 ~]# hostnamectl
    Static hostname: node-1
@@ -55,7 +55,7 @@
 
 （2）将提供的elasticsearch-7.17.0-linux-x86_64.tar.gz软件包下载到此节点并解压到/opt目录，进入解压后的目录并创建data目录：
 
-```plain
+```bash
 [root@node-1 ~]# curl -O http://mirrors.douxuedu.com/competition/elasticsearch-7.17.0-linux-x86_64.tar.gz
 [root@node-1 ~]# tar -zxvf elasticsearch-7.17.0-linux-x86_64.tar.gz -C /opt
 [root@node-1 ~]# cd /opt/elasticsearch-7.17.0/
@@ -64,7 +64,7 @@
 
 （3）修改Elasticsearch配置，在文件最后添加添加如下几行内容，按“i”建进入编辑模式进行配置，按ESC键输入:wq保存退出。
 
-```plain
+```text
 [root@node-1 elasticsearch-7.17.0]# vi config/elasticsearch.yml
 …
 cluster.name: my-application
@@ -80,7 +80,7 @@ http.cors.allow-headers: Authorization,X-Requested-With,Content-Length,Content-T
 
 （4）创建Elasticsearch启动用户，并设置属组及权限：
 
-```plain
+```text
 [root@node-1 elasticsearch-7.17.0]# groupadd elsearch
 [root@node-1 elasticsearch-7.17.0]# useradd elsearch -g elsearch -p elasticsearch
 [root@node-1 elasticsearch-7.17.0]# chown -R elsearch:elsearch /opt/elasticsearch-7.17.0
@@ -88,7 +88,7 @@ http.cors.allow-headers: Authorization,X-Requested-With,Content-Length,Content-T
 
 （5）修改资源限制及内核配置，添加如下内容：
 
-```plain
+```text
 [root@node-1 elasticsearch-7.17.0]# vi /etc/security/limits.conf
 …
 * hard    nofile           65536
@@ -103,7 +103,7 @@ vm.max_map_count=262144
 
 （6）启动Elasticsearch服务：
 
-```plain
+```text
 [root@node-1 ~]# cd /opt/elasticsearch-7.17.0/
 [root@node-1 elasticsearch-7.17.0]# su elsearch
 [elsearch@node-1 elasticsearch-7.17.0]$ ./bin/elasticsearch -d
@@ -111,7 +111,7 @@ vm.max_map_count=262144
 
 （7）查询端口，存在9200则成功启动：
 
-```plain
+```text
 [root@node-1 elasticsearch-7.17.0]# netstat -ntpl
 Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address     State    PID/Program name  tcp        0      0 0.0.0.0:22              0.0.0.0:*           LISTEN      1081/sshd      tcp        0      0 127.0.0.1:25            0.0.0.0:*           LISTEN      1041/master    tcp        0      0 0.0.0.0:111             0.0.0.0:*           LISTEN      610/rpcbind
@@ -132,7 +132,7 @@ tcp6       0      0 :::9200                 :::*                LISTEN      2261
 
 （1）将提供的jdk-8u144-linux-x64.tar.gz软件包下载至node-1节点/root/目录中，并配置jdk如下所示：
 
-```plain
+```bash
 [elsearch@node-1 elasticsearch-7.17.0]$ exit
 [root@node-1 elasticsearch-7.17.0]# cd
 [root@node-1 ~]# curl -O http://mirrors.douxuedu.com/competition/jdk-8u144-linux-x64.tar.gz
@@ -141,7 +141,7 @@ tcp6       0      0 :::9200                 :::*                LISTEN      2261
 
 修改profile环境变量文件，代码如下所示：
 
-```plain
+```bash
 [root@node-1 ~]# vi /etc/profile
 export JAVA_HOME=/usr/local/jdk1.8.0_144
 export CLASSPATH=.:${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar
@@ -155,14 +155,14 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.144-b01, mixed mode)
 
 （2）将提供的apache-skywalking-apm-es7-8.0.0.tar.gz软件包下载至node-1节点上并解压到/opt目录下：
 
-```plain
+```text
 [root@node-1 ~]# curl -O http://mirrors.douxuedu.com/competition/apache-skywalking-apm-es7-8.0.0.tar.gz
 [root@node-1 ~]# tar -zxvf apache-skywalking-apm-es7-8.0.0.tar.gz -C /opt
 ```
 
 （3）进入解压后目录，修改OAP配置文件：
 
-```plain
+```yaml
 [root@node-1 ~]# cd /opt/apache-skywalking-apm-bin-es7/
 [root@node-1 apache-skywalking-apm-bin-es7]# vi config/application.yml
 …
@@ -183,7 +183,7 @@ storage:
 
 （4）启动OAP服务，查询端口，存在11800与12800则成功启动：
 
-```plain
+```text
 [root@node-1 apache-skywalking-apm-bin-es7]# ./bin/oapService.sh
 SkyWalking OAP started successfully!
 [root@node-1 apache-skywalking-apm-bin-es7]# netstat -ntpl
@@ -205,7 +205,7 @@ tcp6       0      0 :::9200                 :::*               LISTEN      2261/
 
 （1）由于SkyWalking UI的默认地址是8080，与很多中间件可能存在冲突，修改一下：
 
-```plain
+```yaml
 [root@node-1 apache-skywalking-apm-bin-es7]# vi webapp/webapp.yml
 …
 server:
@@ -215,14 +215,14 @@ server:
 
 （2）启动SkyWalking UI服务：
 
-```plain
+```text
 [root@node-1 apache-skywalking-apm-bin-es7]# ./bin/webappService.sh
 SkyWalking Web Application started successfully!
 ```
 
 （3）查看端口，存在8888则成功启动：
 
-```plain
+```text
 [root@node-1 apache-skywalking-apm-bin-es7]# netstat -ntpl
 Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address     State    PID/Program name
@@ -251,7 +251,7 @@ tcp6       0      0 :::9200                 :::*                LISTEN      2261
 
 （1）修改mall节点主机名，修改主机名后，执行bash命令或者刷新斗学网页面以生效新主机名。
 
-```plain
+```yaml
 [root@localhost ~]# hostnamectl set-hostname mall
 [root@mall ~]# hostnamectl
    Static hostname: mall
@@ -268,7 +268,7 @@ tcp6       0      0 :::9200                 :::*                LISTEN      2261
 
 修改/etc/hosts配置文件如下：
 
-```plain
+```text
 [root@mall ~]# vi /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
@@ -280,7 +280,7 @@ tcp6       0      0 :::9200                 :::*                LISTEN      2261
 
 将提供的gpmall包下载到服务器的/root目录下并解压gpmall.tar.gz，配置本地local.repo文件，具体代码如下所示：
 
-```plain
+```ini
 [root@mall ~]# curl -O http://mirrors.douxuedu.com/competition/gpmall.tar.gz
 [root@mall ~]# tar -zxvf gpmall.tar.gz
 [root@mall ~]# mv /etc/yum.repos.d/* /media/
@@ -300,7 +300,7 @@ enabled=1
 
 ① 安装Java环境
 
-```plain
+```text
 [root@mall ~]# yum install  -y java-1.8.0-openjdk java-1.8.0-openjdk-devel
 ...
 [root@mall ~]# java  -version
@@ -311,38 +311,38 @@ OpenJDK 64-Bit Server  VM (build 25.322-b06, mixed mode)
 
 ② 安装Redis缓存服务
 
-```plain
+```text
 [root@mall ~]# yum install  redis -y
 ```
 
 ③ 安装Nginx服务
 
-```plain
+```text
 [root@mall ~]# yum  install nginx -y
 ```
 
 ④ 安装MariaDB数据库
 
-```plain
+```text
 [root@mall ~]# yum  install mariadb mariadb-server -y
 ```
 
 安装ZooKeeper服务，将提供的zookeeper-3.4.14.tar.gz解压，命令如下：
 
-```plain
+```text
 [root@mall gpmall]# tar -zxvf zookeeper-3.4.14.tar.gz -C /root/
 ```
 
 进入到zookeeper-3.4.14/conf目录下，将zoo_sample.cfg文件重命名为zoo.cfg，命令如下：
 
-```plain
+```text
 [root@mall gpmall]# cd /root/zookeeper-3.4.14/conf/
 [root@mall conf]# mv zoo_sample.cfg zoo.cfg
 ```
 
 进入到zookeeper-3.4.14/bin目录下，启动ZooKeeper服务，命令如下：
 
-```plain
+```text
 [root@mall conf]# cd ../bin
 [root@mall bin]# ./zkServer.sh start
 ZooKeeper JMX enabled by default
@@ -352,7 +352,7 @@ Starting zookeeper ... STARTED
 
 查看ZooKeeper状态，命令如下：
 
-```plain
+```text
 [root@mall bin]# ./zkServer.sh status
 ZooKeeper JMX enabled by default
 Using config: /root/zookeeper-3.4.14/bin/../conf/zoo.cfg
@@ -361,20 +361,20 @@ Mode: standalone
 
 安装Kafka服务，将提供的kafka_2.11-1.1.1.tgz解压至/root目录下，命令如下：
 
-```plain
+```text
 [root@mall bin]# tar -zxvf /root/gpmall/kafka_2.11-1.1.1.tgz -C /root
 ```
 
 进入到kafka_2.11-1.1.1/bin目录下，启动Kafka服务，命令如下：
 
-```plain
+```text
 [root@mall bin]# cd /root/kafka_2.11-1.1.1/bin/
 [root@mall bin]# ./kafka-server-start.sh -daemon ../config/server.properties
 ```
 
 使用jps或者netstat -ntpl命令查看Kafka是否成功启动，命令如下：
 
-```plain
+```text
 [root@mall bin]# jps
 6039 Kafka
 1722 QuorumPeerMain
@@ -402,7 +402,7 @@ tcp6       0      0 ::1:25                  :::*                LISTEN      887/
 
 修改/etc/my.cnf文件，添加字段如下所示：
 
-```plain
+```ini
 [root@mall bin]# cd
 [root@mall ~]# vi /etc/my.cnf
 [mysqld]
@@ -416,13 +416,13 @@ skip-character-set-client-handshake
 
 启动数据库命令如下。
 
-```plain
+```text
 [root@mall ~]#  systemctl start mariadb
 ```
 
 设置root用户的密码为123456并登录。
 
-```plain
+```text
 [root@mall ~]# mysqladmin -uroot password 123456
 [root@mall ~]# mysql -uroot -p123456
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
@@ -438,7 +438,7 @@ MariaDB [(none)]>
 
 设置root用户的权限，命令如下：
 
-```plain
+```text
 MariaDB [(none)]> grant all privileges on *.* to root@localhost identified by '123456' with grant option;
 Query OK, 0 rows affected (0.001 sec)
 
@@ -448,7 +448,7 @@ Query OK, 0 rows affected (0.001 sec)
 
 创建数据库gpmall并导入/root/gpmall/目录中的gpmall.sql文件。
 
-```plain
+```sql
 MariaDB [(none)]> create database gpmall;
 Query OK, 1 row affected (0.00 sec)
 MariaDB [(none)]> use gpmall;
@@ -457,7 +457,7 @@ MariaDB [gpmall]> source /root/gpmall/gpmall.sql
 
 退出数据库并设置开机自启。
 
-```plain
+```bash
 MariaDB [gpmall]> exit
 Bye
 [root@mall ~]# systemctl enable mariadb
@@ -474,7 +474,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/mariadb.service
 
 启动Redis服务命令如下。
 
-```plain
+```bash
 [root@mall ~]# vi /etc/redis.conf
 …
 #bind 127.0.0.1
@@ -489,7 +489,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/redis.service t
 
 启动Nginx服务命令如下。
 
-```plain
+```bash
 [root@mall ~]# systemctl start nginx
 [root@mall ~]# systemctl enable nginx
 Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service to /usr/lib/systemd/system/nginx.service.
@@ -503,7 +503,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service t
 
 修改/etc/hosts文件，修改项目全局配置文件如下（原有的172.128.11.42 mall映射删除）：
 
-```plain
+```text
 [root@mall ~]# cat /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
@@ -517,14 +517,14 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service t
 
 清空默认项目路径下的文件，将dist目录下的文件，复制到Nginx默认项目路径（文件在gpmall目录下）。
 
-```plain
+```text
 [root@mall ~]# rm -rf /usr/share/nginx/html/*
 [root@mall ~]# cp -rvf gpmall/dist/* /usr/share/nginx/html/
 ```
 
 修改Nginx配置文件/etc/nginx/nginx.conf，添加映射如下所示：
 
-```plain
+```nginx
 [root@mall ~]# vi /etc/nginx/nginx.conf
 …
     server {
@@ -558,7 +558,7 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service t
 
 重启Nginx服务，命令如下：
 
-```plain
+```text
 [root@mall ~]# systemctl restart nginx
 ```
 
@@ -568,13 +568,13 @@ Created symlink from /etc/systemd/system/multi-user.target.wants/nginx.service t
 
 将node-1节点的/opt/apache-skywalking-apm-bin-es7目录下的agent目录复制到mall节点下：
 
-```plain
+```text
 [root@mall ~]# scp -r 10.24.194.203:/opt/apache-skywalking-apm-bin-es7/agent /root
 ```
 
 修改SkyWalking agent配置文件：
 
-```plain
+```text
 [root@mall ~]# vi agent/config/agent.config
 …
 agent.service_name=${SW_AGENT_NAME:my-application}
@@ -590,7 +590,7 @@ collector.backend_service=${SW_AGENT_COLLECTOR_BACKEND_SERVICES:10.24.194.203:11
 
 将gpmall软件包中提供的4个jar包，放置探针并启动，通过设置启动参数的方式检测系统，启动命令如下：
 
-```plain
+```text
 [root@mall ~]# nohup java -javaagent:/root/agent/skywalking-agent.jar  -jar gpmall/shopping-provider-0.0.1-SNAPSHOT.jar &
 [1] 20086
 [root@mall ~]# nohup: ignoring input and appending output to ‘nohup.out’

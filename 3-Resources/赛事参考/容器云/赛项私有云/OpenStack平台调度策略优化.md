@@ -26,13 +26,13 @@
 
 大量用户同时创建云主机，会对云平台的两个服务造成性能瓶颈，一个是RabbitMQ，当RabbitMQ达到瓶颈时，会报如下错误：
 
-```plain
+```text
 ERROR oslo.messaging._drivers.impl_rabbit [req-eb79ea09-247e-49e0-960b-0896ef978661 - - - - -] [303415c0-e494-4ea2-8158-d66d4165600d] AMQP server on controller:5672 is unreachable: timed out. Trying again in 10 seconds.: timeout: timed out
 ```
 
 另一个就是DHCP。本案例重点讨论DHCP报错的情况，不考虑RabbitMQ的性能瓶颈。DHCP报错信息如下：
 
-```plain
+```text
 WARNING nova.compute.manager [req-8d9240cd-6a47-4979-a289-bdd58d399f0a 891c061e4aea4af8909a4affe0c24f92 c509a52800de4902845460fcc5318f3f - 8d899afee33641e0a094f85fbeb9b2c6 8d899afee33641e0a094f85fbeb9b2c6] [instance: 374aa944-6cd7-4dbf-a741-5bd44623919d] Received unexpected event network-vif-plugged-b803941a-c3ae-45d7-b962-13ba1ff00a31 for instance with vm_state active and task_state None.
 ```
 
@@ -54,25 +54,25 @@ WARNING nova.compute.manager [req-8d9240cd-6a47-4979-a289-bdd58d399f0a 891c061e4
 
 切换至云平台第二个节点主机，修改/etc/nova/nova.conf配置文件：
 
-```plain
+```text
 [root@controller ~]# vi /etc/nova/nova.conf
 ```
 
 找到如下这行：
 
-```plain
+```text
 #vif_plugging_is_fatal=true
 ```
 
 将该行的注释去掉，并将true改为false，修改完之后如下：
 
-```plain
+```text
 vif_plugging_is_fatal=false
 ```
 
 保存退出nova.conf，最后重启Nova服务，也可以重启所有服务，命令如下：
 
-```plain
+```text
 [root@controller ~]# openstack-service restart
 ```
 

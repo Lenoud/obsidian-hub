@@ -3,15 +3,15 @@
 YUM 软件源的配置与下载方法。
 
 ## 获取Yum软件仓库
-```shell
+```bash
 curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
 ```
 
-```shell
+```text
 yum install -y epel-release
 ```
 
-```shell
+```bash
 #下载阿里云源
 curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
 #如果你使用其他发行版，例如 CentOS 6 或 CentOS 8，可以替换 Centos-7.repo 为相应版

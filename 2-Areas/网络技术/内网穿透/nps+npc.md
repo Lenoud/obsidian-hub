@@ -5,7 +5,7 @@ nps+npc相关技术笔记。
 ## docker部署
 nps获取配置
 
-```shell
+```bash
 yum install -y wget && wget https://img.zeruns.tech/down/conf.zip
 #修改nps.conf配置
 web_host=localhost

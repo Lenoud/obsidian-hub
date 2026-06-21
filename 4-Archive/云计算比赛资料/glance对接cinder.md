@@ -4,7 +4,7 @@ glance对接cinder相关技术笔记。
 
 
 
-```shell
+```text
 
 ```
 

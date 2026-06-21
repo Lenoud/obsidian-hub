@@ -103,7 +103,7 @@ deb http://repo.huaweicloud.com/ubuntu jammy-security multiverse
 ```
 
 ### 2.配置本地源
-```shell
+```bash
 # 配置离线源
 cat > /etc/apt/sources.list << EOF
 deb [trusted=yes] file:// /opt/localsource/

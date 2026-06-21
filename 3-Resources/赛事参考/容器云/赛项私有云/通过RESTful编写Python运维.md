@@ -8,7 +8,7 @@
 
 登录OpenStack平台，可以查看APIs的网站与端口。
 
-```plain
+```text
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# openstack endpoint list -c "Service Name"  -c "Enabled"  -c "URL"
 ```
@@ -55,7 +55,7 @@ V3 API为所有GET请求实现了HEAD。 每个HEAD请求包含与对应的GET A
 
 创建用户body json案例如下：
 
-```plain
+```text
 {
     "user": {
         "default_project_id": "263fd9",
@@ -89,7 +89,7 @@ V3 API为所有GET请求实现了HEAD。 每个HEAD请求包含与对应的GET A
 
 创建apis_user_manager.py文件实现，用户的创建、查找、删除、更新。代码如下：
 
-```plain
+```python
 # Copyright 2021~2022 The Cloud Computing support Teams of ChinaSkills.
 import requests,json,time
 import logging
@@ -273,7 +273,7 @@ if __name__ == '__main__':
 
 修改apis_user_manager.py的if **name** == ‘**main**’:函数中OpenStack的IP、domain、user、password，执行apis_user_manager.py，进行查询所有、创建、根据ID查询、更新密码和删除验证。在apis_user_manager.py的if **name** == '**main**'最后添加如下代码：
 
-```plain
+```text
     #get all user
     user_m = user_manager(headers, f"http://{controller_ip}:5000/v3/users")
     # 1 查询所有
@@ -298,7 +298,7 @@ if __name__ == '__main__':
 
 然后执行apis_user_manager.py，结果如下：
 
-```plain
+```text
 [root@controller ~]# python3 apis_user_manager.py
 {'auth': {'identity': {'methods': ['password'], 'password': {'user': {'domain': {'name': 'demo'}, 'name': 'admin', 'password': '000000'}}}, 'scope': {'project': {'domain': {'name': 'demo'}, 'name': 'admin'}}}}
 2022-03-10 13:24:37,146 获取Token值：gAAAAABiKYoR1bvKz87Qx2H5ULprGbheY3EIWsm6t3ry1St5-B7LFfRddB8VLVwdxY-HSHdMlG-0vcam-UKzfRqHziFXTL7oNPacSfrvk4qiZMqCHKaisI7nETxa9Qrgsd_a0trjCTNWxYgfalGLpBjSfNA4ccCdw_3i3LocRWY2OcJQ3ccPM5w
@@ -380,7 +380,7 @@ API版本：
 
 Example Create Flavor (v2.55) :
 
-```plain
+```text
 {
     "flavor": {
         "name": "test_flavor",
@@ -396,7 +396,7 @@ Example Create Flavor (v2.55) :
 
 Example Create Flavor (v2.75) :
 
-```plain
+```text
 {
     "flavor": {
         "OS-FLV-DISABLED:disabled": false,
@@ -431,7 +431,7 @@ Example Create Flavor (v2.75) :
 
 创建apis_flavor_manager.py文件实现，主机类型创建、查找、删除、更新。代码如下：
 
-```plain
+```python
 # Copyright 2021~2022 The Cloud Computing support Teams of ChinaSkills.
 import requests,json,time
 import logging
@@ -609,7 +609,7 @@ if __name__ == '__main__':
 
 修改apis_flavor_manager.py的if **name** == ‘**main**’:函数中OpenStack的IP、domain、user、password，执行apis_flavor_manager.py，进行查询所有、创建、根据ID查询、更新描述。在apis_flavor_manager.py的 **name** == '**main**'代码段最后添加如下代码：
 
-```plain
+```text
 #. get token
     flavor_m = flavor_manager(headers, f"http://{controller_ip}:8774/v2.1/flavors")
     #1 查所有
@@ -640,7 +640,7 @@ if __name__ == '__main__':
 
 通过OpenStack平台查询镜像ID、FlavorID、网络ID，替换以上参数，然后执行apis_flavor_manager.py，结果如下：
 
-```plain
+```bash
 [root@controller ~]# python3 apis_flavor_manager.py
 {'auth': {'identity': {'methods': ['password'], 'password': {'user': {'domain': {'name': 'demo'}, 'name': 'admin', 'password': '000000'}}}, 'scope': {'project': {'domain': {'name': 'demo'}, 'name': 'admin'}}}}
 headers: {'X-Auth-Token': 'gAAAAABiKYYsaQyAaxh8lleESSUcUz01l-PYNoHMuptZ8sQLRD5hcSG9nPS6e39n1yVi1P6sPv1dfQVH7YAvJnMik5sEHW0ci7B8IDjrTz5hncpKr9xdqNSBskLAuJFBK49iNIj8w4eBF-LWi-vR454wju7zJiULjeWXdTiIDz6mDOJN1HyBwx4'}
@@ -702,7 +702,7 @@ API版本：
 
 创建云主机的body json案例如下：
 
-```plain
+```text
 {
     "server" : {
         "name" : "device-tagging-server",
@@ -746,7 +746,7 @@ API版本：
 
 Example Create Flavor (v2.55)：
 
-```plain
+```text
 {
     "flavor": {
         "name": "test_flavor",
@@ -762,7 +762,7 @@ Example Create Flavor (v2.55)：
 
 Example Create Flavor (v2.75)：
 
-```plain
+```text
 {
     "flavor": {
         "OS-FLV-DISABLED:disabled": false,
@@ -795,7 +795,7 @@ Example Create Flavor (v2.75)：
 
 创建apis_server_manager.py文件实现，主机类型创建、查找、删除、更新。代码如下：
 
-```plain
+```python
 # Copyright 2021~2022 The Cloud Computing support Teams of ChinaSkills.
 
 import requests, json, time
@@ -984,7 +984,7 @@ if __name__ == '__main__':
 ③执行server_manager的每个方法进行代码测试，通过openstack server命令行或Dashboard界面进行研究者。
 修改apis_server_manager.py的if **name** == ‘**main**’:函数中OpenStack的IP、domain、user、password，执行apis_server_manager.py，进行查询所有、创建、根据ID查询、更新描述。
 
-```plain
+```text
 [root@controller ~]# openstack image list
 +-------------------------------------+-----------+--------+
 | ID                                  | Name      | Status |
@@ -1002,7 +1002,7 @@ if __name__ == '__main__':
 
 在apis_ server *manager.py的 __**name***__ == '_main__'代码段最后添加如下代码：
 
-```plain
+```text
 server_m = server_manager(headers, f"http://{controller_ip}:8774/v2.1/servers")
 # 1 查所有
 servers = server_m.get_servers()
@@ -1029,7 +1029,7 @@ print(f"删除{id}云主机:", result)
 
 然后执行apis_server_manager.py，结果如下：
 
-```plain
+```text
 [root@controller ~]# python3 apis_server_manager.py
 {'auth': {'identity': {'methods': ['password'], 'password': {'user': {'domain': {'name': 'demo'}, 'name': 'admin', 'password': '000000'}}}, 'scope': {'project': {'domain': {'name': 'demo'}, 'name': 'admin'}}}}
 2022-03-10 13:22:41,080 获取Token值：gAAAAABiKYmdnf1LDjTT0KSaK55jvsrnLWvwHEEXsIIppNx_WcVKliwp-xHnryAgPXBs-tg0fQSs8bwWG9GwFHbZxWqRrseRJUsAlmqbplkExmwOYFdJqnV-yMQp5tStc4fFnctB2jgF-lZS03V9l_0Uza84tFsH-JVhoiy6Hw5xCzm3sUHsNLM
@@ -1079,7 +1079,7 @@ Glance项目提供了RESTful HTTP服务：OpenStack Image Serivce API。
 
 请求案例代码如下：
 
-```plain
+```text
 {
     "container_format": "bare",
     "disk_format": "raw",
@@ -1123,7 +1123,7 @@ Glance项目提供了RESTful HTTP服务：OpenStack Image Serivce API。
 
 响应（Response）案例：
 
-```plain
+```text
 {
     "status": "queued",
     "name": "Ubuntu",
@@ -1157,7 +1157,7 @@ Glance项目提供了RESTful HTTP服务：OpenStack Image Serivce API。
 
 创建apis_image_manager.py文件实现，主机类型创建、查找、删除、更新。代码如下：
 
-```plain
+```python
 # Copyright 2021~2022 The Cloud Computing support Teams of ChinaSkills.
 import requests, json, time
 import logging
@@ -1334,7 +1334,7 @@ if __name__ == '__main__':
 （3）执行image_manager的每个方法进行代码测试，通过openstack image命令行或Dashboard界面进行研究者。
 修改apis_image_manager.py的if **name** == ‘**main**’:函数中OpenStack的IP、domain、user、password，执行apis_image_manager.py，进行查询所有、创建、根据ID查询、更新描述。在apis_image_manager.py的 **name** == '**main**'代码段最后添加如下代码：
 
-```plain
+```text
 #  http://controller:9292
     image_m = image_manager(headers, f"http://{controller_ip}:9292/v2/images")
     # 1 查所有
@@ -1353,7 +1353,7 @@ if __name__ == '__main__':
 
 然后执行apis_image_manager.py，结果如下：
 
-```plain
+```text
 [root@controller ~]# python3 apis_image_manager.py
 {'auth': {'identity': {'methods': ['password'], 'password': {'user': {'domain': {'name': 'demo'}, 'name': 'admin', 'password': '000000'}}}, 'scope': {'project': {'domain': {'name': 'demo'}, 'name': 'admin'}}}}
 headers: {'X-Auth-Token': 'gAAAAABiKYbUS0SDwZzUhzjEuBFQmqWjRxrtCqcdmEpPvEt29dbwRWfjj_GLaLhqiErU0qsfNQN5leEMS788SshaSGFXKwScCAumH22lB2INMbVm9hV4Gn2OnZjkvM0PsJ-DVoIK136QIS6FwZPVI93Xqujawpkw5762db9nI9Gmd3wOxZWDBqs'}
@@ -1369,7 +1369,7 @@ cirros002镜像的，id为:  038ba49b-ddee-4e0f-8ecb-6f64d2788138
 
 镜像上传需要一定时间，上传后再查询与删除。替换上面输出的ID，最后再添加如下代码：
 
-```plain
+```text
   id = "038ba49b-ddee-4e0f-8ecb-6f64d2788138"
     result = image_m.get_image(id)
     print(f"查询{id}镜像:", result)
@@ -1381,7 +1381,7 @@ cirros002镜像的，id为:  038ba49b-ddee-4e0f-8ecb-6f64d2788138
 
 删除或注释以下代码：
 
-```plain
+```text
  # 1 查所有
     images = image_m.get_images()
     print("查询所有images:", images)
@@ -1399,7 +1399,7 @@ cirros002镜像的，id为:  038ba49b-ddee-4e0f-8ecb-6f64d2788138
 
 然后执行apis_image_manager.py，结果如下：
 
-```plain
+```text
 [root@controller ~]# python3 apis_image_manager.py
 {'auth': {'identity': {'methods': ['password'], 'password': {'user': {'domain': {'name': 'demo'}, 'name': 'admin', 'password': '000000'}}}, 'scope': {'project': {'domain': {'name': 'demo'}, 'name': 'admin'}}}}
 2022-03-10 13:14:29,986 获取Token值：gAAAAABiKYeyF3CRflZXsarjvfvtkGs86paQe4PeWG6n2I25gjIhyQ8rUdjmDZAWZme0V2meKwIA_-hEEfTObPpo-Zggq0nvIdyzhRau-6H0uhpZx1awr3O3HLsoj8QOtOS0NhIBFed-QAPpCw3uduh_HwSVJ-Se7axa1Mq26cAFyUSKVakxJsg

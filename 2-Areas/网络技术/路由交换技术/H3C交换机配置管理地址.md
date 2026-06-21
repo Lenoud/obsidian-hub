@@ -4,7 +4,7 @@ H3C交换机配置管理地址相关技术笔记。
 
 数据库配置与权限管理。
 
-```shell
+```text
 [sw-student14]vlan 999
 [sw-student14-vlan999] port GigabitEthernet 1/0/24
 [sw-student14-vlan999] quit

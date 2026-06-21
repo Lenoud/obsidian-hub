@@ -17,7 +17,7 @@ docker run -d \
        hyper/docker-registry-web
 ```
 
-```shell
+```yaml
 version: '3'
 services:
   registry:

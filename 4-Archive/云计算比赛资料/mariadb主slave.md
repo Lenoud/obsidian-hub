@@ -2,7 +2,7 @@
 
 mariadb主slave相关技术笔记。
 
-```shell
+```bash
 #两个节点关闭防火墙
 systemctl disable firewalld
 systemctl stop firewalld
@@ -14,7 +14,7 @@ SELINUX=disabled
 
 配置yum源
 
-```shell
+```ini
 cat local.repo << EOF
 [mariadb]
 name=mysql
@@ -55,7 +55,7 @@ log_bin=mysql-bin
 binlog_ignore_db=mysql
 server_id=254  
 
-```shell
+```text
 crudini --set /etc/my.cnf.d/server.cnf mysqld log_bin mysql-bin
 crudini --set /etc/my.cnf.d/server.cnf mysqld binlog_ignore_db mysql
 crudini --set /etc/my.cnf.d/server.cnf mysqld server_id 254
@@ -66,7 +66,7 @@ crudini --set /etc/my.cnf.d/server.cnf mysqld server_id 254
 
 systemctl restart mariadb-server
 
-```shell
+```text
 mysql -uroot -p000000 -e "grant all privileges  on . to root@'%' identified by '000000';"
 mysql -uroot -p000000 -e "grant replication slave on . to 'user'@'mysql2' identified by '000000';"
 
@@ -75,7 +75,7 @@ mysql -uroot -p000000 -e "grant replication slave on . to 'user'@'mysql2' identi
 ##从节点配置文件
 vim /etc/my.cnf.d/server.cnf
 
-```shell
+```text
 crudini --set /etc/my.cnf.d/server.cnf mysqld log_bin mysql-bin
 crudini --set /etc/my.cnf.d/server.cnf mysqld binlog_ignore_db mysql
 crudini --set /etc/my.cnf.d/server.cnf mysqld server_id 253
@@ -98,7 +98,7 @@ show slave status\G
 
 可以看到Slave_IO_Running和Slave_SQL_Running的状态都是Yes，配置数据库主从集群成功
 
-```shell
+```text
 mysql -uroot -p000000 -e "change master to master_host='mysql1',master_user='user',master_password='000000';"
 mysql -uroot -p000000 -e "start slave;"
 mysql -uroot -p000000 -e "show slave status\G"

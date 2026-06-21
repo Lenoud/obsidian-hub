@@ -20,7 +20,7 @@
 
 使用OpenStack命令创建一个名为secret01的secret，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# openstack secret store --name secret01 --payload secretkey
 +---------------+-----------------------------------------------------------------------+
@@ -41,7 +41,7 @@
 
 查询secret列表信息，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack secret list
 +------------------------------------------------------------------------+----------+---------------------------+--------+-----------------------------+-----------+------------+-------------+------+------------+
 | Secret href                                                            | Name     | Created                   | Status | Content types               | Algorithm | Bit length | Secret type | Mode | Expiration |
@@ -52,7 +52,7 @@
 
 使用命令获取secret01密钥的元数据，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack secret get http://controller:9311/v1/secrets/08e96ae0-b727-4583-afd9-8ab9de507d4a
 +---------------+-----------------------------------------------------------------------+
 | Field         | Value                                                                 |
@@ -72,7 +72,7 @@
 
 通过命令获取secret01密钥的数据，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack secret get http://controller:9311/v1/secrets/08e96ae0-b727-4583-afd9-8ab9de507d4a --payload
 +---------+-----------+
 | Field   | Value     |
@@ -83,7 +83,7 @@
 
 使用OpenStack命令生成并存储密钥，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack secret order create --name secret02 --algorithm aes --bit-length 256 --mode cbc --payload-content-type application/octet-stream key
 +----------------+----------------------------------------------------------------------+
 | Field          | Value                                                                |
@@ -101,7 +101,7 @@
 
 通过命令显示生成的密钥列表，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack secret order list
 +-----------------------------------------------------------------------+------+----------------+------------------------------------------------------------------------+---------------------------+--------+------------+---------------+
 | Order href                                                            | Type | Container href | Secret href                                                            | Created                   | Status | Error code | Error message |
@@ -113,7 +113,7 @@
 
 使用命令显示生成的密钥，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack secret order get http://controller:9311/v1/orders/5675a750-bf8f-4668-862c-cb8eedcbb42a
 +----------------+----------------------------------------------------------------------+
 | Field          | Value                                                                |
@@ -131,7 +131,7 @@
 
 显示生成的密钥的元数据，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack secret get http://controller:9311/v1/secrets/81b7a19b-2975-4ff0-99a5-ccd5581d1cfa
 +---------------+-----------------------------------------------------------------------+
 | Field         | Value                                                                 |

@@ -28,7 +28,7 @@
 
 访问第一个节点elk-1节点：
 
-```plain
+```yaml
 [root@lqhelk-1 ~]# hostnamectl set-hostname elk-1
 [root@lqhelk-1 ~]# bash
 [root@elk-1 ~]# hostnamectl
@@ -46,7 +46,7 @@
 
 访问第二个节点elk-2节点：
 
-```plain
+```yaml
 [root@lqhelk-2 ~]# hostnamectl  set-hostname elk-2
 [root@lqhelk-2 ~]# bash
 [root@elk-2 ~]# hostnamectl
@@ -64,7 +64,7 @@
 
 访问第三个节点elk-3节点：
 
-```plain
+```yaml
 [root@lqhelk-3 ~]# hostnamectl  set-hostname elk-3
 [root@lqhelk-3 ~]# bash
 [root@elk-3 ~]# hostnamectl
@@ -82,7 +82,7 @@
 
 （2）三台主机配置主机名映射（以第一台节点为例，三个节点都要配置）
 
-```plain
+```text
 [root@elk-1 ~]# vi /etc/hosts
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
@@ -95,7 +95,7 @@
 
 将CentOS7.9 ISO下载至本地，使用CentOS7.9镜像配置YUM源，部署ELK环境需要jdk1.8以上的JDK版本软件环境，我们本次实验使用的是opnejdk1.8，可直接使用本地源进行安装（三个节点均安装）。
 
-```plain
+```ini
 [root@elk-1 ~]# curl -O http://mirrors.douxuedu.com/competition/CentOS-7-x86_64-DVD-2009.iso
 [root@elk-1 ~]# mv /etc/yum.repos.d/* /media/
 [root@elk-1 ~]# mkdir  /opt/centos-2009
@@ -131,7 +131,7 @@ OpenJDK 64-Bit Server VM (build 25.262-b10, mixed mode)
 
 将提供的elasticsearch-6.0.0.rpm包分别下载至三台主机的/root目录下，并使用命令进行安装（三台主机均安装）。
 
-```plain
+```bash
 [root@elk-1 ~]# curl -O http://mirrors.douxuedu.com/competition/elasticsearch-6.0.0.rpm
 [root@elk-1 ~]# ll
 total 27332
@@ -159,7 +159,7 @@ Updating / installing...
 
 elk-1节点：
 
-```plain
+```text
 [root@elk-1 ~]# vi /etc/elasticsearch/elasticsearch.yml
 cluster.name: ELK          //取消注释，配置elasticsearch集群名称
 node.name: elk-1         //配置节点名，默认随机指定一个name列表中名字，该列表在Elasticserach的jar包中config文件夹里name.txt文件中
@@ -172,7 +172,7 @@ discovery.zen.ping.unicast.hosts: ["elk-1","elk-2","elk-3"]   //设置集群中m
 
 elk-2节点（参数说明不再详细写出）：
 
-```plain
+```text
 [root@elk-2 ~]# vi /etc/elasticsearch/elasticsearch.yml
 cluster.name: ELK
 node.name: elk-2
@@ -185,7 +185,7 @@ discovery.zen.ping.unicast.hosts: ["elk-1","elk-2","elk-3"]
 
 elk-3节点（参数说明不再详细写出）：
 
-```plain
+```text
 [root@elk-3 ~]# vi /etc/elasticsearch/elasticsearch.yml
 cluster.name: ELK
 node.name: elk-3
@@ -200,7 +200,7 @@ discovery.zen.ping.unicast.hosts: ["elk-1","elk-2","elk-3"]
 
 使用命令启动服务，并设置开机自启，最后使用命令查看进行及端口号（三台主机均查询）。
 
-```plain
+```bash
 [root@elk-1 ~]# systemctl start elasticsearch
 [root@elk-1 ~]# systemctl  enable elasticsearch
 [root@elk-1 ~]# ps -ef |grep elasticsearch
@@ -225,7 +225,7 @@ tcp6       0      0 172.128.11.10:9200   :::*               LISTEN      15943/ja
 
 elk-1节点：
 
-```plain
+```text
 [root@elk-1 ~]# curl '172.128.11.10:9200/_cluster/health?pretty'
 {
   "cluster_name" : "ELK",   //集群名称
@@ -252,7 +252,7 @@ elk-1节点：
 
 将提供的kibana-6.0.0-x86_64.rpm包下载至第一台主机的/root目录下，其他主机无需下载，并使用命令进行安装。
 
-```plain
+```text
 [root@elk-1 ~]# curl -O http://mirrors.douxuedu.com/competition/kibana-6.0.0-x86_64.rpm
 [root@elk-1 ~]# rpm -ivh kibana-6.0.0-x86_64.rpm
 warning: kibana-6.0.0-x86_64.rpm: Header V4 RSA/SHA512 Signature, key ID d88e42b4: NOKEY
@@ -265,7 +265,7 @@ Updating / installing...
 
 配置kibana的配置文件，配置文件在/etc/kibana/kibana.yml，在配置文件增加或修改以下内容：
 
-```plain
+```text
 [root@elk-1 ~]# cat /etc/kibana/kibana.yml |grep -v ^#
 server.port: 5601
 server.host: 172.128.11.10
@@ -274,7 +274,7 @@ elasticsearch.url: "http://172.128.11.10:9200"
 
 （3）启动Kibana
 
-```plain
+```bash
 [root@elk-1 ~]# systemctl  start kibana
 [root@elk-1 ~]# systemctl  enable  kibana
 Created symlink from /etc/systemd/system/multi-user.target.wants/kibana.service to /etc/systemd/system/kibana.service.
@@ -306,7 +306,7 @@ tcp6       0      0 172.128.11.10:9200   :::*              LISTEN      15943/jav
 
 将提供的logstash-6.0.0.rpm包下载到第二台主机的/root目录下，其他主机无需下载，并使用命令进行安装。
 
-```plain
+```text
 [root@elk-2 ~]# curl -O http://mirrors.douxuedu.com/competition/logstash-6.0.0.rpm
 [root@elk-2 ~]# ll
 total 137968
@@ -327,14 +327,14 @@ Successfully created system startup script for Logstash
 
 配置/etc/logstash/logstash.yml，修改增加第190行如下：
 
-```plain
+```text
 [root@elk-2 ~]# vi /etc/logstash/logstash.yml
 http.host: "172.128.11.17"  //第二台主机名称
 ```
 
 配置logstash收集syslog日志：
 
-```plain
+```text
 [root@elk-2 ~]# vi /etc/logstash/conf.d/syslog.conf
 input {
     file {
@@ -357,7 +357,7 @@ output {
 
 检测配置文件是否错误：
 
-```plain
+```text
 [root@elk-2 ~]# chmod  644 /var/log/messages    //给这个文件赋权限，如果不给权限，则无法读取日志
 [root@elk-2 ~]# ln -s /usr/share/logstash/bin/logstash /usr/bin
 [root@elk-2 ~]# logstash --path.settings /etc/logstash/ -f /etc/logstash/conf.d/syslog.conf --config.test_and_exit
@@ -375,7 +375,7 @@ Configuration OK      //结果显示OK则证明没问题
 
 （3）启动Logstash
 
-```plain
+```bash
 [root@elk-2 ~]# systemctl start logstash
 [root@elk-2 ~]# ps -ef |grep logstash
 logstash 17891     1 99 09:06 ?        00:00:18 /bin/java -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+DisableExplicitGC -Djava.awt.headless=true -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError -Xmx1g -Xms256m -Xss2048k -Djffi.boot.library.path=/usr/share/logstash/vendor/jruby/lib/jni -Xbootclasspath/a:/usr/share/logstash/vendor/jruby/lib/jruby.jar -classpath : -Djruby.home=/usr/share/logstash/vendor/jruby -Djruby.lib=/usr/share/logstash/vendor/jruby/lib -Djruby.script=jruby -Djruby.shell=/bin/sh org.jruby.Main /usr/share/logstash/lib/bootstrap/environment.rb logstash/runner.rb --path.settings /etc/logstash
@@ -395,7 +395,7 @@ tcp6       0      0 :::111               :::*                LISTEN      580/rpc
 
 如果启动服务后，有进程但是没有9600端口，是因为权限问题，之前我们以root的身份在终端启动过logstash，所以产生的相关文件的属组属主都是root，解决方法如下：
 
-```plain
+```bash
 [root@elk-2 ~]# ll /var/lib/logstash/
 total 0
 drwxr-xr-x. 2 root root 6 Feb 10 09:00 dead_letter_queue
@@ -422,7 +422,7 @@ tcp6       0      0 :::111               :::*               LISTEN      580/rpcb
 
 启动完毕后，让syslog产生日志，用第三台主机登录elk-2机器，登录后退出。
 
-```plain
+```text
 [root@elk-3 ~]# ssh elk-2
 The authenticity of host 'elk-2 (172.128.11.17)' can't be established.
 ECDSA key fingerprint is SHA256:nJT1L6Cz5MvNxC/ib2Rk+WN6Q/a3E3yi/67VwVOjt5k.
@@ -442,7 +442,7 @@ Connection to elk-2 closed.
 
 之前部署kibana完成后，还没有检索日志。现在logstash部署完成，我们回到第一台主机上查看日志索引，执行命令如下：
 
-```plain
+```text
 [root@elk-1 ~]# curl '172.128.11.17:9200/_cat/indices?v'
 health status index                 uuid                   pri rep docs.count docs.deleted store.size pri.store.size
 green  open   system-log-2022.02.10 E6kpwHcdRmy8iO42S3zlTg   5   1      20933            0      7.9mb          3.9mb
@@ -451,7 +451,7 @@ green  open   .kibana               OdfKD6JFTx-pPwfJNZtpLA   1   1          1   
 
 获取\删除指定索引详细信息：
 
-```plain
+```text
 [root@elk-1 ~]# curl -XGET/DELETE '172.128.11.17:9200/system-log-2022.02.10?pretty'     //此处的system-log-2022.02.10是上面步骤查看出的日志索引名称
 {
   "system-log-2022.02.10" : {

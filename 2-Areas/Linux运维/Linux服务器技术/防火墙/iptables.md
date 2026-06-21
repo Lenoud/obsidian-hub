@@ -9,7 +9,7 @@ CentOS 7 中没有 service iptables save 指令来保存防火墙规则，怎么
 
 解决办法：
 
-```shell
+```bash
 systemctl stop firewalld             # 关闭防火墙
 yum -y install iptables-services     # 安装 iptables 服务
 systemctl enable iptables            # 设置 iptables 服务开机启动

@@ -50,7 +50,7 @@ qemu-img命令中提供一个可用于镜像转换与压缩的选项，即qemu-i
 
 使用提供的镜像CentOS7.5-compress.qcow2，下载至controller节点的/root目录下，查看镜像的大小，命令如下：
 
-```plain
+```text
 [root@controller ~]# curl -O http://mirrors.douxuedu.com/competition/CentOS7.5-compress.qcow2
 [root@controller ~]# du -sh CentOS7.5-compress.qcow2
 892M  CentOS7.5-compress.qcow2
@@ -58,7 +58,7 @@ qemu-img命令中提供一个可用于镜像转换与压缩的选项，即qemu-i
 
 可以看到当前的镜像大小为892M，接下来使用命令，对镜像进行压缩，命令如下：
 
-```plain
+```text
 [root@controller ~]# qemu-img convert -c -O qcow2 CentOS7.5-compress.qcow2 CentOS7.5-compress2.qcow2
 ```
 
@@ -74,7 +74,7 @@ qemu-img命令中提供一个可用于镜像转换与压缩的选项，即qemu-i
 
 等待一小段时间后，压缩完成，查看当前目录下CentOS7.5-compress2.qcow2镜像文件的大小，命令如下：
 
-```plain
+```text
 [root@controller ~]# du -sh CentOS7.5-compress2.qcow2
 405M  CentOS7.5-compress2.qcow2
 ```

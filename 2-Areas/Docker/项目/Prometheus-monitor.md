@@ -244,43 +244,43 @@ curl -X POST http://localhost:9090/-/reload
 
 ### 查看 Alertmanager 的当前状态
 
-```plain
+```text
 up{job="alertmanager"}
 ```
 
 ### 查看 Docker 网络中所有目标的抓取持续时间
 
-```plain
+```text
 scrape_duration_seconds{job="docker-custom-network"}
 ```
 
 ### 查看 Grafana 的抓取间隔时间
 
-```plain
+```text
 scrape_duration_seconds{job="grafana"}
 ```
 
 ### 监控所有目标的可用性
 
-```plain
+```text
 up
 ```
 
 ### 按实例查看 Node Exporter 的 CPU 使用率
 
-```plain
+```text
 node_cpu_seconds_total{instance="docker-server"}
 ```
 
 ### Prometheus 自身监控（例如总抓取样本数）
 
-```plain
+```text
 prometheus_tsdb_head_samples_appended_total{instance="prometheus-container"}
 ```
 
 ### 其它
 
-```shell
+```text
 # 获取某个时间段内所有的 CPU 使用率
 rate(cpu_usage_seconds_total[5m])
 

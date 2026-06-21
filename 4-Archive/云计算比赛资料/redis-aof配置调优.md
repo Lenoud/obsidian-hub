@@ -10,7 +10,7 @@ Redis 操作与部署。
 + **Everysec**：每秒进行一次同步操作
 + **No**：由操作系统控制同步操作
 
-```shell
+```bash
 [root@redis-master ~]# cat /etc/redis.conf |grep appendfsync
 appendfsync everysec
 no-appendfsync-on-rewrite no

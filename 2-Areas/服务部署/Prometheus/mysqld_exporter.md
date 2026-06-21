@@ -6,7 +6,7 @@ SQL 语句使用示例。
 
 导入7362和9625，分别为mysql数据库，和mysql数据表的dashboard-ID号
 
-```shell
+```yaml
 cat >> docker-compose.yaml<< EOF
 version: '3.0'
 services:

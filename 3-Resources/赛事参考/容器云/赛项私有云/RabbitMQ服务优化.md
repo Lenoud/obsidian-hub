@@ -30,7 +30,7 @@ RabbitMQ的连接数是压垮消息队列的一个重要的指标。所以在平
 
 编辑/etc/sysctl.conf配置文件：
 
-```plain
+```text
 [root@controller ~]# vi /etc/sysctl.conf
 fs.file-max=10240
 #在sysctl.conf文件的最下方添加一行fs.file-max=10240
@@ -38,7 +38,7 @@ fs.file-max=10240
 
 修改完毕后保存退出并生效配置，命令如下：
 
-```plain
+```text
 [root@controller ~]# sysctl -p
 fs.file-max = 10240
 ```
@@ -47,7 +47,7 @@ fs.file-max = 10240
 
 用户级别修改，编辑/etc/security/limits.conf配置文件，具体命令如下：
 
-```plain
+```text
 [root@controller ~]# vi /etc/security/limits.conf
 openstack  soft     nofile  10240
 openstack  hard     nofile  10240
@@ -60,26 +60,26 @@ openstack  hard     nofile  10240
 
 修改RabbitMQ服务的Service配置文件rabbitmq-server.service，具体命令如下：
 
-```plain
+```text
 [root@controller ~]# vi /usr/lib/systemd/system/rabbitmq-server.service
 ```
 
 在[Service]下添加一行参数如下：
 
-```plain
+```text
 LimitNOFILE=10240
 ```
 
 编辑完之后保存退出，重启RabbitMQ服务，命令如下：
 
-```plain
+```text
 [root@controller ~]# systemctl daemon-reload
 [root@controller ~]# systemctl restart rabbitmq-server
 ```
 
 重启完毕后，查看RabbitMQ的最大连接数，命令如下：
 
-```plain
+```text
 [root@controller ~]# rabbitmqctl status
 Status of node rabbit@openstack
 ...忽略输出...

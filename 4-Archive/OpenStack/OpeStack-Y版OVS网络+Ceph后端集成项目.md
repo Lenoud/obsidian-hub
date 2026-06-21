@@ -15,7 +15,7 @@
 
 ## 2. 配置离线环境
 
-```shell
+```bash
 # 解压
 tar zxvf openstackyoga.tar.gz -C /opt/
 
@@ -40,7 +40,7 @@ apt update
 
 + controller节点
 
-```shell
+```bash
 cat > /etc/netplan/00-installer-config.yaml << EOF
 # This is the network config written by 'subiquity'
 network:
@@ -64,7 +64,7 @@ netplan apply
 
 + compute01节点
 
-```shell
+```bash
 cat > /etc/netplan/00-installer-config.yaml << EOF
 # This is the network config written by 'subiquity'
 network:
@@ -88,7 +88,7 @@ netplan apply
 
 + compute02节点
 
-```shell
+```bash
 cat > /etc/netplan/00-installer-config.yaml << EOF
 # This is the network config written by 'subiquity'
 network:
@@ -114,7 +114,7 @@ netplan apply
 
 + controller节点更改主机名
 
-```shell
+```bash
 hostnamectl set-hostname controller
 
 # 切换窗口
@@ -123,7 +123,7 @@ bash
 
 + compute01节点更改主机名
 
-```shell
+```bash
 hostnamectl set-hostname compute01
 
 # 切换窗口
@@ -132,7 +132,7 @@ bash
 
 + compute02节点更改主机名
 
-```shell
+```bash
 hostnamectl set-hostname compute02
 
 # 切换窗口
@@ -141,7 +141,7 @@ bash
 
 + 所有节点配置hosts解析
 
-```shell
+```bash
 cat >> /etc/hosts << EOF
 10.0.0.10 controller
 10.0.0.11 compute01
@@ -153,7 +153,7 @@ EOF
 
 + 所有节点
 
-```shell
+```text
 # 开启可配置服务
 timedatectl set-ntp true
 
@@ -166,7 +166,7 @@ hwclock --systohc
 
 + 控制节点
 
-```shell
+```bash
 # 安装服务
 apt install -y chrony
 
@@ -182,7 +182,7 @@ systemctl restart chronyd
 
 + 计算节点
 
-```shell
+```bash
 # 安装服务
 apt install -y chrony
 
@@ -198,7 +198,7 @@ systemctl restart chronyd
 
 + controller节点
 
-```shell
+```text
 apt install -y python3-openstackclient
 ```
 
@@ -206,13 +206,13 @@ apt install -y python3-openstackclient
 
 + controller节点
 
-```shell
+```text
 apt install -y mariadb-server python3-pymysql
 ```
 
 + 配置mariadb配置文件
 
-```shell
+```ini
 cat > /etc/mysql/mariadb.conf.d/99-openstack.cnf << EOF
 [mysqld]
 bind-address = 0.0.0.0
@@ -227,13 +227,13 @@ EOF
 
 + 重启根据配置文件启动
 
-```shell
+```text
 service mysql restart
 ```
 
 + 初始化配置数据库
 
-```shell
+```text
 mysql_secure_installation
 输入数据库密码：回车
 可以在没有适当授权的情况下登录到MariaDB root用户，当前已收到保护：n
@@ -252,7 +252,7 @@ mysql_secure_installation
 +
 +  controller节点安装服务
 
-```shell
+```text
 apt install -y rabbitmq-server
 ```
 
@@ -260,13 +260,13 @@ apt install -y rabbitmq-server
     - 用户名为：openstack
     - 密码：000000
 
-```shell
+```text
 rabbitmqctl add_user openstack 000000
 ```
 
 + 允许openstack用户进行配置、写入和读取访问
 
-```shell
+```text
 rabbitmqctl set_permissions openstack ".*" ".*" ".*"
 ```
 
@@ -278,20 +278,20 @@ rabbitmqctl set_permissions openstack ".*" ".*" ".*"
 +
 +  controller节点安装服务
 
-```shell
+```text
 apt install -y memcached python3-memcache
 ```
 
 + 配置监听地址
 
-```shell
+```text
 vim /etc/memcached.conf
 35 -l 0.0.0.0
 ```
 
 + 重启服务
 
-```shell
+```text
 service memcached restart
 ```
 
@@ -303,7 +303,7 @@ service memcached restart
 +
 +  创建数据库与用户给予keystone使用
 
-```shell
+```sql
 # 创建数据库
 CREATE DATABASE keystone;
 
@@ -313,13 +313,13 @@ GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY 'keystoneang'
 
 + controller节点安装服务
 
-```shell
+```text
 apt install -y keystone
 ```
 
 + 配置keystone文件
 
-```shell
+```ini
 # 备份配置文件
 cp /etc/keystone/keystone.conf{,.bak}
 
@@ -380,14 +380,14 @@ provider = fernet
 
 + 填充数据库
 
-```shell
+```text
 su -s /bin/sh -c "keystone-manage db_sync" keystone
 ```
 
 + 调用用户和组的密钥库
     - 这些选项是为了允许在另一个操作系统用户/组下运行密钥库
 
-```shell
+```text
 # 用户
 keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
 
@@ -397,25 +397,25 @@ keystone-manage credential_setup --keystone-user keystone --keystone-group keyst
 
 + 在Queens发布之前，keystone需要在两个单独的端口上运行，以容纳Identity v2 API，后者通常在端口35357上运行单独的仅限管理员的服务。随着v2 API的删除，keystones可以在所有接口的同一端口上运行5000
 
-```shell
+```text
 keystone-manage bootstrap --bootstrap-password 000000 --bootstrap-admin-url http://controller:5000/v3/ --bootstrap-internal-url http://controller:5000/v3/ --bootstrap-public-url http://controller:5000/v3/ --bootstrap-region-id RegionOne
 ```
 
 + 编辑/etc/apache2/apache2.conf文件并配置ServerName选项以引用控制器节点
 
-```shell
+```bash
 echo "ServerName controller" >> /etc/apache2/apache2.conf
 ```
 
 + 重新启动Apache服务生效配置
 
-```shell
+```text
 service apache2 restart
 ```
 
 + 配置OpenStack认证环境变量
 
-```shell
+```bash
 cat > /etc/keystone/admin-openrc.sh << EOF
 export OS_PROJECT_DOMAIN_NAME=Default
 export OS_USER_DOMAIN_NAME=Default
@@ -430,19 +430,19 @@ EOF
 
 + 加载环境变量
 
-```shell
+```bash
 source /etc/keystone/admin-openrc.sh
 ```
 
 + 创建服务项目，后期组件将使用这个项目
 
-```shell
+```text
 openstack project create --domain default --description "Service Project" service
 ```
 
 + 验证
 
-```shell
+```text
 openstack token issue
 ```
 
@@ -454,7 +454,7 @@ openstack token issue
 +
 +  创建数据库与用户给予glance使用
 
-```shell
+```sql
 # 创建数据库
 CREATE DATABASE glance;
 
@@ -464,25 +464,25 @@ GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY 'glanceang';
 
 + 创建glance浏览用户
 
-```shell
+```text
 openstack user create --domain default --password glance glance
 ```
 
 + 将管理员角色添加到浏览用户和服务项目
 
-```shell
+```text
 openstack role add --project service --user glance admin
 ```
 
 + 创建浏览服务实体
 
-```shell
+```text
 openstack service create --name glance --description "OpenStack Image" image
 ```
 
 + 创建镜像服务API端点
 
-```shell
+```text
 openstack endpoint create --region RegionOne image public http://controller:9292
 
 openstack endpoint create --region RegionOne image internal http://controller:9292
@@ -492,13 +492,13 @@ openstack endpoint create --region RegionOne image admin http://controller:9292
 
 + 安装glance镜像服务
 
-```shell
+```text
 apt install -y glance
 ```
 
 + 配置glance配置文件
 
-```shell
+```ini
 # 备份配置文件
 cp /etc/glance/glance-api.conf{,.bak}
 
@@ -558,19 +558,19 @@ flavor = keystone
 
 + 填充数据库
 
-```shell
+```text
 su -s /bin/sh -c "glance-manage db_sync" glance
 ```
 
 + 重启glance服务生效配置
 
-```shell
+```text
 service glance-api restart
 ```
 
 + 上传镜像验证
 
-```shell
+```bash
 # 下载镜像
 wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
 
@@ -591,7 +591,7 @@ root@controller:~# openstack image list
 +  作用：placement服务跟踪每个供应商的库存和使用情况。例如，在一个计算节点创建一个实例的可消费资源如计算节点的资源提供者的CPU和内存，磁盘从外部共享存储池资源提供商和IP地址从外部IP资源提供者。
 +  创建数据库与用户给予placement使用
 
-```shell
+```sql
 # 创建数据库
 CREATE DATABASE placement;
 
@@ -601,25 +601,25 @@ GRANT ALL PRIVILEGES ON placement.* TO 'placement'@'%' IDENTIFIED BY 'placementa
 
 + 创建服务用户
 
-```shell
+```text
 openstack user create --domain default --password placement placement
 ```
 
 + 将Placement用户添加到具有管理员角色的服务项目中
 
-```shell
+```text
 openstack role add --project service --user placement admin
 ```
 
 + 在服务目录中创建Placement API条目
 
-```shell
+```text
 openstack service create --name placement --description "Placement API" placement
 ```
 
 + 创建Placement API服务端点
 
-```shell
+```text
 openstack endpoint create --region RegionOne placement public http://controller:8778
 
 openstack endpoint create --region RegionOne placement internal http://controller:8778
@@ -629,13 +629,13 @@ openstack endpoint create --region RegionOne placement admin http://controller:8
 
 + 安装placement服务
 
-```shell
+```text
 apt install -y placement-api
 ```
 
 + 配置placement文件
 
-```shell
+```ini
 # 备份配置文件
 cp /etc/placement/placement.conf{,.bak}
 
@@ -667,19 +667,19 @@ connection = mysql+pymysql://placement:placementang@controller/placement
 
 + 填充数据库
 
-```shell
+```text
 su -s /bin/sh -c "placement-manage db sync" placement
 ```
 
 + 重启apache加载placement配置
 
-```shell
+```text
 service apache2 restart
 ```
 
 + 验证
 
-```shell
+```text
 root@controller:~# placement-status upgrade check
 +-------------------------------------------+
 | Upgrade Check Results                     |
@@ -704,7 +704,7 @@ root@controller:~# placement-status upgrade check
 
 + 创建数据库与用户给予nova使用
 
-```shell
+```sql
 # 存放nova交互等数据
 CREATE DATABASE nova_api;
 
@@ -726,25 +726,25 @@ GRANT ALL PRIVILEGES ON nova_cell0.* TO 'nova'@'%' IDENTIFIED BY 'novaang';
 
 + 创建nova用户
 
-```shell
+```text
 openstack user create --domain default --password nova nova
 ```
 
 + 将管理员角色添加到nova用户
 
-```shell
+```text
 openstack role add --project service --user nova admin
 ```
 
 + 创建nova服务实体
 
-```shell
+```text
 openstack service create --name nova --description "OpenStack Compute" compute
 ```
 
 + 创建计算API服务端点
 
-```shell
+```text
 openstack endpoint create --region RegionOne compute public http://controller:8774/v2.1
 
 openstack endpoint create --region RegionOne compute internal http://controller:8774/v2.1
@@ -754,13 +754,13 @@ openstack endpoint create --region RegionOne compute admin http://controller:877
 
 + 安装服务
 
-```shell
+```text
 apt install -y nova-api nova-conductor nova-novncproxy nova-scheduler
 ```
 
 + 配置nova文件
 
-```shell
+```ini
 # 备份配置文件
 cp /etc/nova/nova.conf{,.bak}
 
@@ -866,37 +866,37 @@ openstack =
 
 + 填充nova_api数据库
 
-```shell
+```text
 su -s /bin/sh -c "nova-manage api_db sync" nova
 ```
 
 + 注册cell0数据库
 
-```shell
+```text
 su -s /bin/sh -c "nova-manage cell_v2 map_cell0" nova
 ```
 
 + 创建cell1单元格
 
-```shell
+```text
 su -s /bin/sh -c "nova-manage cell_v2 create_cell --name=cell1 --verbose" nova
 ```
 
 + 填充nova数据库
 
-```shell
+```text
 su -s /bin/sh -c "nova-manage db sync" nova
 ```
 
 + 验证nova、cell0和cell1是否正确注册
 
-```shell
+```text
 su -s /bin/sh -c "nova-manage cell_v2 list_cells" nova
 ```
 
 + 重启相关nova服务加载配置文件
 
-```shell
+```bash
 # 处理api服务
 service nova-api restart
 # 处理资源调度服务
@@ -915,13 +915,13 @@ service nova-novncproxy restart
 +
 +  安装nova-compute服务
 
-```shell
+```text
 apt install -y nova-compute
 ```
 
 + 配置nova文件
 
-```shell
+```ini
 # 备份配置文件
 cp /etc/nova/nova.conf{,.bak}
 
@@ -1027,7 +1027,7 @@ openstack =
 + 检测是否支持硬件加速
     - 如果结果返回0，需要配置如下
 
-```shell
+```ini
 # 确定计算节点是否支持虚拟机的硬件加速
 egrep -c '(vmx|svm)' /proc/cpuinfo
 
@@ -1039,7 +1039,7 @@ virt_type = qemu
 
 + 重启服务生效nova配置
 
-```shell
+```text
 service nova-compute restart
 ```
 
@@ -1049,13 +1049,13 @@ service nova-compute restart
 +
 +  安装nova-compute服务
 
-```shell
+```text
 apt install -y nova-compute
 ```
 
 + 配置nova文件
 
-```shell
+```ini
 # 备份配置文件
 cp /etc/nova/nova.conf{,.bak}
 
@@ -1161,7 +1161,7 @@ openstack =
 + 检测是否支持硬件加速
     - 如果结果返回0，需要配置如下
 
-```shell
+```ini
 # 确定计算节点是否支持虚拟机的硬件加速
 egrep -c '(vmx|svm)' /proc/cpuinfo
 
@@ -1173,7 +1173,7 @@ virt_type = qemu
 
 + 重启服务生效nova配置
 
-```shell
+```text
 service nova-compute restart
 ```
 
@@ -1185,19 +1185,19 @@ service nova-compute restart
 +
 +  查看有那些可用的计算节点
 
-```shell
+```text
 openstack compute service list --service nova-compute
 ```
 
 + 发现计算主机
 
-```shell
+```text
 su -s /bin/sh -c "nova-manage cell_v2 discover_hosts --verbose" nova
 ```
 
 + 配置每5分钟主机发现一次
 
-```shell
+```ini
 vim /etc/nova/nova.conf
 '''
 [scheduler]
@@ -1207,13 +1207,13 @@ discover_hosts_in_cells_interval = 300
 
 + 重启生效配置
 
-```shell
+```text
 service nova-api restart
 ```
 
 + 校验nova服务
 
-```shell
+```text
 root@controller:~# openstack compute service list
 +--------------------------------------+----------------+------------+----------+---------+-------+----------------------------+
 | ID                                   | Binary         | Host       | Zone     | Status  | State | Updated At                 |
@@ -1231,7 +1231,7 @@ root@controller:~# openstack compute service list
 
 + 创建数据库与用给予neutron使用
 
-```shell
+```sql
 # 创建数据库
 CREATE DATABASE neutron;
 
@@ -1241,25 +1241,25 @@ GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY 'neutronang';
 
 + 创建neutron用户
 
-```shell
+```text
 openstack user create --domain default --password neutron neutron
 ```
 
 + 向neutron用户添加管理员角色
 
-```shell
+```text
 openstack role add --project service --user neutron admin
 ```
 
 + 创建neutron实体
 
-```shell
+```text
 openstack service create --name neutron --description "OpenStack Networking" network
 ```
 
 + 创建neutron的api端点
 
-```shell
+```text
 openstack endpoint create --region RegionOne network public http://controller:9696
 
 openstack endpoint create --region RegionOne network internal http://controller:9696
@@ -1269,7 +1269,7 @@ openstack endpoint create --region RegionOne network admin http://controller:969
 
 + 配置内核转发
 
-```shell
+```bash
 cat >> /etc/sysctl.conf << EOF
 # 用于控制系统是否开启对数据包源地址的校验，关闭
 net.ipv4.conf.all.rp_filter=0
@@ -1283,26 +1283,26 @@ EOF
 + 加载模块
     - 作用：桥接流量转发到iptables链
 
-```shell
+```text
 modprobe br_netfilter
 ```
 
 + 生效内核配置
 
-```shell
+```text
 sysctl -p
 ```
 
 + 安装ovs服务
 
-```shell
+```text
 apt install -y neutron-server neutron-plugin-ml2  neutron-l3-agent neutron-dhcp-agent  neutron-metadata-agent neutron-openvswitch-agent
 ```
 
 + 配置neutron.conf文件
     - 用于提供neutron主体服务
 
-```shell
+```toml
 # 备份配置文件
 cp /etc/neutron/neutron.conf{,.bak}
 
@@ -1367,7 +1367,7 @@ lock_path = /var/lib/neutron/tmp
 + 配置ml2_conf.ini文件
     - 用户提供二层网络插件服务
 
-```shell
+```ini
 # 备份配置文件
 cp  /etc/neutron/plugins/ml2/ml2_conf.ini{,.bak}
 
@@ -1400,7 +1400,7 @@ firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewal
 + 配置openvswitch_agent.ini文件
     - 提供ovs代理服务
 
-```shell
+```ini
 # 备份文件
 cp /etc/neutron/plugins/ml2/openvswitch_agent.ini{,.bak}
 
@@ -1425,7 +1425,7 @@ bridge_mappings = physnet1:br-ens38
 + 配置l3_agent.ini文件
     - 提供三层网络服务
 
-```shell
+```ini
 # 备份文件
 cp /etc/neutron/l3_agent.ini{,.bak}
 
@@ -1445,7 +1445,7 @@ external_network_bridge =
 + 配置dhcp_agent文件
     - 提供dhcp动态网络服务
 
-```shell
+```ini
 # 备份文件
 cp /etc/neutron/dhcp_agent.ini{,.bak}
 
@@ -1467,7 +1467,7 @@ enable_isolated_metadata = True
     - 元数据什么？
         * 用来支持如指示存储位置、历史数据、资源查找、文件记录等功能。元数据算是一种电子式目录，为了达到编制目录的目的，必须在描述并收藏数据的内容或特色，进而达成协助数据检索的目的。
 
-```shell
+```ini
 # 备份文件
 cp  /etc/neutron/metadata_agent.ini{,.bak}
 
@@ -1486,7 +1486,7 @@ metadata_proxy_shared_secret = ws
 + 配置nova文件
     - 主要识别neutron配置，从而能调用网络
 
-```shell
+```ini
 vim /etc/nova/nova.conf
 '''
 [default]
@@ -1508,32 +1508,32 @@ metadata_proxy_shared_secret = ws
 
 + 填充数据库
 
-```shell
+```text
 su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron
 ```
 
 + 重启nova-api服务生效neutron配置
 
-```shell
+```text
 service nova-api restart
 ```
 
 + 新建一个外部网络桥接
 
-```shell
+```text
 ovs-vsctl add-br br-ens38
 ```
 
 + 将外部网络桥接映射到网卡
     - 这里绑定第二张网卡，属于业务网卡
 
-```shell
+```text
 ovs-vsctl add-port br-ens38 ens38
 ```
 
 + 重启neutron相关服务生效配置
 
-```shell
+```bash
 # 提供neutron服务
 service neutron-server restart
 # 提供ovs服务
@@ -1554,7 +1554,7 @@ service neutron-l3-agent restart
 +
 +  配置内核转发
 
-```shell
+```bash
 cat >> /etc/sysctl.conf << EOF
 # 用于控制系统是否开启对数据包源地址的校验，关闭
 net.ipv4.conf.all.rp_filter=0
@@ -1568,26 +1568,26 @@ EOF
 + 加载模块
     - 作用：桥接流量转发到iptables链
 
-```shell
+```text
 modprobe br_netfilter
 ```
 
 + 生效内核配置
 
-```shell
+```text
 sysctl -p
 ```
 
 + 安装neutron-ovs服务
 
-```shell
+```text
 apt install -y neutron-openvswitch-agent
 ```
 
 + 配置neutron文件
     - 提供neutron主体服务
 
-```shell
+```toml
 # 备份文件
 cp /etc/neutron/neutron.conf{,.bak}
 
@@ -1639,7 +1639,7 @@ lock_path = /var/lib/neutron/tmp
 + 配置openvswitch_agent.ini文件
     - 提供ovs网络服务
 
-```shell
+```ini
 # 备份文件
 cp /etc/neutron/plugins/ml2/openvswitch_agent.ini{,.bak}
 
@@ -1665,7 +1665,7 @@ firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewal
 
 + 配置nova文件识别neutron配置
 
-```shell
+```ini
 vim /etc/nova/nova.conf
 '''
 [DEFAULT]
@@ -1687,26 +1687,26 @@ password = neutron
 
 + 重启nova服务识别网络配置
 
-```shell
+```text
 service nova-compute restart
 ```
 
 + 新建一个外部网络桥接
 
-```shell
+```text
 ovs-vsctl add-br br-ens38
 ```
 
 + 将外部网络桥接映射到网卡
     - 这里绑定第二张网卡，属于业务网卡
 
-```shell
+```text
 ovs-vsctl add-port br-ens38 ens38
 ```
 
 + 重启服务加载ovs配置
 
-```shell
+```text
 service neutron-openvswitch-agent restart
 ```
 
@@ -1716,7 +1716,7 @@ service neutron-openvswitch-agent restart
 +
 +  配置内核转发
 
-```shell
+```bash
 cat >> /etc/sysctl.conf << EOF
 # 用于控制系统是否开启对数据包源地址的校验，关闭
 net.ipv4.conf.all.rp_filter=0
@@ -1730,26 +1730,26 @@ EOF
 + 加载模块
     - 作用：桥接流量转发到iptables链
 
-```shell
+```text
 modprobe br_netfilter
 ```
 
 + 生效内核配置
 
-```shell
+```text
 sysctl -p
 ```
 
 + 安装neutron-ovs服务
 
-```shell
+```text
 apt install -y neutron-openvswitch-agent
 ```
 
 + 配置neutron文件
     - 提供neutron主体服务
 
-```shell
+```toml
 # 备份文件
 cp /etc/neutron/neutron.conf{,.bak}
 
@@ -1801,7 +1801,7 @@ lock_path = /var/lib/neutron/tmp
 + 配置openvswitch_agent.ini文件
     - 提供ovs网络服务
 
-```shell
+```ini
 # 备份文件
 cp /etc/neutron/plugins/ml2/openvswitch_agent.ini{,.bak}
 
@@ -1827,7 +1827,7 @@ firewall_driver = neutron.agent.linux.iptables_firewall.OVSHybridIptablesFirewal
 
 + 配置nova文件识别neutron配置
 
-```shell
+```ini
 vim /etc/nova/nova.conf
 '''
 [DEFAULT]
@@ -1849,26 +1849,26 @@ password = neutron
 
 + 重启nova服务识别网络配置
 
-```shell
+```text
 service nova-compute restart
 ```
 
 + 新建一个外部网络桥接
 
-```shell
+```text
 ovs-vsctl add-br br-ens38
 ```
 
 + 将外部网络桥接映射到网卡
     - 这里绑定第二张网卡，属于业务网卡
 
-```shell
+```text
 ovs-vsctl add-port br-ens38 ens38
 ```
 
 + 重启服务加载ovs配置
 
-```shell
+```text
 service neutron-openvswitch-agent restart
 ```
 
@@ -1876,7 +1876,7 @@ service neutron-openvswitch-agent restart
 
 + 校验命令
 
-```shell
+```text
 root@controller:~# openstack network agent list
 +--------------------------------------+--------------------+------------+-------------------+-------+-------+---------------------------+
 | ID                                   | Agent Type         | Host       | Availability Zone | Alive | State | Binary                    |
@@ -1894,13 +1894,13 @@ root@controller:~# openstack network agent list
 
 + 安装服务
 
-```shell
+```text
 apt install -y openstack-dashboard
 ```
 
 + 配置local_settings.py文件
 
-```shell
+```text
 vim /etc/openstack-dashboard/local_settings.py
 '''
 # 配置仪表板以在控制器节点上使用OpenStack服务
@@ -1950,7 +1950,7 @@ TIME_ZONE = "Asia/Shanghai"
 
 + 重新加载web服务器配置
 
-```shell
+```text
 systemctl reload apache2
 ```
 
@@ -1964,7 +1964,7 @@ systemctl reload apache2
 
 + 创建数据库与用户给予cinder组件使用
 
-```shell
+```sql
 # 创建cinder数据库
 CREATE DATABASE cinder;
 
@@ -1974,25 +1974,25 @@ GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'%' IDENTIFIED BY 'cinderang';
 
 + 创建cinder用户
 
-```shell
+```text
 openstack user create --domain default --password cinder cinder
 ```
 
 + 添加cinder用户到admin角色
 
-```shell
+```text
 openstack role add --project service --user cinder admin
 ```
 
 + 创建cinder服务实体
 
-```shell
+```text
 openstack service create --name cinderv3 --description "OpenStack Block Storage" volumev3
 ```
 
 + 创建cinder服务API端点
 
-```shell
+```text
 openstack endpoint create --region RegionOne volumev3 public http://controller:8776/v3/%\(project_id\)s
 
 openstack endpoint create --region RegionOne volumev3 internal http://controller:8776/v3/%\(project_id\)s
@@ -2002,13 +2002,13 @@ openstack endpoint create --region RegionOne volumev3 admin http://controller:87
 
 + 安装cinder相关服务
 
-```shell
+```text
 apt install -y cinder-api cinder-scheduler
 ```
 
 + 配置cinder.conf文件
 
-```shell
+```ini
 # 备份文件
 cp  /etc/cinder/cinder.conf{,.bak}
 
@@ -2039,13 +2039,13 @@ lock_path = /var/lib/cinder/tmp
 
 + 填充数据库
 
-```shell
+```text
 su -s /bin/sh -c "cinder-manage db sync" cinder
 ```
 
 + 配置nova服务可调用cinder服务
 
-```shell
+```ini
 vim /etc/nova/nova.conf
 '''
 [cinder]
@@ -2055,19 +2055,19 @@ os_region_name = RegionOne
 
 + 重启nova服务生效cinder服务
 
-```shell
+```text
 service nova-api restart
 ```
 
 + 重新启动块存储服务
 
-```shell
+```text
 service cinder-scheduler restart
 ```
 
 + 平滑重启apache服务识别cinder页面
 
-```shell
+```text
 service apache2 reload
 ```
 
@@ -2079,27 +2079,27 @@ service apache2 reload
 +
 +  安装支持的实用程序包
 
-```shell
+```text
 apt install -y lvm2 thin-provisioning-tools
 ```
 
 + 创建LVM物理卷
     - 磁盘根据自己名称指定
 
-```shell
+```text
 pvcreate /dev/sdb
 ```
 
 + 创建LVM卷组 cinder-volumes
 
-```shell
+```text
 vgcreate cinder-volumes /dev/sdb
 ```
 
 + 修改lvm.conf文件
     - 作用：添加接受/dev/sdb设备并拒绝所有其他设备的筛选器
 
-```shell
+```text
 vim /etc/lvm/lvm.conf
 devices {
 ...
@@ -2108,13 +2108,13 @@ filter = [ "a/sdb/", "r/.*/"]
 
 + 安装cinder软件包
 
-```shell
+```text
 apt install -y cinder-volume tgt
 ```
 
 + 配置cinder.conf配置文件
 
-```shell
+```ini
 # 备份配置文件
 cp /etc/cinder/cinder.conf{,.bak}
 
@@ -2153,14 +2153,14 @@ lock_path = /var/lib/cinder/tmp
 
 + 指定卷路径
 
-```shell
+```text
 vim /etc/tgt/conf.d/tgt.conf
 include /var/lib/cinder/volumes/*
 ```
 
 + 重新启动块存储卷服务，包括其依赖项
 
-```shell
+```text
 service tgt restart
 
 service cinder-volume restart
@@ -2172,27 +2172,27 @@ service cinder-volume restart
 +
 +  安装支持的实用程序包
 
-```shell
+```text
 apt install -y lvm2 thin-provisioning-tools
 ```
 
 + 创建LVM物理卷
     - 磁盘根据自己名称指定
 
-```shell
+```text
 pvcreate /dev/sdb
 ```
 
 + 创建LVM卷组 cinder-volumes
 
-```shell
+```text
 vgcreate cinder-volumes /dev/sdb
 ```
 
 + 修改lvm.conf文件
     - 作用：添加接受/dev/sdb设备并拒绝所有其他设备的筛选器
 
-```shell
+```text
 vim /etc/lvm/lvm.conf
 devices {
 ...
@@ -2201,13 +2201,13 @@ filter = [ "a/sdb/", "r/.*/"]
 
 + 安装cinder软件包
 
-```shell
+```text
 apt install -y cinder-volume tgt
 ```
 
 + 配置cinder.conf配置文件
 
-```shell
+```ini
 # 备份配置文件
 cp /etc/cinder/cinder.conf{,.bak}
 
@@ -2246,14 +2246,14 @@ lock_path = /var/lib/cinder/tmp
 
 + 指定卷路径
 
-```shell
+```text
 vim /etc/tgt/conf.d/tgt.conf
 include /var/lib/cinder/volumes/*
 ```
 
 + 重新启动块存储卷服务，包括其依赖项
 
-```shell
+```text
 service tgt restart
 
 service cinder-volume restart
@@ -2263,7 +2263,7 @@ service cinder-volume restart
 
 + 校验命令
 
-```shell
+```text
 root@controller:~# openstack volume service list
 +------------------+---------------+------+---------+-------+----------------------------+
 | Binary           | Host          | Zone | Status  | State | Updated At                 |
@@ -2282,13 +2282,13 @@ root@controller:~# openstack volume service list
 
 ### 11.1 加载openstack环境变量
 
-```shell
+```bash
 source /etc/keystone/admin-openrc.sh
 ```
 
 ### 11.2 创建路由器
 
-```shell
+```text
 openstack router create Ext-Router
 ```
 
@@ -2296,13 +2296,13 @@ openstack router create Ext-Router
 
 + 创建vxlan网络
 
-```shell
+```text
 openstack network create --provider-network-type vxlan Intnal
 ```
 
 + 创建vxlan子网
 
-```shell
+```text
 openstack subnet create Intsubnal --network Intnal --subnet-range 166.66.66.0/24 --gateway 166.66.66.1 --dns-nameserver 114.114.114.114
 ```
 
@@ -2310,7 +2310,7 @@ openstack subnet create Intsubnal --network Intnal --subnet-range 166.66.66.0/24
 
 + 添加命令
 
-```shell
+```text
 openstack router add subnet Ext-Router Intsubnal
 ```
 
@@ -2318,25 +2318,25 @@ openstack router add subnet Ext-Router Intsubnal
 
 + 创建flat网络
 
-```shell
+```text
 openstack network create --provider-physical-network physnet1 --provider-network-type flat  --external Extnal
 ```
 
 + 创建flat子网
 
-```shell
+```text
 openstack subnet create Extsubnal --network Extnal --subnet-range 10.0.0.0/24  --allocation-pool start=10.0.0.30,end=10.0.0.200 --gateway 10.0.0.254 --dns-nameserver 114.114.114.114 --no-dhcp
 ```
 
 ### 11.6 设置路由器网关接口
 
-```shell
+```text
 openstack router set Ext-Router --external-gateway Extnal
 ```
 
 ### 11.7 开放安全组
 
-```shell
+```text
 # 开放icmp协议
 openstack security group rule create --proto icmp default
 
@@ -2349,7 +2349,7 @@ openstack security group rule list
 
 ### 11.8 上传镜像
 
-```shell
+```text
 openstack image create cirros04 --disk-format qcow2  --file  cirros-0.4.0-x86_64-disk.img
 ```
 
@@ -2357,61 +2357,61 @@ openstack image create cirros04 --disk-format qcow2  --file  cirros-0.4.0-x86_64
 
 + 创建ssh-key密钥
 
-```shell
+```text
 ssh-keygen -N ""
 ```
 
 + 创建密钥
 
-```shell
+```text
 openstack keypair create --public-key ~/.ssh/id_rsa.pub mykey
 ```
 
 + 创建云主机类型
 
-```shell
+```text
 openstack flavor create --vcpus 1 --ram 512 --disk 1 C1-512MB-1G
 ```
 
 + 创建云主机
 
-```shell
+```text
 openstack server create --flavor C1-512MB-1G --image cirros04 --security-group default --nic net-id=$(vxlan网络id) --key-name mykey vm01
 ```
 
 + 分配浮动地址
 
-```shell
+```text
 openstack floating ip create Extnal
 ```
 
 + 将分配的浮动IP绑定云主机
 
-```shell
+```text
 openstack server add floating ip vm01 $(分配出的地址)
 ```
 
 + VNC查看实例
 
-```shell
+```text
 openstack console url show vm01
 ```
 
 ### 11.10 创建卷类型
 
-```shell
+```text
 openstack volume type create lvm
 ```
 
 ### 11.11 卷类型添加元数据
 
-```shell
+```text
 cinder --os-username admin --os-tenant-name admin type-key lvm set volume_backend_name=lvm
 ```
 
 ### 11.12 查看卷类型
 
-```shell
+```text
 openstack volume type list
 ```
 
@@ -2419,7 +2419,7 @@ openstack volume type list
 
 + 指定lvm卷类型创建卷
 
-```shell
+```text
 openstack volume create lvm01 --type lvm --size 1
 ```
 
@@ -2427,7 +2427,7 @@ openstack volume create lvm01 --type lvm --size 1
 
 + 将卷绑定云主机
 
-```shell
+```text
 nova volume-attach vm01 卷ID
 ```
 
@@ -2448,7 +2448,7 @@ nova volume-attach vm01 卷ID
 
 + node1节点
 
-```shell
+```bash
 cat > /etc/netplan/00-installer-config.yaml << EOF
 # This is the network config written by 'subiquity'
 network:
@@ -2466,7 +2466,7 @@ netplan apply
 
 + node2节点
 
-```shell
+```bash
 cat > /etc/netplan/00-installer-config.yaml << EOF
 # This is the network config written by 'subiquity'
 network:
@@ -2484,7 +2484,7 @@ netplan apply
 
 + node3节点
 
-```shell
+```bash
 cat > /etc/netplan/00-installer-config.yaml << EOF
 # This is the network config written by 'subiquity'
 network:
@@ -2504,7 +2504,7 @@ netplan apply
 
 + node1节点
 
-```shell
+```bash
 hostnamectl set-hostname node1
 
 # 切换窗口
@@ -2513,7 +2513,7 @@ bash
 
 + node2节点
 
-```shell
+```bash
 hostnamectl set-hostname node2
 
 # 切换窗口
@@ -2522,7 +2522,7 @@ bash
 
 + node3节点
 
-```shell
+```bash
 hostnamectl set-hostname node3
 
 # 切换窗口
@@ -2531,7 +2531,7 @@ bash
 
 ## 2. 配置hosts解析（所有节点）
 
-```shell
+```bash
 cat >> /etc/hosts <<EOF
 10.0.0.18 node1
 10.0.0.19 node2
@@ -2546,7 +2546,7 @@ EOF
 >
 >
 
-```shell
+```bash
 tar zxvf ceph_quincy.tar.gz -C /opt/
 
 cp /etc/apt/sources.list{,.bak}
@@ -2578,7 +2578,7 @@ apt-get update
 >
 >
 
-```shell
+```text
 # 可配置开启
 timedatectl set-ntp true
 
@@ -2589,7 +2589,7 @@ timedatectl set-timezone Asia/Shanghai
 hwclock --systohc
 ```
 
-```shell
+```bash
 # 安装服务
 apt install -y chrony
 
@@ -2603,7 +2603,7 @@ vim /etc/chrony/chrony.conf
 systemctl restart chronyd
 ```
 
-```shell
+```bash
 # 安装服务
 apt install -y chrony
 
@@ -2617,13 +2617,13 @@ systemctl restart chronyd
 
 ## 5. 安装docker(所有节点)
 
-```shell
+```text
 apt -y install docker-ce
 ```
 
 ## 6. 安装cephadm(node1)
 
-```shell
+```text
 apt install -y cephadm
 ```
 
@@ -2634,7 +2634,7 @@ apt install -y cephadm
 >
 >
 
-```shell
+```text
 docker load -i cephadm_images_v17.tar
 ```
 
@@ -2663,7 +2663,7 @@ docker load -i cephadm_images_v17.tar
 >
 >
 
-```shell
+```bash
 # 导入镜像
 docker load -i registry.tar
 
@@ -2671,7 +2671,7 @@ docker load -i registry.tar
 docker run -d --name registry -p 5000:5000 --restart always 3a0f7b0a13ef
 ```
 
-```shell
+```bash
 cat >> /etc/docker/daemon.json << EOF
 {
 "insecure-registries":["10.0.0.18:5000"]
@@ -2682,11 +2682,11 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 
-```shell
+```text
 docker tag 0912465dcea5 10.0.0.18:5000/ceph:v17
 ```
 
-```shell
+```text
 docker push 10.0.0.18:5000/ceph:v17
 ```
 
@@ -2697,7 +2697,7 @@ docker push 10.0.0.18:5000/ceph:v17
 >
 >
 
-```shell
+```bash
 cat >> /etc/docker/daemon.json << EOF
 {
 "insecure-registries":["10.0.0.18:5000"]
@@ -2715,7 +2715,7 @@ systemctl restart docker
 >
 >
 
-```shell
+```bash
 mkdir -p /etc/ceph
 
 cephadm --image 10.0.0.18:5000/ceph:v17 bootstrap --mon-ip 10.0.0.18 --initial-dashboard-user admin --initial-dashboard-password 000000 --skip-pull
@@ -2735,7 +2735,7 @@ cephadm rm-cluster --fsid d92b85c0-3ecd-11ed-a617-3f7cf3e2d6d8 --force
 >
 >
 
-```shell
+```text
 apt install -y ceph-common
 ```
 
@@ -2752,13 +2752,13 @@ apt install -y ceph-common
 >
 >
 
-```shell
+```bash
 ssh-copy-id -f -i /etc/ceph/ceph.pub node2
 
 ssh-copy-id -f -i /etc/ceph/ceph.pub node3
 ```
 
-```shell
+```text
 ceph orch host add node2
 
 ceph orch host add node3
@@ -2773,7 +2773,7 @@ ceph orch host add node3
 >
 >
 
-```shell
+```text
 # 查看可用的磁盘设备
 ceph orch device ls
 
@@ -2813,25 +2813,25 @@ ceph df
 
 ### 1.1 cinder卷的存储池
 
-```shell
+```text
 ceph osd pool create volumes 32
 ```
 
 ### 1.2 glance存储池
 
-```shell
+```text
 ceph osd pool create images 32
 ```
 
 ### 1.3 备份存储池
 
-```shell
+```text
 ceph osd pool create backups 32
 ```
 
 ### 1.4 创建实例存储池
 
-```shell
+```text
 ceph osd pool create vms 32
 ```
 
@@ -2846,7 +2846,7 @@ ceph osd pool create vms 32
 +
 +  切换到ceph目录
 
-```shell
+```bash
 cd /etc/ceph/
 ```
 
@@ -2856,7 +2856,7 @@ cd /etc/ceph/
 
 + 对volumes存储池有rwx权限，对vms存储池有rwx权限，对images池有rx权限
 
-```shell
+```text
 ceph auth get-or-create client.cinder mon "allow r" osd "allow class-read object_prefix rbd_children,allow rwx pool=volumes,allow rwx pool=vms,allow rx pool=images"
 
 # class-read：x的子集，授予用户调用类读取方法的能力
@@ -2868,7 +2868,7 @@ ceph auth get-or-create client.cinder mon "allow r" osd "allow class-read object
 
 + 对images存储池有rwx权限
 
-```shell
+```text
 ceph auth get-or-create client.glance mon "allow r" osd "allow class-read object_prefix rbd_children,allow rwx pool=images"
 ```
 
@@ -2876,7 +2876,7 @@ ceph auth get-or-create client.glance mon "allow r" osd "allow class-read object
 
 + 对backups存储池有rwx权限
 
-```shell
+```text
 ceph auth get-or-create client.cinder-backup mon "profile rbd" osd "profile rbd pool=backups"
 
 # 使用 rbd profile 为新的 cinder-backup 用户帐户定义访问权限。然后，客户端应用使用这一帐户基于块来访问利用了 RADOS 块设备的 Ceph 存储。
@@ -2886,19 +2886,19 @@ ceph auth get-or-create client.cinder-backup mon "profile rbd" osd "profile rbd 
 
 + controller节点
 
-```shell
+```bash
 mkdir /etc/ceph/
 ```
 
 + compute01节点
 
-```shell
+```bash
 mkdir /etc/ceph/
 ```
 
 + compute02节点
 
-```shell
+```bash
 mkdir /etc/ceph/
 ```
 
@@ -2910,19 +2910,19 @@ mkdir /etc/ceph/
 +
 +  导出glance密钥
 
-```shell
+```text
 ceph auth get client.glance -o ceph.client.glance.keyring
 ```
 
 + 导出cinder密钥
 
-```shell
+```text
 ceph auth get client.cinder -o ceph.client.cinder.keyring
 ```
 
 + 导出cinder-backup密钥
 
-```shell
+```text
 ceph auth get client.cinder-backup -o ceph.client.cinder-backup.keyring
 ```
 
@@ -2937,19 +2937,19 @@ ceph auth get client.cinder-backup -o ceph.client.cinder-backup.keyring
 
 + 拷贝glance密钥
 
-```shell
+```text
 scp ceph.client.glance.keyring root@controller:/etc/ceph/
 ```
 
 + 拷贝cinder密钥
 
-```shell
+```text
 scp ceph.client.cinder.keyring root@controller:/etc/ceph/
 ```
 
 + 拷贝ceph集群认证配置文件
 
-```shell
+```text
 scp ceph.conf root@controller:/etc/ceph/
 ```
 
@@ -2957,7 +2957,7 @@ scp ceph.conf root@controller:/etc/ceph/
 
 + 拷贝cinder密钥
 
-```shell
+```text
 scp ceph.client.cinder.keyring root@compute01:/etc/ceph/
 
 scp ceph.client.cinder.keyring root@compute02:/etc/ceph/
@@ -2965,7 +2965,7 @@ scp ceph.client.cinder.keyring root@compute02:/etc/ceph/
 
 + 拷贝cinder-backup密钥（backup服务节点）
 
-```shell
+```text
 scp ceph.client.cinder-backup.keyring root@compute01:/etc/ceph/
 
 scp ceph.client.cinder-backup.keyring root@compute02:/etc/ceph/
@@ -2973,7 +2973,7 @@ scp ceph.client.cinder-backup.keyring root@compute02:/etc/ceph/
 
 + 拷贝ceph集群认证配置文件
 
-```shell
+```text
 scp ceph.conf root@compute01:/etc/ceph/
 
 scp ceph.conf root@compute02:/etc/ceph/
@@ -2985,7 +2985,7 @@ scp ceph.conf root@compute02:/etc/ceph/
 
 + 生成密钥（PS：注意，如果有多个计算节点，它们的UUID必须一致）
 
-```shell
+```bash
 cd /etc/ceph/
 
 UUID=$(uuidgen)
@@ -3002,14 +3002,14 @@ EOF
 
 + 执行命令写入secret
 
-```shell
+```text
 [root@compute01 ~]# virsh secret-define --file secret.xml
 Secret bf168fa8-8d5b-4991-ba4c-12ae622a98b1 created
 ```
 
 + 加入key
 
-```shell
+```bash
 # 将key值复制出来
 [root@compute01 ~]# cat ceph.client.cinder.keyring
 AQALyS1jHz4dDRAAEmt+c8JlXWyzxmCx5vobZg==
@@ -3019,7 +3019,7 @@ AQALyS1jHz4dDRAAEmt+c8JlXWyzxmCx5vobZg==
 
 + 查看添加后端密钥
 
-```shell
+```text
 virsh secret-list
 ```
 
@@ -3027,7 +3027,7 @@ virsh secret-list
 
 + 生成密钥（PS：注意，如果有多个计算节点，它们的UUID必须一致）
 
-```shell
+```bash
 cd /etc/ceph/
 
 UUID=bf168fa8-8d5b-4991-ba4c-12ae622a98b1
@@ -3044,14 +3044,14 @@ EOF
 
 + 执行命令写入secret
 
-```shell
+```text
 [root@compute02 ~]# virsh secret-define --file secret.xml
 Secret bf168fa8-8d5b-4991-ba4c-12ae622a98b1 created
 ```
 
 + 加入key
 
-```shell
+```bash
 # 将key值复制出来
 [root@compute02 ~]# cat ceph.client.cinder.keyring
 AQALyS1jHz4dDRAAEmt+c8JlXWyzxmCx5vobZg==
@@ -3063,7 +3063,7 @@ AQALyS1jHz4dDRAAEmt+c8JlXWyzxmCx5vobZg==
 
 + 查看添加后端密钥
 
-```shell
+```text
 virsh secret-list
 ```
 
@@ -3075,19 +3075,19 @@ virsh secret-list
 +
 +  controller节点
 
-```shell
+```text
 apt install -y ceph-common
 ```
 
 + compute01节点
 
-```shell
+```text
 apt install -y ceph-common
 ```
 
 + compute02节点
 
-```shell
+```text
 apt install -y ceph-common
 ```
 
@@ -3099,13 +3099,13 @@ apt install -y ceph-common
 +
 +  更改glance密钥属性
 
-```shell
+```bash
 chown glance.glance /etc/ceph/ceph.client.glance.keyring
 ```
 
 + 修改配置文件
 
-```shell
+```ini
 vim /etc/glance/glance-api.conf
 [glance_store]
 #stores = file,http
@@ -3121,25 +3121,25 @@ rbd_store_chunk_size = 8
 
 + 安装缺失aws的模块
 
-```shell
+```text
 apt install -y python3-boto3
 ```
 
 + 重启生效ceph配置
 
-```shell
+```text
 service glance-api restart
 ```
 
 + 上传镜像
 
-```shell
+```text
 openstack image create cirros04_v1 --disk-format qcow2 --file cirros-0.4.0-x86_64-disk.img
 ```
 
 + 到node1节点验证镜像
 
-```shell
+```text
 rbd images ls
 ```
 
@@ -3147,13 +3147,13 @@ rbd images ls
 
 + 更改cinder密钥属性（controller、compute01、compute02节点）
 
-```shell
+```bash
 chown cinder.cinder /etc/ceph/ceph.client.cinder.keyring
 ```
 
 + 修改配置文件（controller节点）
 
-```shell
+```ini
 vim /etc/cinder/cinder.conf
 [DEFAULT]
 # 指定存储类型，否则在创建卷时，类型为 __DEFAULT__
@@ -3165,7 +3165,7 @@ service cinder-scheduler restart
 
 + 修改配置文件（compute01、compute02存储节点）
 
-```shell
+```ini
 vim /etc/cinder/cinder.conf
 [DEFAULT]
 enabled_backends = ceph,lvm
@@ -3189,31 +3189,31 @@ service cinder-volume restart
 
 + 创建卷类型（controller节点）
 
-```shell
+```text
 openstack volume type create ceph
 ```
 
 + 设置卷类型元数据（controller节点）
 
-```shell
+```text
 cinder --os-username admin --os-tenant-name admin type-key ceph set volume_backend_name=ceph
 ```
 
 + 查看存储类型（controller节点）
 
-```shell
+```text
 openstack volume type list
 ```
 
 + 创建卷测试（controller节点）
 
-```shell
+```text
 openstack volume create ceph01 --type ceph --size 1
 ```
 
 + 查看volumes存储池是否存在卷
 
-```shell
+```text
 rbd ls volumes
 ```
 
@@ -3225,19 +3225,19 @@ rbd ls volumes
 +
 +  安装服务
 
-```shell
+```text
 apt install cinder-backup -y
 ```
 
 + 更改密钥属性
 
-```shell
+```bash
 chown cinder.cinder /etc/ceph/ceph.client.cinder-backup.keyring
 ```
 
 + 修改配置文件
 
-```shell
+```ini
 vim /etc/cinder/cinder.conf
 [DEFAULT]
 backup_driver = cinder.backup.drivers.ceph.CephBackupDriver
@@ -3252,19 +3252,19 @@ restore_discard_excess_bytes = true
 
 + 重启生效配置
 
-```shell
+```text
 service cinder-backup restart
 ```
 
 + 创建卷备份（controller节点）
 
-```shell
+```text
 openstack volume backup create --name ceph_backup ceph01
 ```
 
 + 验证卷备份（node1节点）
 
-```shell
+```text
 rbd ls backups
 ```
 
@@ -3276,7 +3276,7 @@ rbd ls backups
 +
 +  修改配置文件
 
-```shell
+```toml
 vim /etc/nova/nova.conf
 [DEFAULT]
 live_migration_flag = "VIR_MIGRATE_UNDEFINE_SOURCE,VIR_MIGRATE_PEER2PEER,VIR_MIGRATE_LIVE"
@@ -3291,19 +3291,19 @@ rbd_secret_uuid = bf168fa8-8d5b-4991-ba4c-12ae622a98b1
 
 + 安装qemu支持rbd
 
-```shell
+```text
 apt install -y qemu-block-extra
 ```
 
 + 重启nova服务生效配置
 
-```shell
+```text
 service nova-compute restart
 ```
 
 + 创建实例测试（controller节点）
 
-```shell
+```text
 openstack server create --flavor C1-512MB-1G --image cirros04_v1 --security-group default --nic net-id=$(vxlan网络id) --key-name mykey vm02
 
 # 安全组对应admin项目ID
@@ -3311,7 +3311,7 @@ openstack server create --flavor C1-512MB-1G --image cirros04_v1 --security-grou
 
 + 验证是否到ceph中的vms存储池
 
-```shell
+```text
 rbd ls vms
 ```
 
@@ -3323,7 +3323,7 @@ rbd ls vms
 +
 +  配置监听地址
 
-```shell
+```text
 vim /etc/libvirt/libvirtd.conf
 listen_tls = 0
 listen_tcp = 1
@@ -3334,26 +3334,26 @@ auth_tcp = "none"
 
 + 开启监听地址
 
-```shell
+```text
 vim /etc/default/libvirtd
 LIBVIRTD_ARGS="--listen"
 ```
 
 + 屏蔽libvirtd服务
 
-```shell
+```text
 systemctl mask libvirtd.socket libvirtd-ro.socket libvirtd-admin.socket libvirtd-tls.socket libvirtd-tcp.socket
 ```
 
 + 重启libvirtd生效配置
 
-```shell
+```text
 service libvirtd restart
 ```
 
 + 重启计算节点nova服务
 
-```shell
+```text
 service nova-compute restart
 ```
 
@@ -3361,30 +3361,30 @@ service nova-compute restart
     - 互通测试再进行热迁移
 + compute01连接compute02
 
-```shell
+```text
 virsh -c qemu+tcp://compute02/system
 ```
 
 + compute02连接compute01
 
-```shell
+```text
 virsh -c qemu+tcp://compute01/system
 ```
 
 + 查看云主机
 
-```shell
+```text
 openstack server list
 ```
 
 + 查看需要迁移的云主机详细信息
 
-```shell
+```text
 openstack server show fdb31a02-9c44-481b-9d22-224c776e2304
 ```
 
 + 热迁移到另一个计算节点
 
-```shell
+```text
 nova live-migration fdb31a02-9c44-481b-9d22-224c776e2304 compute01
 ```

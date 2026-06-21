@@ -40,7 +40,7 @@ createrepo .
 
 ---
 
-```shell
+```text
 #1.安装yumdownloader命令
 #yumdownloader命令是yum-utils软件包的一部分，因此需要先安装该软件包。
 yum install yum-utils
@@ -54,7 +54,7 @@ yumdownloader httpd
 yumdownloader --destdir=/tmp --resolve httpd
 ```
 
-```shell
+```text
 #下载yum的插件
 yum install yum-plugin-downloadonly
 
@@ -68,7 +68,7 @@ yum install --downloadonly --downloaddir=/tmp httpd
 
 ```
 
-```shell
+```bash
 #createrepo 创建依赖关系表以生成软件仓库
 yum -y install createrepo
 

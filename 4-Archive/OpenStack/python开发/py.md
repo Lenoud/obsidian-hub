@@ -685,7 +685,7 @@ pip 21.3.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
 
 3.编写sdk_server_manager.py脚本 （注意检查镜像、类型、网络是否已经存在）
 
-```shell
+```python
 import openstack,json
 conn=openstack.connect(
 auth_url='http://controller:5000/v3',
@@ -723,7 +723,7 @@ openstack.compute.v2.server.Server(name=server001, imageRef=9c8d1296-e663-4e87-9
 
 编写完成后，提交allinone节点的用户名、密码和IP地址到答题框。
 
-```shell
+```python
 import openstack,json
 #import_port #评分点
 conn=openstack.connect(
@@ -1180,7 +1180,7 @@ python3 user_manager.py delete -name user01
 
 2.编写user_manager.py
 
-```shell
+```python
 import requests,json,argparse
 shuju = argparse.ArgumentParser()
 shuju.add_argument("option")

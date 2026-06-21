@@ -25,7 +25,7 @@
 
 此处nfs-server节点使用的基础镜像为CentOS 7.9，该基础镜像中已经安装了NFS服务，查看当前安装的NFS服务，命令如下：
 
-```plain
+```text
 [root@nfs-server ~]# rpm -qa |grep nfs-utils
 nfs-utils-1.3.0-0.68.el7.x86_64
 [root@nfs-server ~]# rpm -qa |grep rpcbind
@@ -38,7 +38,7 @@ rpcbind-0.2.0-49.el7.x86_64
 
 创建一个目录作为NFS的共享目录，命令如下：
 
-```plain
+```text
 [root@nfs-server ~]# mkdir /mnt/test
 [root@nfs-server ~]# ll /mnt/
 total 0
@@ -47,14 +47,14 @@ drwxr-xr-x. 2 root root 6 Feb  9 05:56 test
 
 创建完共享目录后，编辑NFS服务的配置文件/etc/exports，在配置文件中加入一行代码，按“i”键进入编辑模式进行配置，按ESC键输入:wq保存退出，命令如下：
 
-```plain
+```text
 [root@nfs-server ~]# vi /etc/exports
 /mnt/test 10.24.200.0/24(rw,no_root_squash,no_all_squash,sync,anonuid=501,anongid=501)
 ```
 
 生效配置，命令如下：
 
-```plain
+```text
 [root@nfs-server ~]# exportfs -r
 ```
 
@@ -88,14 +88,14 @@ drwxr-xr-x. 2 root root 6 Feb  9 05:56 test
 
 nfs-server端启动NFS服务，命令如下：
 
-```plain
+```text
 [root@nfs-server ~]# systemctl start rpcbind
 [root@nfs-server ~]# systemctl start nfs
 ```
 
 nfs-server端查看可挂载目录，命令如下：
 
-```plain
+```text
 [root@nfs-server ~]# showmount -e 10.24.193.142
 Export list for 10.24.193.142:
 /mnt/test 10.24.200.0/24
@@ -109,7 +109,7 @@ Export list for 10.24.193.142:
 
 使用远程工具连接到Controller节点，查看是否安装了NFS服务的客户端，命令如下：
 
-```plain
+```text
 [root@controller ~]# rpm -qa |grep nfs-utils
 nfs-utils-1.3.0-0.61.el7.x86_64
 ```
@@ -122,13 +122,13 @@ nfs-utils-1.3.0-0.61.el7.x86_64
 
 知道了Glance的存储路径，就可以挂载该目录到NFS服务了，命令如下：
 
-```plain
+```text
 [root@controller ~]# mount -t nfs 10.24.193.142:/mnt/test /var/lib/glance/images/
 ```
 
 使用df命令查看挂载情况。
 
-```plain
+```text
 [root@controller ~]# df -h
 Filesystem               Size  Used Avail Use% Mounted on
 /dev/vda1                 50G  2.7G   48G   6% /
@@ -147,7 +147,7 @@ tmpfs                    1.2G     0  1.2G   0% /run/user/0
 
 在做完挂载操作后，此时Glance服务还不能正常使用，若使用glance image-create命令上传镜像的话，会报错，因为此时images目录的用户与用户组不是glance，而是root，需要把images目录的用户与用户组进行修改，命令如下：
 
-```plain
+```text
 [root@controller ~]# cd /var/lib/glance/
 [root@controller glance]# chown glance:glance images/
 [root@controller glance]# ll
@@ -157,7 +157,7 @@ drwxr-xr-x. 2 glance glance 6 Feb  9 05:56 images
 
 这个时候，Glance服务就可以正常使用了，使用cirros镜像进行测试，将cirros-0.3.4-x86_64-disk.img上传至Controller节点，并上传，命令如下：
 
-```plain
+```bash
 [root@controller ~]# curl -O  http://mirrors.douxuedu.com/competition/cirros-0.3.4-x86_64-disk.img
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# glance image-create --name cirros --disk-format qcow2 --container-format bare --progress < cirros-0.3.4-x86_64-disk.img
@@ -186,7 +186,7 @@ drwxr-xr-x. 2 glance glance 6 Feb  9 05:56 images
 
 可以看到上传镜像成功。查看images目录下的文件，命令如下：
 
-```plain
+```text
 [root@controller ~]# ll /var/lib/glance/images/
 total 12980
 -rw-r-----. 1 glance glance 13287936 Feb  9 06:22 a59c327b-0c0d-44e7-a0f2-f9d53761c2b4
@@ -194,7 +194,7 @@ total 12980
 
 然后回到nfs-server节点，查看/mnt/test下的文件，命令如下：
 
-```plain
+```text
 [root@nfs-server ~]# ll /mnt/test/
 total 12980
 -rw-r-----. 1 161 161 13287936 Feb  9 06:22 a59c327b-0c0d-44e7-a0f2-f9d53761c2b4

@@ -44,7 +44,7 @@ K8s内部服务架构如下：
 
 【说明：为转化docx到md文件，代码前后隐藏补md代码标签】
 
-```shell
+```text
 
 [root@ controller ~]# python3 --version
 
@@ -56,7 +56,7 @@ Python 3.6.8
 
 【说明：为转化docx到md文件，代码前后隐藏补md代码标签】
 
-```shell
+```text
 
 pip3 install kubernetes
 
@@ -1204,7 +1204,7 @@ Kubernetes Python SDK是包是由[OpenAPI Generator](https://openapi-generator.t
 
 （2）代码实现
 
-```shell
+```sql
 
 import os
 

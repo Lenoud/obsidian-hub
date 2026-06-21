@@ -5,7 +5,7 @@ Alist网盘服务相关技术笔记。
 [Home](https://alist.nn.ci/zh/)
 
 # 使用 Docker部署
-```shell
+```bash
 #部署服务
 docker run -d --restart=always -v /opt/ShareFile:/opt/filedata -v /opt/alist/config:/opt/alist/data \
 -p 5244:5244 -e PUID=0 -e PGID=0 -e UMASK=022 --name="alist" xhofe/alist:latest

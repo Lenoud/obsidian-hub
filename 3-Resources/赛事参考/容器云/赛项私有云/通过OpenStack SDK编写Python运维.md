@@ -16,13 +16,13 @@ https://docs.openstack.org/openstacksdk/latest/user/index.html。
 图6
 Python的OpenStack模块下每种资源提供一个对应的模块实现。安装 OpenStack SDK：
 
-```plain
+```bash
 $ pip install openstacksdk
 ```
 
 查找认证的Endpoint地址：
 
-```plain
+```text
 keystone     | identity       | True    | internal  | http://controller:5000/v3/
 ```
 
@@ -35,7 +35,7 @@ keystone     | identity       | True    | internal  | http://controller:5000/v3/
 （2）用户管理：通过openstack. connect.identity模块实现。
 新建sdk_manager_identity.py，用户查询与项目项目代码如下：
 
-```plain
+```python
 import json,logging
 import openstack
 #openstack logger
@@ -120,7 +120,7 @@ if __name__ == '__main__':
 以上代码分别通过create_connection、user_manager实现建立连接、用户与项目的查询，**main**方法提供测试代码，可以逐个方法进行测试验证。相关的执行结果，可以通过命令行或dashboard界面进行验证。
 执行sdk_manager_identity.py，结果如下：
 
-```plain
+```text
 [root@controller ~]# python3 sdk_manager_identity.py
 {'auth_url': 'http://172.128.11.18:5000/v3/', 'user_domain_name': 'demo', 'username': 'admin', 'password': '000000'}
 -------users-------
@@ -297,7 +297,7 @@ Process finished with exit code 0
 
 官网提供了查询User、Project、Domain资源的Python案例，资源的封装通过代理模式实现，参考类如下：
 
-```plain
+```text
 class IdentityService(service_description.ServiceDescription):
     """The identity service."""
     supported_versions = {
@@ -315,7 +315,7 @@ class IdentityService(service_description.ServiceDescription):
 （2）镜像、主机类型、网络：也通过openstack. connect.compute模块实现。另外openstack.connect.image、openstack.connect.network也实现镜像与网络操作。
 在sdk_manager_compute.py下修改为如下代码：
 
-```plain
+```yaml
 import json,logging
 import openstack
 #openstack logger
@@ -495,7 +495,7 @@ if __name__ == '__main__':
 **main**方法提供测试代码，可以逐个方法进行测试验证。相关的执行结果，可以通过命令行或Dashboard界面进行验证。
 执行结果如下：
 
-```plain
+```yaml
 [root@controller ~]# python3 sdk_manager_compute.py
 {'auth_url': 'http://172.128.11.18:5000/v3/', 'user_domain_name': 'demo', 'username': 'admin', 'password': '000000'}
 list flavors--------

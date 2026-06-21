@@ -24,7 +24,7 @@ Docker和Docker Compose已安装完成，将提供的软件包Pig.tar.gz上传�
 
 下载并解压软件包：
 
-```plain
+```text
 [root@master ~]# wget http://mirrors.douxuedu.com/competition/Pig.tar.gz
 [root@master ~]# tar -xf Pig.tar.gz
 [root@master ~]# ll Pig
@@ -38,7 +38,7 @@ drwxr-xr-x 3 root root     12288 Jan  5 08:56 yum
 
 导入CentOS:7.9.2009镜像：
 
-```plain
+```text
 [root@master ~]# docker load -i Pig/CentOS_7.9.2009.tar
 Loaded image: centos:centos7.9.2009
 ```
@@ -47,13 +47,13 @@ Loaded image: centos:centos7.9.2009
 
 初始化Kubernetes集群：
 
-```plain
+```text
 [root@master ~]# init-cluster
 ```
 
 查看集群状态：
 
-```plain
+```text
 [root@master ~]# kubectl cluster-info
 Kubernetes control plane is running at https://apiserver.cluster.local:6443
 CoreDNS is running at https://apiserver.cluster.local:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
@@ -67,7 +67,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 
 编写init.sh脚本：
 
-```plain
+```bash
 [root@master ~]# cd Pig/
 [root@master Pig]# vi mysql_init.sh
 #!/bin/bash
@@ -81,7 +81,7 @@ mysql -uroot -proot -e "source /opt/pig.sql;source /opt/pig_codegen.sql;source /
 
 编写yum源：
 
-```plain
+```ini
 [root@master Pig]# vi local.repo
 [pig]
 name=pig
@@ -92,7 +92,7 @@ enabled=1
 
 编写Dockerfile文件：
 
-```plain
+```bash
 [root@master Pig]# vi Dockerfile-mariadb
 FROM centos:centos7.9.2009
 MAINTAINER Chinaskills
@@ -112,7 +112,7 @@ CMD ["mysqld_safe","--user=root"]
 
 构建镜像：
 
-```plain
+```bash
 [root@master Pig]# docker build -t pig-mysql:v1.0 -f Dockerfile-mariadb .
 Sending build context to Docker daemon  890.9MB
 Step 1/12 : FROM centos:centos7.9.2009
@@ -160,7 +160,7 @@ Successfully tagged pig-mysql:v1.0
 
 编写Dockerfile文件：
 
-```plain
+```bash
 [root@master Pig]# vi Dockerfile-redis
 FROM centos:centos7.9.2009
 MAINTAINER Chinaskills
@@ -176,7 +176,7 @@ CMD ["/usr/bin/redis-server","/etc/redis.conf"]
 
 #### （2）构建镜像
 
-```plain
+```bash
 [root@master Pig]# docker build -t pig-redis:v1.0 -f Dockerfile-redis .
 Sending build context to Docker daemon  890.9MB
 Step 1/9 : FROM centos:centos7.9.2009
@@ -215,7 +215,7 @@ Successfully tagged pig-redis:v1.0
 
 编写启动脚本：
 
-```plain
+```bash
 [root@master Pig]# vi pig_init.sh
 #!/bin/bash
 sleep 20
@@ -230,7 +230,7 @@ nohup java -jar /root/pig-upms-biz.jar  $JAVA_OPTS >/dev/null 2>&1
 
 编写Dockerfile文件：
 
-```plain
+```bash
 [root@master Pig]# vi Dockerfile-pig
 FROM centos:centos7.9.2009
 MAINTAINER Chinaskills
@@ -247,7 +247,7 @@ CMD ["/bin/bash","/root/pig_init.sh"]
 
 #### （2）构建镜像
 
-```plain
+```bash
 [root@master Pig]# docker build -t pig-service:v1.0 -f Dockerfile-pig .
 Sending build context to Docker daemon  890.9MB
 Step 1/11 : FROM centos:centos7.9.2009
@@ -292,7 +292,7 @@ Successfully tagged pig-service:v1.0
 
 编写Dockerfile：
 
-```plain
+```bash
 [root@master Pig]# vi Dockerfile-nginx
 FROM centos:centos7.9.2009
 MAINTAINER Chinaskills
@@ -311,7 +311,7 @@ CMD ["nginx","-g","daemon off;"]
 
 构建镜像：
 
-```plain
+```bash
 [root@master Pig]# docker build -t pig-ui:v1.0 -f Dockerfile-nginx .
 Sending build context to Docker daemon  890.9MB
 Step 1/11 : FROM centos:centos7.9.2009
@@ -356,7 +356,7 @@ Successfully tagged pig-ui:v1.0
 
 编写docker-compose.yaml编排文件：
 
-```plain
+```yaml
 [root@master Pig]# vi docker-compose.yaml
 version: '2'
 services:
@@ -410,7 +410,7 @@ services:
 
 部署服务
 
-```plain
+```text
 [root@master Pig]# docker-compose up -d
 [+] Running 5/5
 ⠿ Network  pig_default  Created                                       0.1s
@@ -422,7 +422,7 @@ services:
 
 查看服务：
 
-```plain
+```bash
 [root@master Pig]# docker-compose ps
 NAME                COMMAND                  SERVICE             STATUS              PORTS
 pig-mysql           "mysqld_safe --user=…"   pig-mysql           running             0.0.0.0:3306->3306/tcp, :::3306->3306/tcp

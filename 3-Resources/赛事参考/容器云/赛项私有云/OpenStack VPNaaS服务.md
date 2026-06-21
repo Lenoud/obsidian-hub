@@ -20,7 +20,7 @@
 
 执行脚本安装：
 
-```plain
+```ini
 [root@controller ~]# curl -O http://mirrors.douxuedu.com/competition/CentOS-7-x86_64-DVD-2009.iso
 
 [root@controller ~]# curl -O http://mirrors.douxuedu.com/competition/chinaskills_cloud_iaas_v2.0.1.iso
@@ -53,7 +53,7 @@ enabled=1
 
 验证网络拓扑如下所示。
 
-```plain
+```ini
 (100.0.1.0/24 – admin租户)
               |
               |  100.0.1.1
@@ -75,7 +75,7 @@ enabled=1
 
 在控制节点/root/目录下编写路由网络创建脚本route-net-build.sh，脚本内容如下所示：
 
-```plain
+```bash
 [root@controller ~]# vi route-net-build.sh
 #/bin/bash
 
@@ -106,13 +106,13 @@ openstack router set --external-gateway ext-net --fixed-ip subnet=ext-subnet,ip-
 
 赋予脚本route-net-build.sh执行权限。命令如下。
 
-```plain
+```text
 [root@controller ~]# chmod +x route-net-build.sh
 ```
 
 执行脚本route-net-build.sh，完成路由网络的创建。命令如下。
 
-```plain
+```text
 [root@controller ~]# ./route-net-build.sh
 ```
 
@@ -120,7 +120,7 @@ openstack router set --external-gateway ext-net --fixed-ip subnet=ext-subnet,ip-
 
 在admin租户创建vpn连接，–peer-address为demo租户的路由route2网关地址100.0.0.22。命令如下。
 
-```plain
+```bash
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# openstack vpn ike policy create ikepolicy1
 [root@controller ~]# openstack vpn ipsec policy create ipsecpolicy1
@@ -130,7 +130,7 @@ openstack router set --external-gateway ext-net --fixed-ip subnet=ext-subnet,ip-
 
 在demo租户创建vpn连接，–peer-address为admin租户的路由route1网关地址100.0.0.11。命令如下。
 
-```plain
+```bash
 [root@controller ~]# source /etc/keystone/demo-openrc.sh
 [root@controller ~]# openstack vpn ike policy create ikepolicy2
 [root@controller ~]# openstack vpn ipsec policy create ipsecpolicy2
@@ -142,7 +142,7 @@ openstack router set --external-gateway ext-net --fixed-ip subnet=ext-subnet,ip-
 
 查看VPN连接状态（如果状态为PENDING_CREATE，请稍微等待几分钟）。命令如下。
 
-```plain
+```bash
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# openstack vpn ipsec site connection list
 +--------------------------------------+----------------+--------------+--------------------------+--------+

@@ -1,7 +1,7 @@
 # 自定义默认conda环境
 激活 Conda 后自动激活特定环境，你可以编辑 ~/.bashrc 或 ~/.bash_profile 文件，将以下行添加到文件末尾：
 
-```plain
+```text
 conda activate kaifa
 ```
 
@@ -11,6 +11,6 @@ conda activate kaifa
 
 要启用 auto_activate_base，你可以运行以下命令：
 
-```plain
+```text
 conda config --set auto_activate_base true
 ```

@@ -24,20 +24,20 @@
 
 调度策略的修改是比较简单的，首先查看当前使用的调度算法，使用CRT工具连接到controller节点，查看调度算法，命令如下：
 
-```plain
+```text
 [root@controller ~]# cat /sys/block/vda/queue/scheduler
 [none] mq-deadline kyber
 ```
 
 可以看到当前的I/O调度算法none，修改算法为mq-deadline，命令如下：
 
-```plain
+```text
 [root@controller ~]# echo mq-deadline > /sys/block/vda/queue/scheduler
 ```
 
 修改完之后，查看当前使用的算法，命令如下：
 
-```plain
+```text
 [root@controller ~]# cat /sys/block/vda/queue/scheduler
 [mq-deadline] kyber none
 ```

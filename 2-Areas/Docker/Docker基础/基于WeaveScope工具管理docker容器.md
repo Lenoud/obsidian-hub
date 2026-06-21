@@ -2,7 +2,7 @@
 
 基于WeaveScope工具管理docker容器相关技术笔记。
 
-```shell
+```bash
 #从github下载软件
 sudo curl -L https://github.com/weaveworks/scope/releases/download/latest_release/scope -o /usr/local/bin/scope
 #赋予可执行权限

@@ -18,7 +18,7 @@
 
 下载上传镜像并创建网络：
 
-```plain
+```bash
 [root@controller ~]# curl -O http://mirrors.douxuedu.com/competition/cirros-0.3.4-x86_64-disk.img
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# glance image-create --name cirros  --disk-format qcow2 --container-format bare --progress<cirros-0.3.4-x86_64-disk.img
@@ -28,14 +28,14 @@
 
 查看Python版本，命令如下:
 
-```plain
+```text
 [root@ controller ~]# python3 --version
 Python 3.6.8
 ```
 
 使用提供的whl文件安装依赖，命令如下：
 
-```plain
+```text
 [root@controller ~]# cd Python-api
 # pip3 install certifi-2019.11.28-py2.py3-none-any.whl
 # pip3 install urllib3-1.25.11-py3-none-any.whl
@@ -46,7 +46,7 @@ Python 3.6.8
 
 安装之后可以使用命令查看是否被成功安装，命令如下：
 
-```plain
+```text
 [root@controller ~]# pip3 list
 Package            Version
 ------------------ ----------

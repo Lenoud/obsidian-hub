@@ -20,7 +20,7 @@ conda config --show-sources
 
 要激活环境，可以运行：
 
-```plain
+```text
 conda activate myenv
 ```
 
@@ -37,19 +37,19 @@ conda install -c conda-forge openstacksdk
 
 当您不再需要某个环境时，可以使用以下命令进行删除：
 
-```plain
+```text
 conda remove --name myenv --all
 ```
 
 您可以使用以下命令列出当前系统中存在的所有Conda环境：
 
-```plain
+```text
 conda env list
 ```
 
 这将输出所有已创建的环境列表，其中包括环境名称以及它们所在的路径。 例如：
 
-```plain
+```text
 # conda environments:
 #
 base                  /opt/anaconda3
@@ -61,7 +61,7 @@ myenv2              /opt/anaconda3/envs/myenv2
 
 您也可以使用以下命令查看当前激活的环境：
 
-```plain
+```text
 conda info --envs
 ```
 
@@ -69,7 +69,7 @@ conda info --envs
 
 如果您只希望列出已安装的环境中的包及其版本，可以使用以下命令：
 
-```plain
+```text
 conda list
 ```
 
@@ -77,7 +77,7 @@ conda list
 
 如果要列出特定环境中安装的包及其版本，可以在conda list命令后添加环境名称，例如：
 
-```plain
+```text
 conda list -n myenv1
 ```
 

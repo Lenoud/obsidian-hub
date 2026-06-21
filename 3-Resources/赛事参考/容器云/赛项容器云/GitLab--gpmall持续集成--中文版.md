@@ -83,7 +83,7 @@ GitLab CI/CD 适合通用的开发工作流程。
 #### 2.1 上传镜像
 拉取资源包并解压:
 
-```powershell
+```bash
 curl -O http://mirrors.douxuedu.com/competition/gitlab-gpamll-cicd.tar.gz
 
 tar -zxvf gitlab-gpamll-cicd.tar.gz

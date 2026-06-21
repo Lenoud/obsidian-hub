@@ -5,7 +5,7 @@ miniserve文件服务器相关技术笔记。
 项目地址[GitHub - svenstaro/miniserve: 🌟 For when you really just want to serve some files over HTTP right now!](https://github.com/svenstaro/miniserve)
 
 ### docker部署
-```shell
+```bash
 #从docker部署miniserver
 docker run -id --name file_server -v /opt/ShareFile:/opt \
 -p 80:8080 --restart always  docker.io/svenstaro/miniserve  /opt
@@ -16,7 +16,7 @@ docker run -id --name file_server -v /opt/ShareFile:/opt -p 80:8080 --restart al
 docker.io/svenstaro/miniserve -H -r -g -z -t 信职云计算FileServer -U -u / /opt
 ```
 
-```shell
+```text
 For when you really just want to serve some files over HTTP right now!
 
 Usage: miniserve [OPTIONS] [PATH]

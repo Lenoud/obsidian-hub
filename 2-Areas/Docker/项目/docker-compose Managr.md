@@ -3,7 +3,7 @@
 docker-compose Managr相关技术笔记。
 
 ## 启动一个docker-compose 的 web Manager面板
-```shell
+```yaml
 services:
   dockge:
     image: louislam/dockge:1.4.2

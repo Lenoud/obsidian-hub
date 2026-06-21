@@ -3,7 +3,7 @@
 drone+gogs轻量级cicd相关技术笔记。
 
 ## 基于docker
-```shell
+```yaml
 version: '3'
 services:
   drone-server:

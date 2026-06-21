@@ -7,7 +7,7 @@
 
 将clash-for-linux.zip传入Linux主机
 
-```shell
+```bash
 unzip clash-for-linux.zip
 cd clash-for-linux
 
@@ -25,7 +25,7 @@ source /etc/profile.d/clash.sh
 proxy_on
 ```
 
-```shell
+```bash
 # 开启系统代理
 function proxy_on() {
         export http_proxy=http://127.0.0.1:7890

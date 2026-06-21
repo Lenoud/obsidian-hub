@@ -602,7 +602,7 @@ Docker Desktop版本：4.35.1
 
 完整配置如下，只需添加“registry-mirrors” 即可。
 
-```shell
+```text
 {
   "builder": {
     "gc": {
@@ -666,13 +666,13 @@ CONTAINER ID   IMAGE        COMMAND                   CREATED         STATUS    
 
 （1）安装完centos7后主机名默认为localhost，这里将其修改为docker1，代码如下：
 
-```shell
+```text
 hostnamectl set-hostname docker1
 ```
 
 （2）禁用防火墙与SELinux，为方便测试，建议初学者禁用防火墙与SELinux。要禁用SELinux，可修改/etc/selinux/config文件，将“SELINUX”选项设置为“disabled”，重启系统使之生效，执行以下命令禁用防火墙与SELinux。
 
-```shell
+```bash
 systemctl disable firewalld
 systemctl stop firewalld
 sed -i "s/enforcing/disabled/g" /etc/selinux/config
@@ -680,14 +680,14 @@ sed -i "s/enforcing/disabled/g" /etc/selinux/config
 
 查看防火墙是否关闭，执行命令如下：
 
-```shell
+```text
 
 [root@docker1 ~]# systemctl status firewalld
 ```
 
 成功关闭则输出如下内容：
 
-```shell
+```yaml
 ● firewalld.service - firewalld - dynamic firewall daemon
    Loaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)
    Active: inactive (dead)
@@ -696,14 +696,14 @@ sed -i "s/enforcing/disabled/g" /etc/selinux/config
 
 查看selinux配置文件是否成功修改，执行如下命令：
 
-```shell
+```text
 //将SELINUX=enforcing改为SELINUX=disabled
 [root@docker1 ~]# cat /etc/selinux/config
 ```
 
 结果如下：
 
-```shell
+```text
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
 #     disabled - SELinux security policy is enforced.
@@ -719,13 +719,13 @@ SELINUXTYPE=targeted
 
 （3）测试与外网的联通性，尝试ping百度服务器，执行如下命令：
 
-```shell
+```text
 [root@docker1 ~]# ping www.baidu.com
 ```
 
 成功，结果如下：
 
-```shell
+```text
 PING www.baidu.com (183.240.98.198) 56(84) bytes of data.
 64 bytes from 183.240.98.198 (183.240.98.198): icmp_seq=1 ttl=128 time=40.5 ms
 64 bytes from 183.240.98.198 (183.240.98.198): icmp_seq=2 ttl=128 time=56.2 ms
@@ -741,7 +741,7 @@ rtt min/avg/max/mdev = 36.951/42.944/56.214/6.289 ms
 
 （4）centos7官方不再进行支持维护，如果使用官方yum源下载软件包将会报错，将软件源更换为阿里云的镜像仓库，先将官方文件备份，再从网络下载阿里云的镜像源，执行如下命令：
 
-```shell
+```bash
 [root@docker1 ~]# mkdir /root/bak
 [root@docker1 ~]# mv /etc/yum.repos.d/* /root/bak
 [root@docker1 ~]# curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
@@ -749,7 +749,7 @@ rtt min/avg/max/mdev = 36.951/42.944/56.214/6.289 ms
 
 执行结果如下：
 
-```shell
+```text
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
 100  2523  100  2523    0     0   7700      0 --:--:-- --:--:-- --:--:--  7715
@@ -757,13 +757,13 @@ rtt min/avg/max/mdev = 36.951/42.944/56.214/6.289 ms
 
 查看/etc/yum.repos.d/CentOS-Base.repo中的内容，执行如下命令：
 
-```shell
+```bash
 [root@docker1 ~]# cat /etc/yum.repos.d/CentOS-Base.repo
 ```
 
 执行结果如下：
 
-```shell
+```ini
 # CentOS-Base.repo
 #
 # The mirror system uses the connecting IP address of the client and the
@@ -831,19 +831,19 @@ gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
 
 （5）使用yum命令安装必要的包，执行如下命令：
 
-```shell
+```text
 [root@docker1 ~]# yum install -y  yum-utils device-mapper-persistent-data lvm2
 ```
 
 （6）添加Docker社区版稳定版（Stable）的仓库地址，使用阿里云的镜像仓库源，执行命令如下：
 
-```shell
+```text
 [root@docker1 ~]# yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 ```
 
 执行结果如下：
 
-```shell
+```text
 已加载插件：fastestmirror, langpacks
 adding repo from: http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 grabbing file http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo to /etc/yum.repos.d/docker-ce.repo
@@ -852,13 +852,13 @@ repo saved to /etc/yum.repos.d/docker-ce.repo
 
 （7）查看镜像仓库中所有镜像的版本，并且由高到低排序，并且筛选出前10行，执行命令如下：
 
-```shell
+```text
 [root@docker1 ~]# yum list docker-ce --showduplicates |sort -r|head -n 15
 ```
 
 执行结果如下：
 
-```shell
+```text
 已加载插件：fastestmirror, langpacks
 可安装的软件包
  * updates: mirrors.aliyun.com
@@ -880,20 +880,20 @@ docker-ce.x86_64            3:25.0.4-1.el7                      docker-ce-stable
 
 （8）使用命令安装指定版本的 Docker CE，执行命令如下：
 
-```shell
+```text
 [root@docker1 ~]# yum install -y docker-ce-26.1.4-1.el7
 ```
 
 （9）安装完成后，启动 Docker 服务并设置开机自启，执行命令如下：
 
-```shell
+```text
 [root@docker1 ~]# systemctl start docker
 [root@docker1 ~]# systemctl enable docker
 ```
 
 （10）因为国内网络原因，可能无法拉取到docker hub中的镜像，修改daemon.json配置文件，改成国内镜像源，解决无法拉取镜像问题，执行命令如下：
 
-```shell
+```bash
 cat >> /etc/docker/daemon.json << EOF
 {
 "registry-mirrors": ["https://docker.1panel.live","https://docker.1panelproxy.com","https://proxy.1panel.live","https://dockerproxy.1panel.live"]
@@ -903,14 +903,14 @@ EOF
 
 （11）重新加载docker配置，执行命令如下：
 
-```shell
+```text
 [root@docker1 ~]# systemctl daemon-reload
 [root@docker1 ~]# systemctl restart docker
 ```
 
 （12）验证docker是否正常安装，可以通过运行hello-world镜像来测试，执行命令如下：
 
-```shell
+```yaml
 [root@docker1 ~]# docker run hello-world
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
@@ -958,19 +958,19 @@ For more examples and ideas, visit:
 
 在卸载之前，停止 Docker 服务：
 
-```shell
+```text
 systemctl stop docker
 ```
 
 （2）使用以下命令卸载 Docker：
 
-```shell
+```text
 yum remove docker-ce docker-ce-cli containerd.io
 ```
 
 （3）完全删除 Docker 的数据，可以执行：
 
-```shell
+```bash
 rm -rf /var/lib/docker
 ```
 

@@ -1,7 +1,7 @@
 # 服务端配置
 
 CIFS/Samba 文件共享服务的配置。
-```shell
+```ini
 # 安装Samba服务
 yum install -y samba
 
@@ -29,7 +29,7 @@ netstat -ntpl |grep 139
 ```
 
 # 客户端端配置
-```shell
+```bash
 # 安装Samba服务
 yum install -y samba
 yum install -y samba-client

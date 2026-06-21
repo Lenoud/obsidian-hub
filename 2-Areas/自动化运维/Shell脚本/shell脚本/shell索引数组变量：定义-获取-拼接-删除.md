@@ -11,7 +11,7 @@ bash shell 只支持一维数组，不支持多维数组。
 #### 语法
 在shell中，用括号()来表示数组，数组元素之间用空格来分隔，语法为：
 
-```shell
+```text
 arr=(1 2 3 4 5 6 7)
 
 arr[2]=10
@@ -23,13 +23,13 @@ arr=([2]=100 [3]=200)
 #### 语法
 通过下标获取元素值，index从0开始
 
-```shell
+```text
 ${arr[index]}
 ```
 
 获取值同时复制给其它变量
 
-```shell
+```text
 arr2=${arr[index]}
 
 arr3=(${arr[*]} ${arr1[*]})
@@ -38,7 +38,7 @@ arr3=(${arr[*]} ${arr1[*]})
 
 使用@或者*可以获取数组中的所有元素
 
-```shell
+```text
 ${arr[@]}
 ${arr[*]}
 
@@ -51,7 +51,7 @@ ${arr[*]}
 
 获取数组的长度或个数
 
-```shell
+```text
 ${#arr[@]}
 ${#arr[*]}
 
@@ -63,7 +63,7 @@ ${#arr[*]}
 
 获取数组指定index元素的字符长度
 
-```shell
+```text
 ${#arr[index]}
 
 [root@rockylinux-docker ~]# echo ${#arr[1]}
@@ -79,12 +79,12 @@ ${#arr[index]}
 #### 语法
 删除数组指定元素数据
 
-```shell
+```text
 unset arr[index]
 ```
 
 删除整个数组
 
-```shell
+```text
 unset arr
 ```

@@ -199,7 +199,7 @@ inhibit_rules:
 
 [root@master alertmanager-0.19.0.linux-amd64]# cp alertmanager.yml ../alertmanager/
 
-```powershell
+```bash
 cp alertmanager.yml ../alertmanager/ && cd ..
 ```
 

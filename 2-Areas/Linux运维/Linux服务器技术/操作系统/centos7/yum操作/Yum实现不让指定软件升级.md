@@ -8,12 +8,12 @@
 ## 安装
 安装yum-versionlock
 
-```shell
+```text
 yum -y install yum-versionlock
 ```
 
 ## 锁定软件
-```shell
+```text
 yum versionlock add docker-ce* containerd.io
 ```
 
@@ -31,7 +31,7 @@ versionlock list done
 
 清除指定锁定
 
-```shell
+```bash
 $ yum versionlock delete docker-ce* containerd.io
 Loaded plugins: fastestmirror, versionlock
 Deleting versionlock for: 3:docker-ce-19.03.14-3.el7.*
@@ -42,6 +42,6 @@ versionlock deleted: 3
 
 清除全部锁定
 
-```shell
+```text
 yum versionlock clear
 ```

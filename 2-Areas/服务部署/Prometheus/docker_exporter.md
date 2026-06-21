@@ -6,7 +6,7 @@ cadvisor-dashboard-id=11600
 
 ## docker的exporter为google/cadvisor容器
 
-```shell
+```yaml
 cat >> docker-compose.yaml << EOF
 
 version: "3.0"

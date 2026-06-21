@@ -4,7 +4,7 @@ heat编排相关技术笔记。
 
 openstack stack create -t create_container.yaml test-swift
 
-```shell
+```yaml
 #创建一个容器
 heat_template_version: 2014-10-16
 resources:
@@ -16,7 +16,7 @@ resources:
 
 创建名为Heat-Network网络，选择不共享；创建子网名为Heat-Subnet，子网网段设置为10.20.2.0/24，开启DHCP服务，地址池为10.20.2.20-10.20.2.100。
 
-```shell
+```yaml
 #创建网络和子网
 heat_template_version: 2018-08-31
 description: "this is a network"
@@ -41,7 +41,7 @@ resources:
       network_id: {get_resource: "Network"}
 ```
 
-```shell
+```yaml
 #创建一个net
 heat_template_version: 2018-08-31
 description: "this is a network"
@@ -54,7 +54,7 @@ resources:
       shared: false
 ```
 
-```shell
+```yaml
 #创建一个subnet
 heat_template_version: 2018-08-31
 description: "this is a heat subnet"
@@ -73,7 +73,7 @@ resources:
       network: Heat-Network
 ```
 
-```shell
+```yaml
 #创建一个flavor
 heat_template_version: 2013-05-23
 description: Test Template
@@ -88,7 +88,7 @@ resources:
       vcpus: 2
 ```
 
-```shell
+```yaml
 #创建一台云主机
 heat_template_version: 2013-05-23
 description: Test Template

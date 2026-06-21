@@ -2,7 +2,7 @@
 
 Ceph 分布式存储系统的日常运维命令。
 
-```shell
+```text
 ceph status    # 检查 Ceph 的状态
 ceph -w      # 观察集群的健康情况
 ceph quorum_status --format json-pretty  # 检查 Ceph monitor 仲裁状态

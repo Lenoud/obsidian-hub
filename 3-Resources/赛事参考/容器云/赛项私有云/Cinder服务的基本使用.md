@@ -20,7 +20,7 @@
 
 （1）创建镜像和网络：
 
-```plain
+```bash
 [root@controller ~]# curl -O http://mirrors.douxuedu.com/newcloud/cirros-0.3.4-x86_64-disk.img
 [root@controller ~]# source /etc/keystone/admin-openrc.sh
 [root@controller ~]# glance image-create --name cirros-0.3.4 --disk-format qcow2 --container-format bare --progress < cirros-0.3.4-x86_64-disk.img
@@ -35,14 +35,14 @@
 
 修改Nova服务配置文件，设置参数“virt_type=qemu”。命令参数如下：
 
-```plain
+```text
 [root@controller ~]# crudini --set /etc/nova/nova.conf libvirt virt_type qemu
 [root@controller ~]# systemctl restart openstack-nova-compute
 ```
 
 （3）启动云主机：
 
-```plain
+```text
 [root@controller ~]# openstack server create --image cirros-0.3.4 --flavor 2 --network network-vlan cirros-test
 ```
 
@@ -50,7 +50,7 @@
 
 使用“openstack volume service list”命令查询块存储服务状态，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack volume service list
 +------------------+-------------+------+---------+-------+----------------------------+
 | Binary           | Host        | Zone | Status  | State | Updated At                 |
@@ -64,7 +64,7 @@
 
 通过使用命令“openstack volume create”创建块存储，命令格式如下：
 
-```plain
+```ini
 [root@controller ~]# openstack help volume create
 usage: openstack volume create [-h] [-f {json,shell,table,value,yaml}]
                                [-c COLUMN] [--max-width <integer>]
@@ -84,7 +84,7 @@ usage: openstack volume create [-h] [-f {json,shell,table,value,yaml}]
 
 通过命令创建块存储，大小为2G，名称为“volume”。命令如下所示：
 
-```plain
+```bash
 [root@controller ~]# openstack volume create --size 2 volume
 +---------------------+--------------------------------------+
 | Field               | Value                                |
@@ -116,7 +116,7 @@ usage: openstack volume create [-h] [-f {json,shell,table,value,yaml}]
 
 使用“openstack volume list”命令查看块存储列表信息。命令如下：
 
-```plain
+```text
 [root@controller ~]# openstack volume list
 +--------------------------------------+--------+-----------+------+-------------+
 | ID                                   | Name   | Status    | Size | Attached to |
@@ -127,7 +127,7 @@ usage: openstack volume create [-h] [-f {json,shell,table,value,yaml}]
 
 通过openstack命令查看某一块存储的详细信息。命令如下：
 
-```plain
+```bash
 [root@controller ~]# openstack volume show volume
 +--------------------------------+--------------------------------------+
 | Field                          | Value                                |
@@ -165,7 +165,7 @@ usage: openstack volume create [-h] [-f {json,shell,table,value,yaml}]
 
 将块存储挂载至云主机的命令为“openstack server add volume”，其命令格式为：
 
-```plain
+```text
 [root@controller ~]# openstack help server add volume
 usage: openstack server add volume [-h] [--device <device>] <server> <volume>
 
@@ -178,13 +178,13 @@ positional arguments:
 
 使用命令将创建的“volume”块存储添加至云主机“cirros-test”上。命令如下：
 
-```plain
+```text
 [root@controller ~]# openstack server add volume cirros-test volume
 ```
 
 使用命令查看块存储的列表信息，命令代码如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack volume list
 +--------------------------------------+--------+--------+------+--------------------------------------+
 | ID                                   | Name   | Status | Size | Attached to                          |
@@ -199,7 +199,7 @@ positional arguments:
 
 创建完卷后可能因为需求的变更，需要对已有的卷进行扩容操作，这时需要用到“openstack volume set”命令修改卷的信息。命令格式如下：
 
-```plain
+```ini
 [root@controller ~]# openstack  help  volume set
 usage: openstack volume set [-h] [--name <name>] [--size <size>]
                             [--description <description>] [--no-property]
@@ -214,7 +214,7 @@ usage: openstack volume set [-h] [--name <name>] [--size <size>]
 
 分离卷，通过命令将“volume”卷大小从2G扩容至3G，使用–size参数可修改已创建好的卷大小。命令操作如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack server remove volume cirros-test volume
 [root@controller ~]# openstack volume set --size 3 volume
 [root@controller ~]# openstack volume list
@@ -229,7 +229,7 @@ usage: openstack volume set [-h] [--name <name>] [--size <size>]
 
 将扩容后的卷“volume”挂载至云主机“cirros-test”上，操作命令如下所示：
 
-```plain
+```text
 [root@controller ~]# openstack server add volume cirros-test volume
 [root@controller ~]# openstack volume list
 +--------------------------------------+--------+--------+------+--------------------------------------+
@@ -241,7 +241,7 @@ usage: openstack volume set [-h] [--name <name>] [--size <size>]
 
 可以看到卷“volume”挂载至云主机“cirros-test”上盘符的名称为/dev/vdb，使用virsh工具登录云主机，输入命令“lsblk”查看云硬盘大小是否为3G。命令操作如下所示：
 
-```plain
+```bash
 [root@controller ~]# virsh list --all
  Id    Name                           State
 ----------------------------------------------------

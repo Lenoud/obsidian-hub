@@ -5,7 +5,7 @@
 
 
 ## 直接绑定
-```shell
+```yaml
 kubectl expose deployment gitlab --type=NodePort --port=80 --target-port=80 --name=gitlab  --dry-run -oyaml
 #ubectl expose命令当前不支持直接指定NodePort端口。
 #NodePort端口是由Kubernetes分配的，在指定范围内随机选择的。

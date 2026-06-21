@@ -5,7 +5,7 @@ Cloudkitty相关技术笔记。
 Cloudkitty服务安装与使用
 安装完毕后，启用hashmap评级模块，接着创建volume_thresholds组，创建服务匹配规则volume.size，并设置每GB的价格为0.01，接下来对应大量数据设置应用折扣，在组volume_thresholds中创建阈值，设置若超过50GB的阈值，应用2%的折扣(0.98)
 
-```shell
+```text
 [root@controller  ~]# iaas-install-cloudkitty.sh
 [root@controller  ~]# openstack rating module enable hashmap
 +---------+---------+----------+

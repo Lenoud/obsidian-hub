@@ -66,7 +66,7 @@ git branch -m new-feature  #rename
 + **暂存区：**英文叫 stage 或 index。一般存放在 **.git** 目录下的 index 文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。
 + **版本库：**工作区有一个隐藏目录 **.git**，这个不算工作区，而是 Git 的版本库。
 
-```plain
+```bash
 git init
 git add README.md
 git commit -m "first commit"

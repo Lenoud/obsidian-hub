@@ -2,7 +2,7 @@
 
 KVM 虚拟机的日常运维管理命令。
 
-```shell
+```bash
 virsh  snapshot-list <domain>
 #查看主机的快照列表
 virsh snapshot-create-as compute openstack_ok
@@ -31,7 +31,7 @@ rm -rf /opt/abc/win10.qcow2
 **定制镜像压缩**
 用图形界面的虚拟机管理器制作的Windows镜像，文件大小即为新建虚拟机定义的磁盘大小，如果要c盘40G的话，生成的镜像文件就是40G大小，需要压缩后再上传。40G大小压缩后3G。
 
-```shell
+```text
 virt-sparsify --compress --convert qcow2 /var/lib/libvirt/images/Windows10.qcow2 /var/lib/libvirt/images/Windows10.qcow2
 #(该命令包含在这些包里guestfish libguestfs-tools)
 #上面命令压缩未成功，使用下面命令压缩
