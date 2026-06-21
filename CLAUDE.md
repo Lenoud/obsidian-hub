@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 An Obsidian vault of technical notes organized in the **PARA** system + **MOC**(Map of Content)索引体系,hosted on GitHub and published via the short-star Astro 6 site. Content spans container orchestration, Linux ops, databases, networking, automation, and Go programming.
 
+仓库本身是**纯内容仓库**:约 770 篇 tracked Markdown 笔记,**没有构建 / 测试 / lint 工具链**(无 `package.json`、无 CI)。这里的"验证"指的是 Obsidian 链接完整性、代码块标签、Markdown 格式与 H1 层级检查——靠 `grep` / `find` 或一次性 Python 脚本完成,而非跑测试套件。
+
 ## Repository Layout
 
 ```
@@ -21,13 +23,13 @@ An Obsidian vault of technical notes organized in the **PARA** system + **MOC**(
   服务部署/      Nginx、Prometheus、RabbitMQ、Clash、MC、邮件、宝塔 等
   网络技术/      Cisco、软路由、内网穿透、路由交换
   自动化运维/    Ansible、Shell 脚本(40+ 篇)
-3-Resources/   Reference material (面试题、赛事参考、cron/YAML/Markdown 表达式、公有云)
+3-Resources/   Reference material (面试题、赛事参考、人工智能/AI、公有云、表达式与语法、搞机)
 4-Archive/     Completed/inactive (school courses, graduation thesis, training, OpenStack, old notes)
-Go入门指南/    Standalone Go tutorial (211 files, large)
-attachments/   Images and file attachments (do not move)
-images/        Additional image assets
+attachments/   All images & file attachments — Wiki-linked as ![[name.png]] (do not move)
 docs/          文档质量排查日志(本仓库的文档维护工作记录)
 ```
+
+> **`GO入门指南/` 被 `.gitignore` 排除**(独立 Go 教程,约 211 文件),属本地内容,**不在 tracked vault 内**——排查与发布均不涉及。仓库内的 Go 笔记本体在 `2-Areas/开发编程/编程基础/Golang`。**`images/` 目录不存在**,所有图片只放 `attachments/`。
 
 ## Methodology — PARA + MOC + 双向链接
 
